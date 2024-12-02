@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c916331-d486-4693-a881-6e1d2e16032b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/CommentDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/CommentDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppStart.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
