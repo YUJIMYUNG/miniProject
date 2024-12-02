@@ -1,4 +1,4 @@
-package comment.view;
+package view;
 
 public class CommentView {
 }

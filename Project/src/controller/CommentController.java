@@ -1,4 +1,4 @@
-package comment.controller;
+package controller;
 
 public class CommentController {
 }

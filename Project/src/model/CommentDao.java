@@ -1,4 +1,4 @@
-package comment.model;
+package model;
 
 public class CommentDao {
     public static void main(String[] args) {
