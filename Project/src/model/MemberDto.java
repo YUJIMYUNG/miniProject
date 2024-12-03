@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MemberDto {
+    //필드
     private int member_idx; //회원번호
     private String member_name; //회원이름
     private String member_email; //회원 이메일

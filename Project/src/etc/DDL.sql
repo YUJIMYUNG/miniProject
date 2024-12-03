@@ -52,3 +52,4 @@ foreign key(member_idx) references members(member_idx),
 unique (board_idx,member_idx),
 primary key(vote_idx)
 );
+
