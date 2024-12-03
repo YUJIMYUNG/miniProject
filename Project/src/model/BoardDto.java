@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class BoardDto {
     private int idx;
@@ -9,8 +9,8 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
-    private Date date;
-    private Date update;
+    private LocalDate date;
+    private LocalDate update;
 
     public int getIdx() {return idx;}
     public int getTopic() {return topic;}
@@ -18,8 +18,8 @@ public class BoardDto {
     public String getTitle() {return title;}
     public String getContent() {return content;}
     public String getWriter() {return writer;}
-    public Date getDate() {return date;}
-    public Date getUpdate() {return update;}
+    public LocalDate getDate() {return date;}
+    public LocalDate getUpdate() {return update;}
 
     public void setIdx(int idx) {this.idx = idx;}
     public void setTopic(int topic) {this.topic = topic;}
@@ -27,8 +27,8 @@ public class BoardDto {
     public void setTitle(String title) {this.title = title;}
     public void setContent(String content) {this.content = content;}
     public void setWriter(String writer) {this.writer = writer;}
-    public void setDate(Date date) {this.date = date;}
-    public void setUpdate(Date update) {this.update = update;}
+    public void setDate(LocalDate date) {this.date = date;}
+    public void setUpdate(LocalDate update) {this.update = update;}
 
     @Override
     public String toString() {
@@ -42,5 +42,5 @@ public class BoardDto {
                 ", date=" + date +
                 ", update=" + update +
                 '}';
-    }
-}
+    } // func end
+} // class end
