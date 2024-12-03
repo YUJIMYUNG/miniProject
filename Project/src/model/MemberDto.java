@@ -1,18 +1,21 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class MemberDto {
     private int member_idx; //회원번호
     private String member_name; //회원이름
     private String member_email; //회원 이메일
     private String pwd; //회원 비밀번호
-    private String birthdate; // 회원 생년월일
+    private LocalDate birthdate; // 회원 생년월일
     private String member_phone; // 회원 전화번호
-    private String member_date; // 회원 등록일
+    private LocalDateTime member_date; // 회원 등록일
     private boolean in_active; // 활성여부
 
     //생성자
-    public MemberDto(int member_idx, String member_name, String member_email, String pwd, String birthdate,
-                     String member_phone, String member_date, boolean in_active)
+    public MemberDto(int member_idx, String member_name, String member_email, String pwd, LocalDate birthdate,
+                     String member_phone, LocalDateTime member_date, boolean in_active)
     {
         this.member_idx = member_idx;
         this.member_name = member_name;
@@ -37,14 +40,14 @@ public class MemberDto {
     public String getPwd() {return pwd;}
     public void setPwd(String pwd) {this.pwd = pwd;}
 
-    public String getBirthdate() {return birthdate;}
-    public void setBirthdate(String birthdate) {this.birthdate = birthdate;}
+    public LocalDate getBirthdate() {return birthdate;}
+    public void setBirthdate(LocalDate birthdate) {this.birthdate = birthdate;}
 
     public String getMember_phone() {return member_phone;}
     public void setMember_phone(String member_phone) {this.member_phone = member_phone;}
 
-    public String getMember_date() {return member_date;}
-    public void setMember_date(String member_date) {this.member_date = member_date;}
+    public LocalDateTime getMember_date() {return member_date;}
+    public void setMember_date(LocalDateTime member_date) {this.member_date = member_date;}
 
     public boolean isIn_active() {return in_active;}
     public void setIn_active(boolean in_active) {this.in_active = in_active;}
