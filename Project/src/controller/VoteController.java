@@ -7,5 +7,5 @@ public class VoteController {
     public static VoteController getInstance() {
         return voteController;
     } // 싱글턴 ed
-
+    // test
 } // VoteController ed
