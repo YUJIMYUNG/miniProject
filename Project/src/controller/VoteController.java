@@ -8,4 +8,6 @@ public class VoteController {
         return voteController;
     } // 싱글턴 ed
     // test
+
+    // 2024-12-04 21:49 김민형 브랜치 병합 테스트
 } // VoteController ed
