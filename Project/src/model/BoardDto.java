@@ -12,6 +12,9 @@ public class BoardDto {
     private LocalDate date;
     private LocalDate update;
 
+    public BoardDto(){}
+
+
     public int getIdx() {return idx;}
     public int getTopic() {return topic;}
     public boolean isStatus() {return status;}

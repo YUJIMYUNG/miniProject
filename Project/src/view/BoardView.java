@@ -1,6 +1,9 @@
 package view;
 
 import controller.BoardController;
+import model.BoardDto;
+
+import java.util.ArrayList;
 
 public class BoardView {
     // 싱글톤
@@ -10,5 +13,16 @@ public class BoardView {
 
     void mainBoard(){
 
-    } // func end
+        while(true){
+
+        }
+
+    } // main end
+
+    /*
+    void boardPrint(){
+        ArrayList<BoardDto> list = BoardController.getInstance().boardPrint();
+    }
+    */
+
 } // class end
