@@ -1,5 +1,8 @@
+create database if not exists teamDB;
+use teamDB;
+
 #회원 테이블
-create table if not exists members(
+create table if not exists member(
 member_idx int unsigned auto_increment,
 member_name varchar(20) not null,
 member_email varchar(100) not null unique,
@@ -13,7 +16,7 @@ primary key(member_idx)
 );
 
 # 게시판 테이블
-create table board(
+create table if not exists board(
 board_idx int unsigned auto_increment,
 board_topic int,
 board_status boolean default false,
@@ -28,7 +31,7 @@ primary key(board_idx)
 );
 
 # 댓글 테이블
-create table comment(
+create table if not exists comment(
 comment_idx int unsigned auto_increment,
 member_idx int unsigned,
 board_idx int unsigned,
@@ -42,7 +45,7 @@ primary key(comment_idx)
 );
 
 # 투표 테이블
-create table vote(
+create table if not exists vote(
 vote_idx int unsigned auto_increment not null,
 board_idx int unsigned,
 member_idx int unsigned,
