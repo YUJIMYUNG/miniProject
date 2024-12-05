@@ -13,9 +13,6 @@ public class BoardController {
         return boardController;
     }
 
-    // 병합 테스트
-} // class end
-
     // 게시물 등록 제어 함수
     public boolean boardWrite( int topic, String title,String content ){
         // 유효성 검사
@@ -26,6 +23,7 @@ public class BoardController {
         return BoardDao.getInstance().boardWrite( boardDto );
     } // func end
 
+    /*
     // 게시물 출력 제어 함수
     public ArrayList<BoardDto> boardPrint( ){
         // 리스트 받아와서 반환
@@ -52,5 +50,5 @@ public class BoardController {
         // 수정 성공 시 true 반환
         return result;
     } // func end
-
+*/
 } // class end
