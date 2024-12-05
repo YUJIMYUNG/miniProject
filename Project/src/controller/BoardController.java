@@ -13,9 +13,9 @@ public class BoardController {
         return boardController;
     }
 
-    /*
+
     // 게시물 등록 제어 함수
-    public boolean boardWrite( String content, String writer,int pwd ){
+    public boolean boardWrite( int topic, String title,String content ){
         // 유효성 검사
 
         // 객체 생성 후 dao에 전달
@@ -50,6 +50,5 @@ public class BoardController {
         // 수정 성공 시 true 반환
         return result;
     } // func end
-    */
 
 } // class end

@@ -27,18 +27,24 @@ public class BoardDao {
         return boardDao;
     }
 
-    /*
+
     // 게시물 DB 등록 함수
     public boolean boardWrite(BoardDto boardDto) {
         try {
             // sql 작성
-            String sql = "insert into board( content, writer, pwd) values( ? , ? , ? )";
+            String sql = "insert into board( board_topic, board_status, board_version, board_title, board_content, board_writer, board_date, board_update) " +
+                    "values( ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // sql의 매개변수에 값을 대입
-            ps.setString(1, boardDto.getContent());
-            ps.setString(2, boardDto.getWriter());
-            ps.setInt(3, boardDto.getPwd());
+            ps.setInt(1, boardDto.getTopic());
+            ps.setInt(2, boardDto.getStatus());
+            ps.setInt(3, boardDto.getVersion());
+            ps.setString(4, boardDto.getTitle());
+            ps.setString(5, boardDto.getContent());
+            ps.setString(6, boardDto.getWriter());
+//            ps.setDate(7, boardDto.getDate());
+//            ps.setInt(8, boardDto.getUpdate());
 
             ps.executeUpdate();
 
@@ -51,7 +57,7 @@ public class BoardDao {
 
         return false;
     } // func end
-
+/*
     // 게시물 DB 불러오기 함수
     public ArrayList<BoardDto> boardPrint() {
 
@@ -126,6 +132,6 @@ public class BoardDao {
         } // try end
         return false; // 삭제 실패
     } // func end
+*/
 
-    */
 } // class end
