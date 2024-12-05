@@ -14,6 +14,8 @@ department varchar(20),
 in_active boolean default true,
 primary key(member_idx)
 );
+# drop table member;
+select * from member;
 
 # 게시판 테이블
 create table if not exists board(
@@ -29,6 +31,8 @@ board_date datetime,
 board_update datetime,
 primary key(board_idx)
 );
+# drop table board;
+select * from board;
 
 # 댓글 테이블
 create table if not exists comment(
@@ -43,6 +47,8 @@ foreign key(member_idx) references members(member_idx),
 foreign key(board_idx) references board(board_idx),
 primary key(comment_idx)
 );
+# drop table comment;
+select * from comment;
 
 # 투표 테이블
 create table if not exists vote(
@@ -55,4 +61,5 @@ foreign key(member_idx) references members(member_idx),
 unique (board_idx,member_idx),
 primary key(vote_idx)
 );
-
+# drop table vote;
+select * from vote;
