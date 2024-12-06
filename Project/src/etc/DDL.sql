@@ -2,7 +2,7 @@ create database if not exists teamDB;
 use teamDB;
 
 #회원 테이블
-create table if not exists member(
+create table if not exists members(
 member_idx int unsigned auto_increment,
 member_name varchar(20) not null,
 member_email varchar(100) not null unique,
@@ -14,8 +14,8 @@ department varchar(20),
 in_active boolean default true,
 primary key(member_idx)
 );
-# drop table member;
-select * from member;
+# drop table members;
+select * from members;
 
 # 게시판 테이블
 create table if not exists board(

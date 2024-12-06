@@ -24,6 +24,17 @@ public class CommentDto {
         this.comment_delete = comment_delete;
     }
 
+    //1.  조회 함수에서 필요한 생성자- 작성중
+    public CommentDto(int comment_idx, String comment_content) {
+        this.comment_idx = comment_idx;
+        this.comment_content = comment_content;
+    }
+
+    //2. 댓글 등록 함수에서 필요한 생성자
+    public CommentDto(String comment_content) {
+        this.comment_content = comment_content;
+    }
+
     // getter, setter
     public int getComment_idx() {
         return comment_idx;

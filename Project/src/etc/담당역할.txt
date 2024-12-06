@@ -1,1 +1,7 @@
 [Class별 역할, 코드 관리자]
+
+브랜치 병합 - 박건희
+Board - 박건희
+Comment - 유지명
+Member - 오병준
+Vote - 김민형
