@@ -1,7 +1,5 @@
 package controller;
 
-import model.BoardDao;
-import model.BoardDto;
 import model.MemberDao;
 import model.MemberDto;
 
