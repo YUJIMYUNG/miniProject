@@ -27,6 +27,14 @@ public class MemberDto {
         this.member_date = member_date;
         this.in_active = in_active;
     }
+    // 멤버 등록 생성
+    public void MemberDelete(int member_idx, String member_name){
+        this.member_idx = member_idx;
+        this.member_name = member_name;
+    }
+
+    public MemberDto(String memberName, String memberEmail, LocalDate birthDate, String memberPhone, LocalDateTime memberDate, boolean inActive) {
+    }
 
     //getter 및 setter
     public int getMember_idx() {return member_idx;}

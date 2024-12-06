@@ -89,24 +89,24 @@ public class MemberDao extends Dao {
         return false;
     }
 
-//    //멤버 수정 접근 함수
-//    public boolean memberUpdate(MemberDto memberDto){
-//        try {
-//            //sql 작성
-//            String sql = "update member set member_phone = ? where num = ?";
-//            //sql 기재
-//            PreparedStatement ps = conn.prepareStatement(sql);
-//            //sql 조작
-//            ps.setString(1, updateDto.getmember_phone());
-//            ps.setInt(2, updateDto.getmember_idx());
-//            //sql 실행
-//            int result = ps.executeUpdate();
-//            if (result == 1){
-//                return true;
-//            }
-//        }catch (SQLException e){
-//            e.getMessage();
-//        }
-//        return false;
-//    }
+    //멤버 수정 접근 함수
+   public boolean memberUpdate(MemberDto memberDto){
+       try {
+            //sql 작성
+            String sql = "update member set member_phone = ? where num = ?";
+            //sql 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+            //sql 조작
+            ps.setString(1, memberDto.getMember_phone());
+            ps.setInt(2, memberDto.getMember_idx());
+            //sql 실행
+            int result = ps.executeUpdate();
+            if (result == 1){
+                return true;
+            }
+        }catch (SQLException e){
+            e.getMessage();
+        }
+        return false;
+    }
 }
