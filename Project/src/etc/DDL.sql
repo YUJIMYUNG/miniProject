@@ -53,9 +53,11 @@ select * from comment;
 # 투표 테이블
 create table if not exists vote(
 vote_idx int unsigned auto_increment not null,
+vote_choose int, # 선택지를 구분하는 인덱스
 board_idx int unsigned,
 member_idx int unsigned,
-vote_type boolean,
+vote_type int not null, # 찬반여부만 받는게 아닌 다수결 투표 형식으로 받을 수 있도록 int 값으로 변경
+vote_content varchar
 foreign key(board_idx) references board(board_idx),
 foreign key(member_idx) references members(member_idx),
 unique (board_idx,member_idx),

@@ -8,4 +8,7 @@ public class VoteDao extends Dao{
         return voteDao;
     } // 싱글턴 ed
 
+    // 1.투표 작성 함수
+    public void VoteFunction() {}
+
 } // VoteDao ed
