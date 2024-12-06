@@ -1,3 +1,4 @@
+import model.MemberDto;
 import view.MemberView;
 
 public class AppStart {
