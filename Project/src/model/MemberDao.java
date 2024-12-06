@@ -111,8 +111,16 @@ public class MemberDao {
             //sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             //sql 조작
-            ps.setString(1, updateDto.get);
+            ps.setString(1, updateDto.getmember_phone());
+            ps.setInt(2, updateDto.getmember_idx());
             //sql 실행
+            int result = ps.executeUpdate();
+            if (result == 1){
+                return true;
+            }
+        }catch (SQLException e){
+            e.getMessage();
         }
+        return false;
     }
 }
