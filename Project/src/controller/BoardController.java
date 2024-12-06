@@ -13,7 +13,6 @@ public class BoardController {
         return boardController;
     }
 
-
     // 게시물 등록 제어 함수
     public boolean boardWrite( int topic, String title,String content ){
         // 유효성 검사
