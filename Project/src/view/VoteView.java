@@ -16,9 +16,12 @@ public class VoteView {
 
     // 1. 투표 작성 함수
     public void VoteFunction() {
-        // BoardView.getInstance().boardPrint();
-        System.out.println("투표할 게시물 선택 : ");
+        System.out.println("투표 주제 작성 : ");
         int choose = scanner.nextInt();
-    }   /// 현재 VoteView 클래스 작업 중...
+        System.out.println("");
+    }
 
+    // 2. 투표 조회 함수
+
+    // 3. 투표 마감 함수
 } // VoteView ed

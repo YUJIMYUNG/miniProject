@@ -55,6 +55,7 @@ create table if not exists vote(
 vote_idx int unsigned auto_increment not null,
 board_idx int unsigned,
 member_idx int unsigned,
+vote_act boolean, # 투표 활성화 여부. true일 시 투표 가능, false일 시 투표 마감.
 vote_type boolean,
 foreign key(board_idx) references board(board_idx),
 foreign key(member_idx) references members(member_idx),
