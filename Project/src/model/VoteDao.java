@@ -1,6 +1,6 @@
 package model;
 
-public class VoteDao {
+public class VoteDao extends Dao{
 
     private static VoteDao voteDao = new VoteDao();
     private VoteDao() {}
