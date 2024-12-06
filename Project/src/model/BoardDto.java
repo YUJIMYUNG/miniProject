@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class BoardDto {
     private int idx;
@@ -10,8 +10,8 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
-    private LocalDate date;
-    private LocalDate update;
+    private LocalDateTime date;
+    private LocalDateTime update;
 
     /*
     topic
@@ -40,8 +40,8 @@ public class BoardDto {
 
         // 작성자 member에게서 받아오는거 작성해야함
 
-        date=LocalDate.now();
-        update=LocalDate.now();
+        date=LocalDateTime.now();
+        update=LocalDateTime.now();
     } // init end
 
     public int getIdx() {return idx;}
@@ -51,8 +51,8 @@ public class BoardDto {
     public String getTitle() {return title;}
     public String getContent() {return content;}
     public String getWriter() {return writer;}
-    public LocalDate getDate() {return date;}
-    public LocalDate getUpdate() {return update;}
+    public LocalDateTime getDate() {return date;}
+    public LocalDateTime getUpdate() {return update;}
 
     public void setIdx(int idx) {this.idx = idx;}
     public void setTopic(int topic) {this.topic = topic;}
@@ -61,8 +61,8 @@ public class BoardDto {
     public void setTitle(String title) {this.title = title;}
     public void setContent(String content) {this.content = content;}
     public void setWriter(String writer) {this.writer = writer;}
-    public void setDate(LocalDate date) {this.date = date;}
-    public void setUpdate(LocalDate update) {this.update = update;}
+    public void setDate(LocalDateTime date) {this.date = date;}
+    public void setUpdate(LocalDateTime update) {this.update = update;}
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ public class BoardDao extends Dao{
     // 싱글톤
     private static BoardDao boardDao = new BoardDao();
 
-    private BoardDao() {} // init end
+    private BoardDao() {super();} // init end
 
     public static BoardDao getInstance() {
         return boardDao;
@@ -30,8 +30,10 @@ public class BoardDao extends Dao{
             ps.setString(4, boardDto.getTitle());
             ps.setString(5, boardDto.getContent());
             ps.setString(6, boardDto.getWriter());
-//            ps.setDate(7, boardDto.getDate());
-//            ps.setInt(8, boardDto.getUpdate());
+            Timestamp date=Timestamp.valueOf(boardDto.getDate());
+            ps.setTimestamp(7, date);
+            Timestamp update=Timestamp.valueOf(boardDto.getDate());
+            ps.setTimestamp(8, update);
 
             ps.executeUpdate();
 

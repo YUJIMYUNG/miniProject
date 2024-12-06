@@ -12,10 +12,10 @@ public class BoardView {
     BoardView(){}
     public static BoardView getInstance() {return boardView;}
 
-    Scanner scan;
+    Scanner scan=new Scanner(System.in);
 
-    void mainBoard(){
-
+    public void mainBoard(){
+        boardWrite();
         while(true){
 
         }
@@ -61,6 +61,28 @@ public class BoardView {
             System.out.println(" 작성자: " + result.get(index).getWriter());
         } // for end
     } // func end
+
+    void board조회(){
+    if (topic == 3){
+
+    ------1번 게시물 제목-------
+    내용
+    투표
+    댓글
+    1. 투표하기 2. 댓글작성 3. 뒤로가기
+    if(1){
+    VoteView.vote()
+
+    if(2){
+    CommentView.comment()
+
+    else if (3) return
+    투표: 1,2,3,4,5,6,7,8
+
+    투표 집계 결과 마감여부
+    }
+    }
+
 
     // 게시물 삭제 함수
     void boardDelete() {

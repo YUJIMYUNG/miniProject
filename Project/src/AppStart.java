@@ -1,7 +1,9 @@
+import view.BoardView;
 import view.MemberView;
 
 public class AppStart {
     public static void main(String[] args) {
-        // 브랜치 생성 test - 유지명
+        // ------ board 디버그용 코드
+        BoardView.getInstance().mainBoard();
     }
 }
