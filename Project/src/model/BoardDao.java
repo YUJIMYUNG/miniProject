@@ -3,25 +3,12 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class BoardDao {
-
-    private Connection conn; // DB와 연동하는 객체
+public class BoardDao extends Dao{
 
     // 싱글톤
     private static BoardDao boardDao = new BoardDao();
 
-    private BoardDao() {
-        try {
-            // "teamDB" 데이터베이스와 연결
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teamDB", "root", "1234");
-            System.out.println("[ BoardDB Connection OK ]");
-
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println(e.getMessage());
-            System.out.println("[ BoardDB Connection fail ]");
-        }
-    } // init end
+    private BoardDao() {} // init end
 
     public static BoardDao getInstance() {
         return boardDao;

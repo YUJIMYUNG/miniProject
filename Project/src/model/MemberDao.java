@@ -5,25 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MemberDao {
-
-    private Connection conn;
+public class MemberDao extends Dao {
 
     private static MemberDao projectManagerDao = new MemberDao();
     //DB 연동
-    private MemberDao(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teamDB:", "team1", "1234");
-            System.out.println("[MemberDao Connection Success]");
-        }catch (ClassNotFoundException e){
-            e.getMessage();
-            System.out.println("[MemberDao Connection Fail]");
-        }catch (SQLException e){
-            e.getMessage();
-            System.out.println("[MemberDao Connection Fail]");
-        }
-    }
+    private MemberDao(){}
     public static MemberDao getInstance(){return projectManagerDao;}
 
     // 멤버 등록 접근 함수
@@ -103,24 +89,24 @@ public class MemberDao {
         return false;
     }
 
-    //멤버 수정 접근 함수
-    public boolean memberUpdate(MemberDto memberDto){
-        try {
-            //sql 작성
-            String sql = "update member set member_phone = ? where num = ?";
-            //sql 기재
-            PreparedStatement ps = conn.prepareStatement(sql);
-            //sql 조작
-            ps.setString(1, updateDto.getmember_phone());
-            ps.setInt(2, updateDto.getmember_idx());
-            //sql 실행
-            int result = ps.executeUpdate();
-            if (result == 1){
-                return true;
-            }
-        }catch (SQLException e){
-            e.getMessage();
-        }
-        return false;
-    }
+//    //멤버 수정 접근 함수
+//    public boolean memberUpdate(MemberDto memberDto){
+//        try {
+//            //sql 작성
+//            String sql = "update member set member_phone = ? where num = ?";
+//            //sql 기재
+//            PreparedStatement ps = conn.prepareStatement(sql);
+//            //sql 조작
+//            ps.setString(1, updateDto.getmember_phone());
+//            ps.setInt(2, updateDto.getmember_idx());
+//            //sql 실행
+//            int result = ps.executeUpdate();
+//            if (result == 1){
+//                return true;
+//            }
+//        }catch (SQLException e){
+//            e.getMessage();
+//        }
+//        return false;
+//    }
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class CommentDao {
+public class CommentDao extends Dao{
     private static CommentDao commentDao = new CommentDao();
     private CommentDao(){}
     public static CommentDao getInstance(){return commentDao;}
