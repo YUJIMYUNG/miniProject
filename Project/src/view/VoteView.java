@@ -14,14 +14,11 @@ public class VoteView {
 
     // 투표
 
-    // 1. 투표 작성 함수
-    public void VoteFunction() {
-        System.out.println("투표 주제 작성 : ");
+    // 1. 투표 생성 함수
+    public void VoteWrite() {
+        System.out.println("투표 제목 작성 : ");
         int choose = scanner.nextInt();
         System.out.println("");
     }
 
-    // 2. 투표 조회 함수
-
-    // 3. 투표 마감 함수
 } // VoteView ed
