@@ -2,6 +2,7 @@ package controller;
 
 import model.MemberDao;
 import model.MemberDto;
+import view.MemberView;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ public class MemberController {
     private static MemberController memberController = new MemberController();
     private MemberController(){}
     public static MemberController getInstance(){return memberController;};
+
+    // 멤버 로그인 제어 함수
+
 
     // 멤버 등록 제어 함수
     public boolean memberWrite(String member_name, String member_email, String pwd , LocalDate birthDate,
