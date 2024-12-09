@@ -27,8 +27,8 @@ board_title varchar(100) not null,
 board_content longText,
 member_idx int unsigned,
 foreign key(member_idx) references members(member_idx),
-board_date date,
-board_update date,
+board_date datetime,
+board_update datetime,
 primary key(board_idx)
 );
 # drop table board;

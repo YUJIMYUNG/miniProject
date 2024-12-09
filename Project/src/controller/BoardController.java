@@ -18,7 +18,7 @@ public class BoardController {
         // 유효성 검사
 
         // 객체 생성 후 dao에 전달
-        BoardDto boardDto = new BoardDto();
+        BoardDto boardDto = new BoardDto(topic, title, content);
         // 생성 성공 시 true 반환
         return BoardDao.getInstance().boardWrite( boardDto );
     } // func end
