@@ -25,7 +25,6 @@ public class BoardView {
     // 게시물 작성 함수
     void boardWrite() {
         // 값 입력
-        scan.nextLine();
         System.out.println("-----------게시물 작성-----------");
         System.out.println("구분 선택: 1.공지 2.회의록 3.투표 4.토의 : ");
         int topic = scan.nextInt();
@@ -66,12 +65,12 @@ public class BoardView {
     if (topic == 3){
 
     ------1번 게시물 제목-------
+    ------2번 게시물
     내용
     투표
     댓글
     1. 투표하기 2. 댓글작성 3. 뒤로가기
     if(1){
-    VoteView.vote()
 
     if(2){
     CommentView.comment()

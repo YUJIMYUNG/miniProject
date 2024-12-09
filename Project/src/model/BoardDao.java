@@ -34,7 +34,6 @@ public class BoardDao extends Dao{
             ps.setTimestamp(7, date);
             Timestamp update=Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(8, update);
-
             ps.executeUpdate();
 
             return true;
