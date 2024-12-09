@@ -1,10 +1,7 @@
 package controller;
 
-import model.New_VoteDto;
-import model.VoteDao;
 import model.VoteDto;
-
-import java.util.ArrayList;
+import model.VoteDao;
 
 public class VoteController {
 
@@ -19,7 +16,7 @@ public class VoteController {
 
     // 1.투표 작성 함수
     public boolean VoteWrite(String content,int vote_num,String[] vote_content) {
-        New_VoteDto voteDto = new New_VoteDto(content,vote_num,vote_content);
+        VoteDto voteDto = new VoteDto(content,vote_num,vote_content); // voteDto 객체 작성
 
         boolean result = VoteDao.getInstance().VoteWrite(voteDto);
         return result;

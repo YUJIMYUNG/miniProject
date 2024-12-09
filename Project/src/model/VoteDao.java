@@ -9,8 +9,10 @@ public class VoteDao extends Dao{
     } // 싱글턴 ed
 
     // 1.투표 작성 함수
-    public boolean VoteWrite(New_VoteDto voteDto) {
-        
+    public boolean VoteWrite(VoteDto voteDto) {
+        try {
+            String sql = "insert into vote(vote_content"
+        }
         boolean result = true;
         return result;
     }
