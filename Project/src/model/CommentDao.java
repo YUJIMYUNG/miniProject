@@ -3,30 +3,10 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CommentDao {
-    //JDBC 인터페이스
-    private Connection conn; //연동된 결과의 객체를 조작할 인터페이스
-
+public class CommentDao extends Dao{
     //싱글톤패턴
     private static CommentDao commentDao = new CommentDao();
-    private CommentDao(){
-        try{
-            //1.
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //2.
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teamDB", "team1", "1234");
-
-            //3. test
-            System.out.println("[ teamDB Connection OK ]");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("teamDB Connection Fail");
-        } catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("teamDB Connection Fail");
-        }
-    } // 생성자 end
+    private CommentDao(){} // 생성자 end
 
     public static CommentDao getInstance(){return commentDao;}
 
@@ -93,7 +73,60 @@ public class CommentDao {
         } // try-catch end
 
         return false;
+    }// commentWrite end
+
+    //3. 댓글 수정 함수
+    public boolean commentUpdate(CommentDto updateCommentDto){
+        try{
+            //1.sql 작성
+            String sql = "update comment set content = ? where comment_idx = ?";
+
+            //2. sql 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            //3.sql 조작
+            ps.setString(1, updateCommentDto.getComment_content());
+            ps.setInt(2, updateCommentDto.getComment_idx());
+
+            //4. sql실행, 결과
+            int result = ps.executeUpdate();
+
+            //4. 반환
+            if(result ==1){
+                return true;
+            }// if end
+        }catch (SQLException e){
+            e.getMessage();
+            System.out.println("댓글 수정시 예외발생");
+        } // try-catch end
+        return false;
+    }// commentUpdate end
+
+    //4. 댓글 삭제 함수(사실은 삭제로 보이게 하기 위한 DB update임)
+    public boolean commentDelete(int deleteCommentNum){
+        try{
+            //1. sql작성
+            String sql = "update comment set comment_delete=false where comment_idx= ?"
+
+            //2. sql 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            //3. sql조작
+            ps.setInt(1, deleteCommentNum);
+
+            //4. sql실행, 결과
+            int result = ps.executeUpdate();
+
+            //5. 반환
+            if(result == 1){
+                return true;
+            }// if end
+        }catch (SQLException e){
+            e.getMessage();
+            System.out.println("댓글 삭제시 예외발생");
+        } //commentDelete end
     }
+
 
 
 
