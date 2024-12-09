@@ -55,8 +55,15 @@ public class BoardView {
     } // func end
 
     void boardList(){
+        ArrayList<BoardDto> result = BoardController.getInstance().boardPrint();
+        System.out.println("--------------공지--------------");
+        //
         System.out.println("-----------게시물 목록-----------");
-
+        for (int index = 0; index <= result.size() - 1; index++) {
+            System.out.print("게시물번호: " + result.get(index).getNum());
+            System.out.print(" 게시물내용: " + result.get(index).getContent());
+            System.out.println(" 작성자: " + result.get(index).getWriter());
+        } // for end
     } // func end
     /*
     // 게시물 출력 함수
