@@ -125,6 +125,7 @@ public class CommentDao extends Dao{
             e.getMessage();
             System.out.println("댓글 삭제시 예외발생");
         } //commentDelete end
+        return false;
     }
 
 
