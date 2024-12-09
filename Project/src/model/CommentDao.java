@@ -106,7 +106,7 @@ public class CommentDao extends Dao{
     public boolean commentDelete(int deleteCommentNum){
         try{
             //1. sql작성
-            String sql = "update comment set comment_delete=false where comment_idx= ?"
+            String sql = "update comment set comment_delete=false where comment_idx= ?";
 
             //2. sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
