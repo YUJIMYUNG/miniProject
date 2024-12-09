@@ -23,4 +23,19 @@ public class CommentController {
 
         return CommentDao.getInstance().commentWrite(commentDto);
     }// commentWrite end
+
+    //3. 댓글 수정 함수
+    public boolean commentUpdate(CommentDto updateCommentDto){
+        boolean result = CommentDao.getInstance().commentUpdate(updateCommentDto);
+        return result;
+    }
+
+    //4. 댓글 삭제 함수
+    public boolean commentDelete(int deleteCommentNum){
+        //여기서 로그인 회원번호 = 댓글 회원번호 맞는지 검사해
+
+        boolean result = CommentDao.getInstance().commentDelete(deleteCommentNum);
+
+        return result;
+    }
 } //class end
