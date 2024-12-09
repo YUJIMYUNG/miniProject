@@ -55,7 +55,6 @@ create table if not exists vote(
 vote_idx int unsigned auto_increment not null, # 투표번호
 vote_content varchar(100) unsigned, # 투표 내용
 member_idx int unsigned, # 투표 작성자(참조키)
-vote_type int not null, # 찬반여부만 받는게 아닌 다수결 투표 형식으로 받을 수 있도록 int 값으로 변경
 vote_deadline datetime, # 투표 마감날짜
 vote_status boolean not null, # 투표 활성화 여부
 foreign key(member_idx) references members(member_idx), # 게시물 테이블에서 참조
