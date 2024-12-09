@@ -16,9 +16,12 @@ public class VoteView {
 
     // 1. 투표 생성 함수
     public void VoteWrite() {
-        System.out.println("투표 제목 작성 : ");
-        int choose = scanner.nextInt();
-        System.out.println("");
+        System.out.println("투표 내용 작성 : ");
+
     }
+
+    // 2. 투표 조회 함수
+
+
 
 } // VoteView ed
