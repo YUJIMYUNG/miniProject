@@ -28,8 +28,6 @@ public class VoteDto {
     }
 
     // 투표 생성에 필요한 생성자
-
-
     public VoteDto(String vote_content, LocalDateTime vote_deadline, ArrayList<String> vote_choice) {
         this.vote_content = vote_content;
         this.vote_deadline = vote_deadline;

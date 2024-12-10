@@ -68,13 +68,14 @@ primary key(vote_idx) # 투표번호(기본키)
 # drop table vote;
 select * from vote;
 
-# 투표 집계 테이블
+# 투표 집계 테이블 # 12/11 수정. vote_num 추가.
 create table if not exists votecount(
-vote_idx int unsigned, # 투표번호(참조키)
+vote_num int unsigned auto_increment not null, # 투표집계번호
+vote_idx int unsigned, # 투표번호
 vote_choice varchar(50), # 투표 선택지 내용
 vote_count int, # 득표수
 foreign key(vote_idx) references vote(vote_idx), # 투표 테이블에서 참조
-primary key(vote_idx) # 투표번호(기본키)
+primary key(vote_num) # 투표집계번호(기본키)
 );
 # drop table votecount;
 select * from votecount;
