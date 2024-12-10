@@ -2,6 +2,7 @@ import view.BoardView;
 import model.MemberDto;
 import view.CommentView;
 import view.MemberView;
+import view.VoteView;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class AppStart {
             } else if (choose == 3) {
 
             } else if (choose == 4) {
-
+                VoteView.getInstance().VoteWrite();
             } else {
                 return;
             }

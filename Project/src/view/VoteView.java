@@ -26,7 +26,6 @@ public class VoteView {
         // 투표 내용 입력
         System.out.print("투표 내용 입력 : ");
         String vote_content = scanner.nextLine();
-        scanner.nextLine();
 
         // 투표 마감 날짜 입력
         System.out.print("투표 마감 날짜 입력(YYYY-MM-DD HH:mm) : ");
@@ -52,7 +51,9 @@ public class VoteView {
                 System.out.println("유효하지 않은 입력입니다.");
             }
         } // while ed
-
+            for (int i = 0; i < votedtos_choices.size(); i++) {
+                System.out.println(votedtos_choices.get(i));
+            }
         // 투표 내용과 선택지를 저장한 객체를 컨트롤러로 보내고 결과 수신
         boolean result = VoteController.getInstance().VoteWrite(vote_content,deadLine,votedtos_choices);
         if (result) {
@@ -67,3 +68,13 @@ public class VoteView {
 
 
 } // VoteView ed
+
+/// 예제 확인용
+        /*
+        LocalDateTime dt=LocalDateTime.of(2024,1,1,1,1);
+        String dtFormat1=dt.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+        System.out.println(dt);
+
+        System.out.println(dt.getYear());
+        System.out.println(dt.getMonthValue());
+        */
