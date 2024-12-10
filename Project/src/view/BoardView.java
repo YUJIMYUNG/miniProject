@@ -15,8 +15,14 @@ public class BoardView {
     Scanner scan=new Scanner(System.in);
 
     public void mainBoard(){
-        boardWrite();
+
         while(true){
+            // 게시물 목록 출력
+            boardList();
+
+                System.out.println("작업 선택: 1.게시물 작성 2.게시물 조회 3.다음 페이지");
+            int choose= scan.nextInt();
+            boardWrite();
 
         }
 
@@ -48,6 +54,17 @@ public class BoardView {
         } // if end
     } // func end
 
+    void boardList(){
+        ArrayList<BoardDto> result = BoardController.getInstance().boardPrint();
+        System.out.println("--------------공지--------------");
+        //
+        System.out.println("-----------게시물 목록-----------");
+        for (int index = 0; index <= result.size() - 1; index++) {
+            System.out.print("게시물번호: " + result.get(index).getNum());
+            System.out.print(" 게시물내용: " + result.get(index).getContent());
+            System.out.println(" 작성자: " + result.get(index).getWriter());
+        } // for end
+    } // func end
     /*
     // 게시물 출력 함수
     void boardPrint() {

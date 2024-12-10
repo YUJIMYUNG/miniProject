@@ -18,12 +18,11 @@ public class BoardController {
         // 유효성 검사
 
         // 객체 생성 후 dao에 전달
-        BoardDto boardDto = new BoardDto();
+        BoardDto boardDto = new BoardDto(topic, title, content);
         // 생성 성공 시 true 반환
         return BoardDao.getInstance().boardWrite( boardDto );
     } // func end
 
-    /*
     // 게시물 출력 제어 함수
     public ArrayList<BoardDto> boardPrint( ){
         // 리스트 받아와서 반환
@@ -31,6 +30,7 @@ public class BoardController {
         return result;
     } // func end
 
+    /*
     // 게시물 삭제 제어 함수
     public boolean boardDelete( int deleteNum ){
         // 유효성 검사
