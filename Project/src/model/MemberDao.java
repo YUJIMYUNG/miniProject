@@ -12,7 +12,7 @@ public class MemberDao extends Dao {
     public static MemberDao getInstance(){return projectManagerDao;}
 
     // 멤버 로그인 접근 함수
-    public MemberDto memberLogin(MemberDto loginDto){
+    public boolean memberLogin(MemberDto loginDto){
         try {
             // sql 작성
             String sql = "select* from members where member_email = ? and pwd = ? ";
@@ -24,11 +24,11 @@ public class MemberDao extends Dao {
 
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
-                    return new MemberDto(rs.getString("member_email"), rs.getString("pwd"));
+                    return true;
                 }
             }
         } catch (SQLException e){e.getMessage();}
-        return null;
+        return false;
     }
 
     // 멤버 등록 접근 함수
