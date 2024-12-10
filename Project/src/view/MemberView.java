@@ -16,14 +16,14 @@ public class MemberView {
     Scanner scan = new Scanner(System.in);
 
     // 메인페이지
-    void mainPage() {
+    public void mainPage() {
+        System.out.println("   ____               _            __  __                                      ");
+        System.out.println("  |  _ \\  _ __  _   _| |_ ___     |  \\/  | __ _ _ __   __ _  __ _  ___ _ __    ");
+        System.out.println("  | |_) || '_ \\| | | | __/ _ \\    | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '__|   ");
+        System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
+        System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
+        System.out.println("                                                           |___/               ");
         while (true) {
-            System.out.println("   ____               _            __  __                                      ");
-            System.out.println("  |  _ \\  _ __  _   _| |_ ___     |  \\/  | __ _ _ __   __ _  __ _  ___ _ __    ");
-            System.out.println("  | |_) || '_ \\| | | | __/ _ \\    | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ \\ '__|   ");
-            System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
-            System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
-            System.out.println("                                                           |___/               ");
             System.out.print("1.로그인 2.회원가입  : ");
             int choose = scan.nextInt();
             if (choose == 1){
@@ -36,9 +36,9 @@ public class MemberView {
 
     // 멤버 로그인 함수
     void memberLogin(){
-        System.out.println("이메일 : ");
+        System.out.print("이메일 : ");
         String member_email = scan.next();
-        System.out.println("비밀번호 : ");
+        System.out.print("비밀번호 : ");
         String pwd = scan.next();
         boolean result = MemberController.getInstance().memberLogin(member_email, pwd);
         if (result){

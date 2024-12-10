@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MemberDao extends Dao {
 
-    private static MemberDao projectManagerDao = new MemberDao();
+    public static MemberDao projectManagerDao = new MemberDao();
     //DB 연동
     private MemberDao(){}
     public static MemberDao getInstance(){return projectManagerDao;}
@@ -43,7 +43,10 @@ public class MemberDao extends Dao {
             ps.setString(1, memberDto.getMember_name());
             ps.setString(2, memberDto.getMember_email());
             ps.setString(3, memberDto.getPwd());
-            ps.setDate(4, java.sql.Date.valueOf(memberDto.getBirthdate()));
+
+            LocalDate birthdate = LocalDate.parse(memberDto.getBirthdate());
+            ps.setDate(4, java.sql.Date.valueOf(birthdate));
+
             ps.setString(5, memberDto.getMember_phone());
             ps.setTimestamp(6, java.sql.Timestamp.valueOf(memberDto.getMember_date()));
             ps.setBoolean(7, memberDto.isIn_active());

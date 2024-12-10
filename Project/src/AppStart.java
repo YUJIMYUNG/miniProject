@@ -1,3 +1,4 @@
+import controller.MemberController;
 import view.BoardView;
 import model.MemberDto;
 import view.CommentView;
@@ -16,7 +17,7 @@ public class AppStart {
             } else if (choose == 2) {
                 CommentView.getInstance().mainPage();
             } else if (choose == 3) {
-
+                MemberView.getInstance().mainPage();
             } else if (choose == 4) {
 
             } else {
