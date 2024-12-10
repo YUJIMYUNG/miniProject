@@ -70,13 +70,12 @@ public class BoardDto {
                 "idx=" + idx +
                 ", topic=" + topic +
                 ", status=" + status +
+                ", version=" + version +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", writer='" + writer + '\'' +
                 ", date=" + date +
                 ", update=" + update +
                 '}';
-    } // func end
-
-
+    }
 } // class end
