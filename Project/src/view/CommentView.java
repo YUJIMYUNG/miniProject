@@ -15,16 +15,17 @@ public class CommentView {
 
     public void mainPage(){
         while(true){
-            System.out.print("1.댓글 조회 2.댓글 등록 3.댓글 수정 4.댓글 삭제  1~4 중 선택하세요 : ");
+            // 댓글로 들어오면 전체 댓글 조회
+            commentPrint();
+
+            System.out.print("1.댓글 등록 2.댓글 수정 3.댓글 삭제  1~3 중 선택하세요 : ");
             int choose = sc.nextInt();
 
             if(choose == 1){
-                commentPrint();
-            } else if(choose == 2){
                 commentWrite();
-            } else if(choose == 3){
+            } else if(choose == 2){
                 commentUpdate();
-            } else if(choose == 4){
+            } else if(choose == 3){
                 commentDelete();
             }
         }//while end
@@ -117,5 +118,6 @@ public class CommentView {
             System.out.println("댓글 삭제 실패");
         }// if-else end
     } //commentDelete end
+
     
 }// class end

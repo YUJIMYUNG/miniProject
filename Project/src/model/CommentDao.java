@@ -18,7 +18,7 @@ public class CommentDao extends Dao{
 
         try{
             //1. SQL 작성
-            String sql = "select * from comment";
+            String sql = "select c.* m.member_name from comment c join members m on c.member_idx = m.member_idx where c.board_idx = ?";
 
             //2. SQL 기재
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -30,10 +30,11 @@ public class CommentDao extends Dao{
             while (rs.next()){
                 //5.  댓글번호, 작성자, 내용, 시간 넣어야함
                 int comment_idx = rs.getInt("comment_idx");
-                String comment_content = rs.getString("comment_content");
+                String member_name = rs.getString("member_name");
+                        String comment_content = rs.getString("comment_content");
 
                 //6. 레코드 호출된 필드값들 객체화 - 수정중
-                CommentDto commentDto = new CommentDto(comment_idx, comment_content);
+                CommentDto commentDto = new CommentDto(comment_idx, member_name, comment_content);
 
                 //4. 반복문 한번에 레코드 한개를 dto로 변환
                 commentList.add(commentDto);
