@@ -11,14 +11,14 @@ public class CommentDao extends Dao{
     public static CommentDao getInstance(){return commentDao;}
 
     // 1. n번 게시물 출력 접근 함수(댓글조회)
-    public ArrayList<CommentDto> commentPrint(){
+    public ArrayList<CommentDto> commentPrint(int board_idx){
 
         // 댓글 담을 리스트
         ArrayList<CommentDto> commentList = new ArrayList<>();
 
         try{
             //1. SQL 작성
-            String sql = "select * from comment";
+            String sql = "select c.* m.member_name from comment c join members m on c.member_idx = m.member_idx where c.board_idx = ?";
 
             //2. SQL 기재
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -30,10 +30,11 @@ public class CommentDao extends Dao{
             while (rs.next()){
                 //5.  댓글번호, 작성자, 내용, 시간 넣어야함
                 int comment_idx = rs.getInt("comment_idx");
-                String comment_content = rs.getString("comment_content");
+                String member_name = rs.getString("member_name");
+                        String comment_content = rs.getString("comment_content");
 
                 //6. 레코드 호출된 필드값들 객체화 - 수정중
-                CommentDto commentDto = new CommentDto(comment_idx, comment_content);
+                CommentDto commentDto = new CommentDto(comment_idx, member_name, comment_content);
 
                 //4. 반복문 한번에 레코드 한개를 dto로 변환
                 commentList.add(commentDto);
@@ -126,7 +127,32 @@ public class CommentDao extends Dao{
             System.out.println("댓글 삭제시 예외발생");
         } //commentDelete end
         return false;
-    }
+    }// deleteComment end
+
+    //댓글 작성자를 확인하는 함수
+    public boolean comentAuthor(int comment_idx, int member_idx){
+        try{
+            //1. sql 작성
+            String sql = "select member_idx from comment shere comment_idx = ?";
+
+            //2.
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, comment_idx);
+
+            ResultSet rs = ps.executeQuery();
+
+            // 댓글 작성자와 로그인한 회원이 동일한지 검증,일치하면 true 반환
+            if(rs.next()){
+                int authorIdx = rs.getInt("member_idx");
+                return authorIdx == member_idx;
+            }// if end
+        } catch (SQLException e){
+            e.getMessage();
+            System.out.println("댓글 작성자 검증 중 예외 발생");
+        }
+        return false;
+    }// commentAuthor end
+
 
 
 
