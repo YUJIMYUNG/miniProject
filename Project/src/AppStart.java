@@ -9,12 +9,6 @@ import java.util.Scanner;
 
 public class AppStart {
     public static void main(String[] args) {
-        LocalDateTime dt=LocalDateTime.now();
-        System.out.println(dt);
-        System.out.println(dt.getMonthValue());
-        String dtFormat1=dt.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
-        System.out.println(dtFormat1);
-
         Scanner scan = new Scanner(System.in);
         while (true) {
             System.out.print("디버그용 코드입니다.\n1.board 2.comment 3.member 4.vote ");

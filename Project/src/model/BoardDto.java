@@ -39,9 +39,23 @@ public class BoardDto {
         } // if end
 
         // 작성자 member에게서 받아오는거 작성해야함
+        writer="sample";
 
         date=LocalDateTime.now();
         update=LocalDateTime.now();
+    } // init end
+
+    // SQL에서 불러오는 생성자
+    public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+        this.idx=idx;
+        this.topic = topic;
+        this.title=title;
+        this.content=content;
+        this.writer=writer;
+        this.date=date;
+        this.status=status;
+        this.version=version;
+        this.update=update;
     } // init end
 
     public int getIdx() {return idx;}

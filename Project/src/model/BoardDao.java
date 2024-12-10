@@ -24,6 +24,8 @@ public class BoardDao extends Dao{
                     "values( ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
+            // 멤버 인덱스에서 이름 가져와서 writer에 넣기
+
             // sql의 매개변수에 값을 대입
             ps.setInt(1, boardDto.getTopic());
             ps.setInt(2, boardDto.getStatus());
@@ -62,8 +64,8 @@ public class BoardDao extends Dao{
             while (rs.next()) { // 다음 레코드가 있으면 반복
 
                 // 필드별 데이터 호출
-                int num = rs.getInt("board_idx");
-                String topic = rs.getString("board_topic");
+                int idx = rs.getInt("board_idx");
+                int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
                 String writer = rs.getString("board_writer"); // 작성자
@@ -75,7 +77,7 @@ public class BoardDao extends Dao{
                 LocalDateTime update = updateTS.toLocalDateTime();
 
                 // 객체 생성하고 리스트에 저장
-                BoardDto boardDto = new BoardDto();
+                BoardDto boardDto = new BoardDto(idx, topic, title, content, writer, date, status, version, update);
                 list.add(boardDto);
 
             } // while end

@@ -37,9 +37,9 @@ public class BoardView {
         System.out.println("구분 선택: 1.공지 2.회의록 3.투표 4.토의 : ");
         int topic = scan.nextInt();
         System.out.println("제목: ");
-        String title = scan.next();
+        String title = scan.nextLine();
         System.out.print("내용: ");
-        String content = scan.next();
+        String content = scan.nextLine();
         // 진행현황은 생성자, 수정함수에서 결정
         // 수정차수는 생성자, 수정함수에서 결정
         // 작성자는 현재 로그인한 유저를 생성자에 전달
@@ -61,6 +61,7 @@ public class BoardView {
         System.out.println("--------------공지--------------");
         //
         System.out.println("-----------게시물 목록-----------");
+        //System.out.printf("%-5d %-8s %-32s %-16s %-16s %-2d %-2d %-16s \n", 번호, 구분, 제목, 작성자, 작성일,
         // 맨 뒤 인덱스부터 출력
         for (int i = list.size()-1; i >= 0; i--) {
             // datetime의 포맷을 변환해서 저장
@@ -69,8 +70,16 @@ public class BoardView {
             LocalDateTime update=list.get(i).getDate();
             String updateFormat= update.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
 
-            System.out.printf("%-5d %-8s %-32s %-16s %-16s %-2d %-2d %-16s",
-                   list.get(i).getIdx(), list.get(i).getTopic(), list.get(i).getTitle(), list.get(i).getWriter(), dateFormat, list.get(i).getStatus(), list.get(i).getVersion(), updateFormat);
+            String status;
+            // status랑 version 형태 변환
+            if(list.get(i).getStatus()==1){
+                status="완료";
+            } else{
+                status="미완";
+            }
+
+            System.out.printf("%-5d %-8s %-32s %-16s %-16s %-2d %-2d %-16s \n",
+                   list.get(i).getIdx(), list.get(i).getTopic(), list.get(i).getTitle(), list.get(i).getWriter(), dateFormat, status, list.get(i).getVersion(), updateFormat);
         } // for end
     } // func end
     /*
