@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class BoardDao extends Dao{
@@ -34,7 +35,6 @@ public class BoardDao extends Dao{
             ps.setTimestamp(7, date);
             Timestamp update=Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(8, update);
-
             ps.executeUpdate();
 
             return true;
@@ -46,7 +46,7 @@ public class BoardDao extends Dao{
 
         return false;
     } // func end
-/*
+
     // 게시물 DB 불러오기 함수
     public ArrayList<BoardDto> boardPrint() {
 
@@ -62,9 +62,16 @@ public class BoardDao extends Dao{
             while (rs.next()) { // 다음 레코드가 있으면 반복
 
                 // 필드별 데이터 호출
-                int num = rs.getInt("num");
-                String content = rs.getString("content");
-                String writer = rs.getString("writer");
+                int num = rs.getInt("board_idx");
+                String topic = rs.getString("board_topic");
+                String content = rs.getString("board_content");
+                String writer = rs.getString("board_writer"); // 작성자
+                Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
+                LocalDateTime date = dateTS.toLocalDateTime();
+                int status = rs.getInt("board_status"); // 완료여부
+                int version = rs.getInt("board_version"); // 수정차수
+                Timestamp updateTS = rs.getTimestamp("board_update"); // 수정일
+                LocalDateTime update = updateTS.toLocalDateTime();
 
                 // 객체 생성하고 리스트에 저장
                 BoardDto boardDto = new BoardDto();
@@ -79,6 +86,7 @@ public class BoardDao extends Dao{
         return list;
     } // func end
 
+    /*
     // 게시물 삭제 함수
     public boolean boardDelete(int deleteNum) {
         try {
