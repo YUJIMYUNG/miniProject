@@ -33,8 +33,16 @@ public class CommentDto {
         this.comment_content = comment_content;
     }
 
-    //2. 댓글 등록 함수에서 필요한 생성자
-    public CommentDto(String comment_content) {
+    //2. 댓글 등록 함수에서 필요한 생성Wk
+    public CommentDto(int comment_idx, int board_idx, String comment_content) {
+        this.comment_idx = comment_idx;
+        this.board_idx = board_idx;
+        this.comment_content = comment_content;
+    }
+
+    //3. 수정 함수에서 필요한 생성자
+    public CommentDto(int comment_idx, String comment_content) {
+        this.comment_idx = comment_idx;
         this.comment_content = comment_content;
     }
 

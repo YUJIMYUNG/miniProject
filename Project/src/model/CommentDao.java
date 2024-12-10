@@ -11,7 +11,7 @@ public class CommentDao extends Dao{
     public static CommentDao getInstance(){return commentDao;}
 
     // 1. n번 게시물 출력 접근 함수(댓글조회)
-    public ArrayList<CommentDto> commentPrint(){
+    public ArrayList<CommentDto> commentPrint(int board_idx){
 
         // 댓글 담을 리스트
         ArrayList<CommentDto> commentList = new ArrayList<>();
@@ -127,7 +127,32 @@ public class CommentDao extends Dao{
             System.out.println("댓글 삭제시 예외발생");
         } //commentDelete end
         return false;
-    }
+    }// deleteComment end
+
+    //댓글 작성자를 확인하는 함수
+    public boolean comentAuthor(int comment_idx, int member_idx){
+        try{
+            //1. sql 작성
+            String sql = "select member_idx from comment shere comment_idx = ?";
+
+            //2.
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, comment_idx);
+
+            ResultSet rs = ps.executeQuery();
+
+            // 댓글 작성자와 로그인한 회원이 동일한지 검증,일치하면 true 반환
+            if(rs.next()){
+                int authorIdx = rs.getInt("member_idx");
+                return authorIdx == member_idx;
+            }// if end
+        } catch (SQLException e){
+            e.getMessage();
+            System.out.println("댓글 작성자 검증 중 예외 발생");
+        }
+        return false;
+    }// commentAuthor end
+
 
 
 
