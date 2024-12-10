@@ -41,6 +41,11 @@ public class MemberView {
         System.out.println("비밀번호 : ");
         String pwd = scan.next();
         boolean result = MemberController.getInstance().memberLogin(member_email, pwd);
+        if (result){
+            System.out.println("[로그인 성공]");
+        }else {
+            System.out.println("[로그인 실패]");
+        }
     }
 
     // 멤버 등록 함수

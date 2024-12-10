@@ -14,8 +14,20 @@ public class MemberController {
 
     // 멤버 로그인 제어 함수
     public boolean memberLogin(String member_email, String pwd){
+        if (member_email == null || member_email.isEmpty()){
+            System.out.println("[이메일을 입력해주세요]");
+            return false;
+        }
+        if (pwd == null || pwd.isEmpty()){
+            System.out.println("[비밀번호를 입력해주세요]");
+            return false;
+        }
         MemberDto loginDto = new MemberDto(member_email, pwd);
-        return MemberDao.getInstance().memberLogin(loginDto);
+        boolean loginSuccessful = MemberDao.getInstance().memberLogin(loginDto);
+        if (!loginSuccessful) {
+            System.out.println("[로그인 실패 : 아이디/비밀번호가 올바르지 않습니다.");
+        }
+        return loginSuccessful;
     }
 
     // 멤버 등록 제어 함수
