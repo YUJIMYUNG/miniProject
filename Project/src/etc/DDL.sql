@@ -31,7 +31,9 @@ board_date datetime,
 board_update datetime,
 primary key(board_idx)
 );
-# drop table board;
+drop table comment;
+drop table vote;
+drop table board;
 select * from board;
 
 # 댓글 테이블

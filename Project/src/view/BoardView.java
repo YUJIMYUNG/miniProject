@@ -3,6 +3,8 @@ package view;
 import controller.BoardController;
 import model.BoardDto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -55,14 +57,20 @@ public class BoardView {
     } // func end
 
     void boardList(){
-        ArrayList<BoardDto> result = BoardController.getInstance().boardPrint();
+        ArrayList<BoardDto> list = BoardController.getInstance().boardPrint();
         System.out.println("--------------공지--------------");
         //
         System.out.println("-----------게시물 목록-----------");
-        for (int index = 0; index <= result.size() - 1; index++) {
-            System.out.print("게시물번호: " + result.get(index).getNum());
-            System.out.print(" 게시물내용: " + result.get(index).getContent());
-            System.out.println(" 작성자: " + result.get(index).getWriter());
+        // 맨 뒤 인덱스부터 출력
+        for (int i = list.size()-1; i >= 0; i--) {
+            // datetime의 포맷을 변환해서 저장
+            LocalDateTime date=list.get(i).getDate();
+            String dateFormat= date.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+            LocalDateTime update=list.get(i).getDate();
+            String updateFormat= update.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+
+            System.out.printf("%-5d %-8s %-32s %-16s %-16s %-2d %-2d %-16s",
+                   list.get(i).getIdx(), list.get(i).getTopic(), list.get(i).getTitle(), list.get(i).getWriter(), dateFormat, list.get(i).getStatus(), list.get(i).getVersion(), updateFormat);
         } // for end
     } // func end
     /*

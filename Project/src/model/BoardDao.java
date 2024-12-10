@@ -64,6 +64,7 @@ public class BoardDao extends Dao{
                 // 필드별 데이터 호출
                 int num = rs.getInt("board_idx");
                 String topic = rs.getString("board_topic");
+                String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
                 String writer = rs.getString("board_writer"); // 작성자
                 Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일

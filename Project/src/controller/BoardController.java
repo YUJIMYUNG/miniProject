@@ -26,8 +26,8 @@ public class BoardController {
     // 게시물 출력 제어 함수
     public ArrayList<BoardDto> boardPrint( ){
         // 리스트 받아와서 반환
-        ArrayList<BoardDto> result = BoardDao.getInstance().boardPrint();
-        return result;
+        ArrayList<BoardDto> list = BoardDao.getInstance().boardPrint();
+        return list;
     } // func end
 
     /*
