@@ -11,11 +11,11 @@ public class CommentDto {
     private int board_idx; // 게시글 번호
     private String comment_content; // 댓글 내용
     private LocalDateTime comment_date; // 댓글 작성 날짜시간
-    private int comment_update; // 댓글 수정여부
-    private int comment_delete; // 댓글 삭제 여부
+    private boolean comment_update; // 댓글 수정여부
+    private boolean comment_delete; // 댓글 삭제 여부
 
     // 생성자
-    public CommentDto(int comment_idx, int member_idx, String member_name, int board_idx, String comment_content, LocalDateTime comment_date, int comment_update, int comment_delete) {
+    public CommentDto(int comment_idx, int member_idx, String member_name, int board_idx, String comment_content, LocalDateTime comment_date, boolean comment_update, boolean comment_delete) {
         this.comment_idx = comment_idx;
         this.member_idx = member_idx;
         this.member_name = member_name;
@@ -87,19 +87,19 @@ public class CommentDto {
         this.comment_date = comment_date;
     }
 
-    public int getComment_update() {
+    public boolean getComment_update() {
         return comment_update;
     }
 
-    public void setComment_update(int comment_update) {
+    public void setComment_update(boolean comment_update) {
         this.comment_update = comment_update;
     }
 
-    public int getComment_delete() {
+    public boolean getComment_delete() {
         return comment_delete;
     }
 
-    public void setComment_delete(int comment_delete) {
+    public void setComment_delete(boolean comment_delete) {
         this.comment_delete = comment_delete;
     }
 

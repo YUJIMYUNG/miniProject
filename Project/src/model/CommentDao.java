@@ -18,12 +18,15 @@ public class CommentDao extends Dao{
 
         try{
             //1. SQL 작성
-            String sql = "select c.* m.member_name from comment c join members m on c.member_idx = m.member_idx where c.board_idx = ?";
+            String sql = "select c.comment_idx, m.member_name, c.comment_content, c.comment_date, c.comment_update " +
+                    "from comment c join members m on c.member_idx = m.member_idx " +
+                    "where c.board_idx = ?";
 
             //2. SQL 기재
             PreparedStatement ps = conn.prepareStatement(sql);
 
             //3. SQL 조작, 실행
+            ps.setInt(1, board_idx);
             ResultSet rs = ps.executeQuery();
 
             //4. SQL 결과
@@ -53,8 +56,6 @@ public class CommentDao extends Dao{
 
         try{
             //1. SQL 작성
-            //로그인 한 유저 만 댓글 작성한다고 가정.
-            //직접 콘솔에서 입력할 내용은 comment_content만 있음
             String sql = "insert into comment(comment_content)values(?)";
 
             //2. SQL 기재
@@ -80,7 +81,7 @@ public class CommentDao extends Dao{
     public boolean commentUpdate(CommentDto updateCommentDto){
         try{
             //1.sql 작성
-            String sql = "update comment set content = ? where comment_idx = ?";
+            String sql = "update comment set comment_content = ?, comment_update = false, comment_date = current_timestamp where comment_idx = ?";
 
             //2. sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -133,7 +134,7 @@ public class CommentDao extends Dao{
     public boolean comentAuthor(int comment_idx, int member_idx){
         try{
             //1. sql 작성
-            String sql = "select member_idx from comment shere comment_idx = ?";
+            String sql = "select member_idx from comment where comment_idx = ?";
 
             //2.
             PreparedStatement ps = conn.prepareStatement(sql);

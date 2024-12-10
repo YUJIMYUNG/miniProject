@@ -4,6 +4,9 @@ import controller.CommentController;
 import model.CommentDto;
 
 import javax.xml.stream.events.Comment;
+import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -47,11 +50,17 @@ public class CommentView {
         // 객체 정보 요청
         ArrayList<CommentDto> result = CommentController.getInstance().commentPrint(board_idx);
 
-        for(int i = 0; i < result.size(); i++){
-            System.out.printf("댓글 번호 : %s, 댓글 작성자 : %s, 내용 : %s, 작성 시간 : %s, 수정 여부 : %s\n",
-                    result.get(i).getComment_idx(), result.get(i).getMember_name(), result.get(i).getComment_content(),
-                    result.get(i).getComment_date(), result.get(i).getComment_update());
-        }// for end
+        // 해당 게시글에 댓글이 있으면 출력
+        if(result != null){
+            for(int i = 0; i < result.size(); i++){
+                System.out.printf("댓글 번호 : %s, 댓글 작성자 : %s, 내용 : %s, 작성 시간 : %s, 수정 여부 : %s\n",
+                        result.get(i).getComment_idx(), result.get(i).getMember_name(), result.get(i).getComment_content(),
+                        result.get(i).getComment_date(), result.get(i).getComment_update()? "원본" : "수정함");
+            }// for end
+        } else { // 댓글이 없으면 안내문 출력
+            System.out.println("해당 게시글에는 댓글이 없습니다.");
+        }//if-else end
+
     }// commentPrint end
 
     //2. 댓글 등록
@@ -127,7 +136,7 @@ public class CommentView {
         if(result){
             System.out.println("댓글 삭제 완료");
         } else{
-            System.out.println("댓글 삭제 실패");
+            System.out.println("댓글 삭제 실패 : 직접 작성한 댓글만 삭제할 수 있습니다.");
         }// if-else end
     } //commentDelete end
 
