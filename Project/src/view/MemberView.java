@@ -24,20 +24,23 @@ public class MemberView {
             System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
             System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
             System.out.println("                                                           |___/               ");
-            System.out.print("1.로그인 2.회원가입 3.회원조회 4.회원수정 5.회원삭제 : ");
+            System.out.print("1.로그인 2.회원가입  : ");
             int choose = scan.nextInt();
             if (choose == 1){
-
+                memberLogin();
             } else if (choose == 2) {
                 memberWrite();
-            } else if (choose == 3) {
-                memberPrint();
-            } else if (choose == 4) {
-                memberUpdate();
-            } else if (choose == 5) {
-                memberDelete();
             }
         }
+    }
+
+    // 멤버 로그인 함수
+    void memberLogin(){
+        System.out.println("이메일 : ");
+        String member_email = scan.next();
+        System.out.println("비밀번호 : ");
+        String pwd = scan.next();
+        boolean result = MemberController.getInstance().memberLogin(member_email, pwd);
     }
 
     // 멤버 등록 함수

@@ -13,7 +13,10 @@ public class MemberController {
     public static MemberController getInstance(){return memberController;};
 
     // 멤버 로그인 제어 함수
-
+    public boolean memberLogin(String member_email, String pwd){
+        MemberDto loginDto = new MemberDto(member_email, pwd);
+        return MemberDao.getInstance().memberLogin(loginDto);
+    }
 
     // 멤버 등록 제어 함수
     public boolean memberWrite(String member_name, String member_email, String pwd , LocalDate birthDate,
