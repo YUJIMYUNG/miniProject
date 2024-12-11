@@ -8,6 +8,7 @@ public class VoteDto {
     // 투표 테이블 필드
     private int vote_idx; // 투표 번호
     private String vote_content; // 투표 내용
+    private int board_idx; // 투표 게시물 번호
     private int member_idx; // 투표 작성자 명
     private LocalDateTime vote_deadline; // 투표 마감일자
     private boolean vote_status; // 투표 활성화 여부
@@ -34,6 +35,18 @@ public class VoteDto {
         this.vote_choice = vote_choice;
     }
 
+    //
+    public VoteDto(int vote_idx, String vote_content, int board_idx, int member_idx, LocalDateTime vote_deadline, boolean vote_status, ArrayList<String> vote_choice, int vote_count) {
+        this.vote_idx = vote_idx;
+        this.vote_content = vote_content;
+        this.board_idx = board_idx;
+        this.member_idx = member_idx;
+        this.vote_deadline = vote_deadline;
+        this.vote_status = vote_status;
+        this.vote_choice = vote_choice;
+        this.vote_count = vote_count;
+    }
+
     // getter and setter
     public int getVote_idx() {
         return vote_idx;
@@ -49,6 +62,14 @@ public class VoteDto {
 
     public void setVote_content(String vote_content) {
         this.vote_content = vote_content;
+    }
+
+    public int getBoard_idx() {
+        return board_idx;
+    }
+
+    public void setBoard_idx(int board_idx) {
+        this.board_idx = board_idx;
     }
 
     public int getMember_idx() {
@@ -96,6 +117,7 @@ public class VoteDto {
         return "VoteDto{" +
                 "vote_idx=" + vote_idx +
                 ", vote_content='" + vote_content + '\'' +
+                ", board_idx=" + board_idx +
                 ", member_idx=" + member_idx +
                 ", vote_deadline=" + vote_deadline +
                 ", vote_status=" + vote_status +

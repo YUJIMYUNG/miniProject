@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class VoteDao extends Dao{
 
@@ -44,5 +45,9 @@ public class VoteDao extends Dao{
     } // VoteWrite ed
 
     /// 2.투표 조회 및 투표 함수
+    public ArrayList<VoteDto> VotePage(int board_idx) {
+        try {
 
+        }
+    }
 } // VoteDao ed

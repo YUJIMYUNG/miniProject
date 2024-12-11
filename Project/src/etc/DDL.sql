@@ -59,10 +59,12 @@ select * from comment;
 create table if not exists vote(
 vote_idx int unsigned auto_increment not null, # 투표번호
 vote_content varchar(100), # 투표 내용
+board_idx int unsigned, # 투표 게시물 번호(참조키)
 member_idx int unsigned, # 투표 작성자(참조키)
 vote_deadline datetime, # 투표 마감날짜
 vote_status boolean not null default true, # 투표 활성화 여부
-foreign key(member_idx) references members(member_idx), # 게시물 테이블에서 참조
+foreign key(member_idx) references member(member_idx), # 멤버 테이블에서 참조
+foreign key(board_idx) references board(board_idx), # 멤버 테이블에서 참조
 primary key(vote_idx) # 투표번호(기본키)
 );
 # drop table vote;

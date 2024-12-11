@@ -64,8 +64,10 @@ public class VoteView {
     } // VoteWrite ed
 
     // 2. 투표 조회 함수
-    public void VotePage() {
+    public void VotePage(int board_idx) {
+        ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
 
+        System.out.println();
     }
 
 
