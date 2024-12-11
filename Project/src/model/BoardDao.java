@@ -50,7 +50,7 @@ public class BoardDao extends Dao{
     } // func end
 
     // 게시물 DB 불러오기 함수
-    public ArrayList<BoardDto> boardPrint() {
+    public ArrayList<BoardDto> boardList() {
 
         ArrayList<BoardDto> list = new ArrayList<>(); // DB 저장 후 반환할 리스트
 
@@ -91,6 +91,11 @@ public class BoardDao extends Dao{
 
         return list;
     } // func end
+
+    public BoardDto boardPrint() {
+        BoardDto boardDto=new BoardDto();
+        return boardDto;
+    }
 
     /*
     // 게시물 삭제 함수

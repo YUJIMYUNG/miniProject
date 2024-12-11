@@ -1,6 +1,7 @@
 package view;
 
 import controller.BoardController;
+import model.BoardDao;
 import model.BoardDto;
 
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public class BoardView {
     } // func end
 
     void boardList(){
-        ArrayList<BoardDto> list = BoardController.getInstance().boardPrint();
+        ArrayList<BoardDto> list = BoardController.getInstance().boardList();
         System.out.println("--------------공지--------------");
         //
         System.out.println("-----------게시물 목록-----------");
@@ -125,41 +126,19 @@ public class BoardView {
         } // for end
         System.out.println();
     } // func end
+//    // 게시물 출력 함수
+//    void boardPrint() {
+//
+//        BoardDto result = BoardController.getInstance().boardPrint();
+//        // 출력
+//        for (int index = 0; index <= result.size() - 1; index++) {
+//            System.out.print("게시물번호: " + result.get(index).getNum());
+//            System.out.print(" 게시물내용: " + result.get(index).getContent());
+//            System.out.println(" 작성자: " + result.get(index).getWriter());
+//        } // for end
+//    } // func end
+
     /*
-    // 게시물 출력 함수
-    void boardPrint() {
-
-        ArrayList<BoardDto> result = BoardController.getInstance().boardPrint();
-        // 출력
-        for (int index = 0; index <= result.size() - 1; index++) {
-            System.out.print("게시물번호: " + result.get(index).getNum());
-            System.out.print(" 게시물내용: " + result.get(index).getContent());
-            System.out.println(" 작성자: " + result.get(index).getWriter());
-        } // for end
-    } // func end
-
-    void board조회(){
-    if (topic == 3){
-
-    ------1번 게시물 제목-------
-    ------2번 게시물
-    내용
-    투표
-    댓글
-    1. 투표하기 2. 댓글작성 3. 뒤로가기
-    if(1){
-
-    if(2){
-    CommentView.comment()
-
-    else if (3) return
-    투표: 1,2,3,4,5,6,7,8
-
-    투표 집계 결과 마감여부
-    }
-    }
-
-
     // 게시물 삭제 함수
     void boardDelete() {
         System.out.println("삭제할 게시물 번호: ");

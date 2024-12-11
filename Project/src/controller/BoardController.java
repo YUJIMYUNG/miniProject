@@ -24,14 +24,20 @@ public class BoardController {
     } // func end
 
     // 게시물 출력 제어 함수
-    public ArrayList<BoardDto> boardPrint( ){
+    public ArrayList<BoardDto> boardList( ){
         // 리스트 받아오기
-        ArrayList<BoardDto> list = BoardDao.getInstance().boardPrint();
+        ArrayList<BoardDto> list = BoardDao.getInstance().boardList();
 
         // 자릿수 넘어가면 조정하기
 
         return list;
     } // func end
+
+    public BoardDto boardPrint() {
+        BoardDto list = BoardDao.getInstance().boardPrint();
+
+        return list;
+    }
 
     /*
     // 게시물 삭제 제어 함수
