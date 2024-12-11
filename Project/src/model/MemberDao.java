@@ -2,7 +2,6 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MemberDao extends Dao {
@@ -11,6 +10,26 @@ public class MemberDao extends Dao {
     //DB 연동
     private MemberDao(){}
     public static MemberDao getInstance(){return projectManagerDao;}
+
+    // 멤버 로그인 접근 함수
+    public boolean memberLogin(MemberDto loginDto){
+        try {
+            // sql 작성
+            String sql = "select* from members where member_email = ? and pwd = ? ";
+            // sql 기재
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // 매개변수 값 대입
+            ps.setString(1, loginDto.getMember_email());
+            ps.setString(2, loginDto.getPwd());
+
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    return true;
+                }
+            }
+        } catch (SQLException e){e.getMessage();}
+        return false;
+    }
 
     // 멤버 등록 접근 함수
     public boolean memberWrite(MemberDto memberDto){
