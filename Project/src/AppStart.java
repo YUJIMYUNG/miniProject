@@ -3,6 +3,7 @@ import view.BoardView;
 import model.MemberDto;
 import view.CommentView;
 import view.MemberView;
+import view.VoteView;
 
 import java.util.Scanner;
 
@@ -15,11 +16,11 @@ public class AppStart {
             if (choose == 1) {
                 BoardView.getInstance().mainBoard();
             } else if (choose == 2) {
-                CommentView.getInstance().mainPage();
+                CommentView.getInstance().mainPage(1);
             } else if (choose == 3) {
                 MemberView.getInstance().mainPage();
             } else if (choose == 4) {
-
+                VoteView.getInstance().VoteWrite();
             } else {
                 return;
             }

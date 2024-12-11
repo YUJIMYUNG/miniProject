@@ -7,16 +7,18 @@ public class CommentDto {
     // 필드
     private int comment_idx; // 댓글번호
     private int member_idx; // 회원번호
+    private String member_name; // 조회용 회원 이름
     private int board_idx; // 게시글 번호
     private String comment_content; // 댓글 내용
     private LocalDateTime comment_date; // 댓글 작성 날짜시간
-    private int comment_update; // 댓글 수정여부
-    private int comment_delete; // 댓글 삭제 여부
+    private boolean comment_update; // 댓글 수정여부
+    private boolean comment_delete; // 댓글 삭제 여부
 
     // 생성자
-    public CommentDto(int comment_idx, int member_idx, int board_idx, String comment_content, LocalDateTime comment_date, int comment_update, int comment_delete) {
+    public CommentDto(int comment_idx, int member_idx, String member_name, int board_idx, String comment_content, LocalDateTime comment_date, boolean comment_update, boolean comment_delete) {
         this.comment_idx = comment_idx;
         this.member_idx = member_idx;
+        this.member_name = member_name;
         this.board_idx = board_idx;
         this.comment_content = comment_content;
         this.comment_date = comment_date;
@@ -24,14 +26,27 @@ public class CommentDto {
         this.comment_delete = comment_delete;
     }
 
-    //1.  조회 함수에서 필요한 생성자- 작성중
-    public CommentDto(int comment_idx, String comment_content) {
+    //1.  조회 함수에서 필요한 생성자
+    public CommentDto(int comment_idx, int member_idx, String member_name, int board_idx, String comment_content, LocalDateTime comment_date, boolean comment_update) {
         this.comment_idx = comment_idx;
+        this.member_idx = member_idx;
+        this.member_name = member_name;
+        this.board_idx = board_idx;
         this.comment_content = comment_content;
+        this.comment_date = comment_date;
+        this.comment_update = comment_update;
     }
 
     //2. 댓글 등록 함수에서 필요한 생성자
-    public CommentDto(String comment_content) {
+    public CommentDto(int member_idx, int board_idx, String comment_content) {
+        this.member_idx = member_idx;
+        this.board_idx = board_idx;
+        this.comment_content = comment_content;
+    }
+
+    //3. 수정 함수에서 필요한 생성자
+    public CommentDto(int comment_idx, String comment_content) {
+        this.comment_idx = comment_idx;
         this.comment_content = comment_content;
     }
 
@@ -76,20 +91,28 @@ public class CommentDto {
         this.comment_date = comment_date;
     }
 
-    public int getComment_update() {
+    public boolean getComment_update() {
         return comment_update;
     }
 
-    public void setComment_update(int comment_update) {
+    public void setComment_update(boolean comment_update) {
         this.comment_update = comment_update;
     }
 
-    public int getComment_delete() {
+    public boolean getComment_delete() {
         return comment_delete;
     }
 
-    public void setComment_delete(int comment_delete) {
+    public void setComment_delete(boolean comment_delete) {
         this.comment_delete = comment_delete;
+    }
+
+    public String getMember_name() {
+        return member_name;
+    }
+
+    public void setMember_name(String member_name) {
+        this.member_name = member_name;
     }
 
     // toString 재정의
@@ -98,11 +121,12 @@ public class CommentDto {
         return "CommentDto{" +
                 "comment_idx=" + comment_idx +
                 ", member_idx=" + member_idx +
+                ", member_name='" + member_name + '\'' +
                 ", board_idx=" + board_idx +
                 ", comment_content='" + comment_content + '\'' +
                 ", comment_date=" + comment_date +
                 ", comment_update=" + comment_update +
                 ", comment_delete=" + comment_delete +
                 '}';
-    }// toString end
+    }//toString end
 }// class end
