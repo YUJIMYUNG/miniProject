@@ -27,15 +27,19 @@ public class CommentDto {
     }
 
     //1.  조회 함수에서 필요한 생성자
-    public CommentDto(int comment_idx, String member_name, String comment_content) {
+    public CommentDto(int comment_idx, int member_idx, String member_name, int board_idx, String comment_content, LocalDateTime comment_date, boolean comment_update) {
         this.comment_idx = comment_idx;
+        this.member_idx = member_idx;
         this.member_name = member_name;
+        this.board_idx = board_idx;
         this.comment_content = comment_content;
+        this.comment_date = comment_date;
+        this.comment_update = comment_update;
     }
 
-    //2. 댓글 등록 함수에서 필요한 생성Wk
-    public CommentDto(int comment_idx, int board_idx, String comment_content) {
-        this.comment_idx = comment_idx;
+    //2. 댓글 등록 함수에서 필요한 생성자
+    public CommentDto(int member_idx, int board_idx, String comment_content) {
+        this.member_idx = member_idx;
         this.board_idx = board_idx;
         this.comment_content = comment_content;
     }

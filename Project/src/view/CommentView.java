@@ -58,7 +58,7 @@ public class CommentView {
                         result.get(i).getComment_date(), result.get(i).getComment_update()? "원본" : "수정함");
             }// for end
         } else { // 댓글이 없으면 안내문 출력
-            System.out.println("해당 게시글에는 댓글이 없습니다.");
+            System.out.println("해당 게시글에는 댓글이 존재하지 않습니다.");
         }//if-else end
 
     }// commentPrint end
@@ -73,9 +73,10 @@ public class CommentView {
 
         // 2. 로그인 회원번호 가져오기
         // int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        int test = 1;//테스트용 로그인한 회원 번호
 
         // 3. boardIdx Content를 포함한 객체 생성
-        CommentDto commentDto = new CommentDto(1, board_idx, content);
+        CommentDto commentDto = new CommentDto(test, board_idx, content);
 
         //3. 입력받은 값 컨트롤러에 전달
         //댓글 작성자가 로그인 한 회원인지 검토하는 작업 추가해야함
@@ -98,7 +99,7 @@ public class CommentView {
 
         //2. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 추가
         // int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
-        int test = 1;//테스트용
+        int test = 1;//테스트용 로그인한 회원 번호
 
         sc.nextLine();
         System.out.print("수정할 댓글의 내용을 입력하세요 : ");
