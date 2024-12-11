@@ -64,7 +64,9 @@ public class VoteView {
     } // VoteWrite ed
 
     // 2. 투표 조회 함수
+    public void VotePage() {
 
+    }
 
 
 } // VoteView ed
