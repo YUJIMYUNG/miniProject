@@ -34,6 +34,7 @@ public class MemberDto {
         this.member_phone = updatePhone;
     }
 
+    // 로그인 생성
     public MemberDto(String member_email, String pwd){
         this.member_email = member_email;
         this.pwd = pwd;
