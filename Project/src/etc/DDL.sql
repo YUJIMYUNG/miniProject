@@ -26,18 +26,18 @@ board_status boolean default false,
 board_version int default 0,
 board_title varchar(100) not null,
 board_content longText,
-board_writer varchar(100) not null,
 member_idx int unsigned,
 foreign key(member_idx) references member(member_idx),
 board_date datetime,
 board_update datetime,
 in_active boolean default true
 );
-/*
+
 drop table comment;
 drop table vote;
 drop table board;
-*/
+delete from board where board_idx=5;
+
 select * from board;
 
 # 댓글 테이블

@@ -12,6 +12,7 @@ public class BoardDto {
     private String writer;
     private LocalDateTime date;
     private LocalDateTime update;
+    private boolean active;
 
     /*
     topic
@@ -43,10 +44,11 @@ public class BoardDto {
 
         date=LocalDateTime.now();
         update=LocalDateTime.now();
+        active=true;
     } // init end
 
     // SQL에서 불러오는 생성자
-    public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+    public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update, boolean active) {
         this.idx=idx;
         this.topic = topic;
         this.title=title;
@@ -56,6 +58,7 @@ public class BoardDto {
         this.status=status;
         this.version=version;
         this.update=update;
+        this.active=active;
     } // init end
 
     public int getIdx() {return idx;}
@@ -67,6 +70,7 @@ public class BoardDto {
     public String getWriter() {return writer;}
     public LocalDateTime getDate() {return date;}
     public LocalDateTime getUpdate() {return update;}
+    public boolean getActive() {return active;}
 
     public void setIdx(int idx) {this.idx = idx;}
     public void setTopic(int topic) {this.topic = topic;}
@@ -77,6 +81,7 @@ public class BoardDto {
     public void setWriter(String writer) {this.writer = writer;}
     public void setDate(LocalDateTime date) {this.date = date;}
     public void setUpdate(LocalDateTime update) {this.update = update;}
+    public void setActive(boolean active) {this.active = active;}
 
     @Override
     public String toString() {

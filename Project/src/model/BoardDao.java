@@ -9,7 +9,7 @@ public class BoardDao extends Dao{
     // 싱글톤
     private static BoardDao boardDao = new BoardDao();
 
-    private BoardDao() {super();} // init end
+    private BoardDao() {} // init end
 
     public static BoardDao getInstance() {
         return boardDao;
@@ -68,16 +68,19 @@ public class BoardDao extends Dao{
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
-                String writer = rs.getString("board_writer"); // 작성자
+                int writer_fk=rs.getInt("member_idx");
+                // 참조키를 통해 작성자 가져올것
+                String writer = "sample";
                 Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
                 LocalDateTime date = dateTS.toLocalDateTime();
                 int status = rs.getInt("board_status"); // 완료여부
                 int version = rs.getInt("board_version"); // 수정차수
                 Timestamp updateTS = rs.getTimestamp("board_update"); // 수정일
                 LocalDateTime update = updateTS.toLocalDateTime();
+                boolean active=rs.getBoolean("in_active");
 
                 // 객체 생성하고 리스트에 저장
-                BoardDto boardDto = new BoardDto(idx, topic, title, content, writer, date, status, version, update);
+                BoardDto boardDto = new BoardDto(idx, topic, title, content, writer, date, status, version, update, active);
                 list.add(boardDto);
 
             } // while end

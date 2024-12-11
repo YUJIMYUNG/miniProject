@@ -25,8 +25,11 @@ public class BoardController {
 
     // 게시물 출력 제어 함수
     public ArrayList<BoardDto> boardPrint( ){
-        // 리스트 받아와서 반환
+        // 리스트 받아오기
         ArrayList<BoardDto> list = BoardDao.getInstance().boardPrint();
+
+        // 자릿수 넘어가면 조정하기
+
         return list;
     } // func end
 
