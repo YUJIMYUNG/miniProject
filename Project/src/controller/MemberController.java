@@ -5,6 +5,7 @@ import model.MemberDto;
 import view.MemberView;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MemberController {
@@ -13,16 +14,16 @@ public class MemberController {
     public static MemberController getInstance(){return memberController;};
 
     // 멤버 로그인 제어 함수
-    public boolean memberLogin(String member_email, String pwd){
+    public boolean memberLogin(String member_email, String member_pwd){
         if (member_email == null || member_email.isEmpty()){
             System.out.println("[이메일을 입력해주세요]");
             return false;
         }
-        if (pwd == null || pwd.isEmpty()){
+        if (member_pwd == null || member_pwd.isEmpty()){
             System.out.println("[비밀번호를 입력해주세요]");
             return false;
         }
-        MemberDto loginDto = new MemberDto(member_email, pwd);
+        MemberDto loginDto = new MemberDto(member_email, member_pwd);
         boolean loginSuccessful = MemberDao.getInstance().memberLogin(loginDto);
         if (!loginSuccessful) {
             System.out.println("[로그인 실패 : 아이디/비밀번호가 올바르지 않습니다.");
@@ -35,7 +36,8 @@ public class MemberController {
                                String member_phone, boolean In_active)
     {
         MemberDto memberDto = new MemberDto( member_name,member_email, pwd,
-                                        birthDate, member_phone,  In_active);
+                                        birthDate, member_phone, In_active);
+        memberDto.setMember_date(LocalDateTime.now());
         return MemberDao.getInstance().memberWrite(memberDto);
     }
 

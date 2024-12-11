@@ -4,6 +4,7 @@ import controller.MemberController;
 import model.MemberDto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,15 +35,29 @@ public class MemberView {
         }
     }
 
+    // 멤버 페이지
+    void memberPage(){
+        System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 : ");
+        int choose = scan.nextInt();
+        if (choose == 1){
+            memberPrint();
+        } else if (choose == 2) {
+            memberUpdate();
+        } else if (choose == 3) {
+            memberDelete();
+        }
+    }
+
     // 멤버 로그인 함수
     void memberLogin(){
         System.out.print("이메일 : ");
         String member_email = scan.next();
         System.out.print("비밀번호 : ");
-        String pwd = scan.next();
-        boolean result = MemberController.getInstance().memberLogin(member_email, pwd);
+        String member_pwd = scan.next();
+        boolean result = MemberController.getInstance().memberLogin(member_email, member_pwd);
         if (result){
             System.out.println("[로그인 성공]");
+            memberPage();
         }else {
             System.out.println("[로그인 실패]");
         }
@@ -57,13 +72,17 @@ public class MemberView {
         System.out.print("비밀번호 : ");
         String pwd = scan.next();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter birthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.print("생년월일(ex] 2001-11-11) : ");
-        String input = scan.next();
-        LocalDate birthdate = LocalDate.parse(input, formatter);
+        String birthInput = scan.next();
+        LocalDate birthdate = LocalDate.parse(birthInput, birthFormatter);
 
         System.out.print("전화번호 : "); String member_phone = scan.next();
-        System.out.println("활성:1/비활성:0 : "); boolean In_active = scan.nextBoolean();
+
+        System.out.print("활성:1/비활성:0 : ");
+        int booleanInput = scan.nextInt();
+        boolean In_active = (booleanInput == 1);
+
         boolean result = MemberController.getInstance().memberWrite(member_name, member_email, pwd, birthdate, member_phone, In_active);
         if (result){
             System.out.println("[회원 등록 성공]");

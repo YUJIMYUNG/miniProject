@@ -8,23 +8,23 @@ public class MemberDto {
     private int member_idx; //회원번호
     private String member_name; //회원이름
     private String member_email; //회원 이메일
-    private String pwd; //회원 비밀번호
+    private String member_pwd; //회원 비밀번호
     private LocalDate birthdate; // 회원 생년월일
     private String member_phone; // 회원 전화번호
     private LocalDateTime member_date; // 회원 등록일
     private boolean in_active; // 활성여부
 
     //생성자
-    public MemberDto(int member_idx, String member_name, String member_email, String pwd, LocalDate birthdate,
+    public MemberDto(int member_idx, String member_name, String member_email, String member_pwd, LocalDate birthdate,
                      String member_phone, LocalDateTime member_date, boolean in_active)
     {
         this.member_idx = member_idx;
         this.member_name = member_name;
         this.member_email = member_email;
-        this.pwd = pwd;
+        this.member_pwd = member_pwd;
         this.birthdate = birthdate;
         this.member_phone = member_phone;
-        this.member_date = member_date;
+        this.member_date = LocalDateTime.now();
         this.in_active = in_active;
     }
 
@@ -35,18 +35,18 @@ public class MemberDto {
     }
 
     // 로그인 생성
-    public MemberDto(String member_email, String pwd){
+    public MemberDto(String member_email, String member_pwd){
         this.member_email = member_email;
-        this.pwd = pwd;
+        this.member_pwd = member_pwd;
     }
 
 
     // 멤버 등록 생성
-    public MemberDto(String member_name, String member_email, String pwd, LocalDate birthdate,
-                     String member_phone, boolean in_active){
+    public MemberDto(String member_name, String member_email, String member_pwd, LocalDate birthdate,
+                     String member_phone,boolean in_active){
         this.member_name = member_name;
         this.member_email = member_email;
-        this.pwd = pwd;
+        this.member_pwd = member_pwd;
         this.birthdate = birthdate;
         this.member_phone = member_phone;
         this.in_active = in_active;
@@ -62,8 +62,8 @@ public class MemberDto {
     public String getMember_email() { return member_email;}
     public void setMember_email(String member_email) {this.member_email = member_email;}
 
-    public String getPwd() {return pwd;}
-    public void setPwd(String pwd) {this.pwd = pwd;}
+    public String getMember_pwd() {return member_pwd;}
+    public void setPwd(String pwd) {this.member_pwd = member_pwd;}
 
     public LocalDate getBirthdate() {return birthdate;}
     public void setBirthdate(LocalDate birthdate) {this.birthdate = birthdate;}
@@ -84,7 +84,7 @@ public class MemberDto {
                 "member_idx=" + member_idx +
                 ", member_name='" + member_name + '\'' +
                 ", member_email='" + member_email + '\'' +
-                ", pwd='" + pwd + '\'' +
+                ", member_pwd ='" + member_pwd + '\'' +
                 ", birthdate='" + birthdate + '\'' +
                 ", member_phone='" + member_phone + '\'' +
                 ", member_date='" + member_date + '\'' +

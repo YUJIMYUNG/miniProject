@@ -3,6 +3,8 @@ package model;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class MemberDao extends Dao {
 
@@ -15,19 +17,21 @@ public class MemberDao extends Dao {
     public boolean memberLogin(MemberDto loginDto){
         try {
             // sql 작성
-            String sql = "select* from members where member_email = ? and pwd = ? ";
+            String sql = "select* from member where member_email = ? and member_pwd = ? ";
             // sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             // 매개변수 값 대입
             ps.setString(1, loginDto.getMember_email());
-            ps.setString(2, loginDto.getPwd());
+            ps.setString(2, loginDto.getMember_pwd());
 
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
                     return true;
                 }
             }
-        } catch (SQLException e){e.getMessage();}
+        } catch (SQLException e){
+            System.out.println("[로그인 예외 발생]" + e.getMessage());
+        }
         return false;
     }
 
@@ -35,20 +39,28 @@ public class MemberDao extends Dao {
     public boolean memberWrite(MemberDto memberDto){
         try {
             // sql 작성
-            String sql = "insert into members(member_name, member_email, pwd, birthdate, member_phone, member_date, in_active)" +
+            String sql = "insert into member(member_name, member_email, member_pwd, birthdate, member_phone, member_date, in_active)" +
                     "values (?, ?, ?, ?, ?, ?, ?)";
             // sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             // 매개변수 값 대입
             ps.setString(1, memberDto.getMember_name());
             ps.setString(2, memberDto.getMember_email());
-            ps.setString(3, memberDto.getPwd());
+            ps.setString(3, memberDto.getMember_pwd());
 
-            LocalDate birthdate = LocalDate.parse(memberDto.getBirthdate());
+            String birthdateInput = String.valueOf(memberDto.getBirthdate());
+            LocalDate birthdate = LocalDate.parse(birthdateInput);
             ps.setDate(4, java.sql.Date.valueOf(birthdate));
 
             ps.setString(5, memberDto.getMember_phone());
-            ps.setTimestamp(6, java.sql.Timestamp.valueOf(memberDto.getMember_date()));
+
+            if (memberDto.getMember_date() != null) {
+                ps.setTimestamp(6, Timestamp.valueOf(memberDto.getMember_date()));
+            } else {
+                System.out.println("[Error] member_date is null, setting current time as default.");
+                ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
+            }
+
             ps.setBoolean(7, memberDto.isIn_active());
             // sql 실행
             ps.executeUpdate();
@@ -56,7 +68,7 @@ public class MemberDao extends Dao {
             return true;
         }catch (SQLException e){
             e.getMessage();
-            System.out.println("[멤버 등록 예외 발생]");
+            System.out.println("[멤버 등록 예외 발생 ]" + e.getMessage());
         }
         return false;
     }
@@ -67,7 +79,7 @@ public class MemberDao extends Dao {
         ArrayList<MemberDto> memberList = new ArrayList<>();
         try {
             // sql 작성
-            String sql = "select* from members";
+            String sql = "select* from member";
             // sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             // sql 실행
@@ -94,7 +106,7 @@ public class MemberDao extends Dao {
     public boolean memberDelete(int deleteNum){
         try {
             //sql 작성
-            String sql = "delete from members where num = ?";
+            String sql = "delete from member where num = ?";
             //sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             //sql 조작
