@@ -2,6 +2,7 @@ package model;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.sql.Timestamp;
@@ -57,7 +58,6 @@ public class MemberDao extends Dao {
             if (memberDto.getMember_date() != null) {
                 ps.setTimestamp(6, Timestamp.valueOf(memberDto.getMember_date()));
             } else {
-                System.out.println("[Error] member_date is null, setting current time as default.");
                 ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now()));
             }
 
@@ -91,12 +91,13 @@ public class MemberDao extends Dao {
                 String member_email = rs.getString("member_email");
                 LocalDate birthdate = rs.getDate("birthdate").toLocalDate();
                 String member_phone = rs.getString("member_phone");
-                Date member_date = rs.getDate("member_date");
+                LocalDateTime member_date = rs.getTimestamp("member_date").toLocalDateTime();
                 boolean in_active = rs.getBoolean("in_active");
+                MemberDto memberDto = new MemberDto(member_idx, member_name, member_email, birthdate, member_phone, member_date, in_active);
+                memberList.add(memberDto);
             }
         } catch (SQLException e){
-            e.getMessage();
-            System.out.println("[멤버 출력시 예외 발생]");
+            System.out.println("[멤버 출력시 예외 발생]" + e.getMessage());
         }
         // 멤버리스트 객체 반환
         return memberList;
