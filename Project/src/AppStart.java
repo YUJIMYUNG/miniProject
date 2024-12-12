@@ -5,6 +5,8 @@ import view.CommentView;
 import view.MemberView;
 import view.VoteView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AppStart {
@@ -20,7 +22,7 @@ public class AppStart {
             } else if (choose == 3) {
                 MemberView.getInstance().mainPage();
             } else if (choose == 4) {
-                VoteView.getInstance().VoteWrite();
+                VoteView.getInstance().VotePage(1);
             } else {
                 return;
             }

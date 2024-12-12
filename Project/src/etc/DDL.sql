@@ -112,10 +112,10 @@ INSERT INTO comment (member_idx, board_idx, comment_content)
 VALUES
 (1, 1, 'test용 댓글입니다. 수정이 필욜합니다.');
 
-INSERT INTO vote (vote_content, member_idx, vote_deadline, vote_status)
+INSERT INTO vote (vote_content, board_idx, member_idx, vote_deadline, vote_status)
 VALUES
-('연말 회식 날짜 투표', 1, '2024-12-20 18:00:00', true),
-('신규 프로젝트 우선순위 결정', 2, '2024-12-15 17:00:00', true),
-('사내 동호회 시간 선호도 조사', 3, '2024-12-25 12:00:00', true),
-('팀 워크숍 장소 선정', 4, '2024-12-18 15:00:00', true),
-('신년회 메뉴 선정', 5, '2024-12-30 18:00:00', true);
+('연말 회식 날짜 투표', 1, 1, '2024-12-20 18:00:00', true),
+('신규 프로젝트 우선순위 결정', 2, 2, '2024-12-15 17:00:00', true),
+('사내 동호회 시간 선호도 조사', 3, 3, '2024-12-25 12:00:00', true),
+('팀 워크숍 장소 선정', 4, 4, '2024-12-18 15:00:00', true),
+('신년회 메뉴 선정', 5, 5, '2024-12-30 18:00:00', true);

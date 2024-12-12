@@ -12,6 +12,7 @@ public class BoardDto {
     private String writer;
     private LocalDateTime date;
     private LocalDateTime update;
+    private boolean active;
 
     /*
     topic
@@ -21,10 +22,10 @@ public class BoardDto {
     1.완료 2.미완
     */
 
-    // 빈 생성자 - 안씀
+    // 빈 생성자
     public BoardDto(){}
 
-    // 게시물 작성 생성자
+    // boardWrite 생성자
     public BoardDto(int topic, String title, String content){
         this.topic = topic;
         this.title=title;
@@ -39,10 +40,38 @@ public class BoardDto {
         } // if end
 
         // 작성자 member에게서 받아오는거 작성해야함
+        writer="sample";
 
         date=LocalDateTime.now();
         update=LocalDateTime.now();
+        active=true;
     } // init end
+
+    // boardList 생성자
+    public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update, boolean active) {
+        this.idx=idx;
+        this.topic = topic;
+        this.title=title;
+        this.content=content;
+        this.writer=writer;
+        this.date=date;
+        this.status=status;
+        this.version=version;
+        this.update=update;
+        this.active=active;
+    } // init end
+
+    // boardPrint 생성자
+    public BoardDto(int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+        this.topic = topic;
+        this.title=title;
+        this.content=content;
+        this.writer=writer;
+        this.date=date;
+        this.status=status;
+        this.version=version;
+        this.update=update;
+    }
 
     public int getIdx() {return idx;}
     public int getTopic() {return topic;}
@@ -53,6 +82,7 @@ public class BoardDto {
     public String getWriter() {return writer;}
     public LocalDateTime getDate() {return date;}
     public LocalDateTime getUpdate() {return update;}
+    public boolean getActive() {return active;}
 
     public void setIdx(int idx) {this.idx = idx;}
     public void setTopic(int topic) {this.topic = topic;}
@@ -63,6 +93,7 @@ public class BoardDto {
     public void setWriter(String writer) {this.writer = writer;}
     public void setDate(LocalDateTime date) {this.date = date;}
     public void setUpdate(LocalDateTime update) {this.update = update;}
+    public void setActive(boolean active) {this.active = active;}
 
     @Override
     public String toString() {
