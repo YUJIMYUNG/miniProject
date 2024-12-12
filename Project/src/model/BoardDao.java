@@ -18,12 +18,12 @@ public class BoardDao extends Dao {
 
 
     // 게시물 DB 등록 함수
-    public boolean boardWrite(BoardDto boardDto) {
+    public int boardWrite(BoardDto boardDto) {
         try {
             // sql 작성
             String sql = "insert into board( board_topic, board_status, board_version, board_title, board_content, member_idx, board_date, board_update) " +
                     "values( ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // 멤버 인덱스에서 이름 가져와서 writer에 넣기
 
@@ -37,13 +37,18 @@ public class BoardDao extends Dao {
             // 멤버 인덱스에 임시 값 대입 - 멤버 인덱스 받아와야함
             ps.setInt(6, 1);
 
+
             Timestamp date = Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(7, date);
             Timestamp update = Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(8, update);
             ps.executeUpdate();
 
-            return true;
+            ResultSet rs=ps.getGeneratedKeys();
+            System.out.println(ps.getGeneratedKeys());
+            if(rs.next()){
+                return rs.getInt(1);
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -51,7 +56,7 @@ public class BoardDao extends Dao {
         } // try end
 
         // 예외 발생 시 false 전달
-        return false;
+        return -1;
     } // func end
 
     // 게시물 DB 불러오기 함수

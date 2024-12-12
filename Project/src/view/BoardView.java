@@ -65,9 +65,13 @@ public class BoardView {
         // 수정일은 수정함수에서 결정
 
         // 컨트롤러에 전달 후 이상 없을 시 true 반환
-        boolean result = BoardController.getInstance().boardWrite(topic, title, content);
+        int index = BoardController.getInstance().boardWrite(topic, title, content);
 
-        if (result) {
+        if(topic==3){
+
+        }
+
+        if (index!=-1) {
             System.out.println("게시물 등록 성공");
         } else {
             System.out.println("게시물 등록 실패");
