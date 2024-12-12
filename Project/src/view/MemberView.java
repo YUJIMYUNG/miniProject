@@ -35,6 +35,17 @@ public class MemberView {
         }
     }
 
+    // 기능 페이지
+    void functionPage(){
+        System.out.print("1.회원 기능 2.게시판 기능: ");
+        int choose = scan.nextInt();
+        if (choose == 1){
+            memberPage();
+        } else if (choose == 2) {
+            BoardView.getInstance().mainBoard();
+        }
+    }
+
     // 멤버 페이지
     void memberPage(){
         System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 : ");
@@ -57,7 +68,7 @@ public class MemberView {
         boolean result = MemberController.getInstance().memberLogin(member_email, member_pwd);
         if (result){
             System.out.println("[로그인 성공]");
-            memberPage();
+            functionPage();
         }else {
             System.out.println("[로그인 실패]");
         }
@@ -77,7 +88,7 @@ public class MemberView {
         String birthInput = scan.next();
         LocalDate birthdate = LocalDate.parse(birthInput, birthFormatter);
 
-        System.out.print("전화번호 : "); String member_phone = scan.next();
+        System.out.print("전화번호(ex] 010-0000-0000) : "); String member_phone = scan.next();
 
         System.out.print("활성:1/비활성:0 : ");
         int booleanInput = scan.nextInt();
