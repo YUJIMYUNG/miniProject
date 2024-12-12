@@ -3,11 +3,8 @@ package view;
 import controller.CommentController;
 import model.CommentDto;
 
-import javax.xml.stream.events.Comment;
-import java.sql.SQLOutput;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CommentView {
@@ -23,25 +20,35 @@ public class CommentView {
 
         while(true){
             // 댓글로 들어오면 전체 댓글 조회
-            System.out.println("================= COMMENT LIST ====================");
             commentPrint(board_idx);
 
             // 댓글 등록,수정, 삭제 기능 선택
             System.out.print("1.댓글 등록 2.댓글 수정 3.댓글 삭제 4.게시글로 이동 5.로그아웃  1~5 중 선택하세요 : ");
-            int choose = sc.nextInt();
+            try{
+                int choose = sc.nextInt();
 
-            if(choose == 1){
-                commentWrite(board_idx);
-            } else if(choose == 2){
-                commentUpdate();
-            } else if(choose == 3){
-                commentDelete();
-            } else if(choose ==4){
-                boardView.boardList();
-            } else if(choose == 5){
-                //로그아웃 - 메인페이지로
-                //memberView.mainpage();
-            }// if-else if end
+                if(choose == 1){
+                    commentWrite(board_idx);
+                } else if(choose == 2){
+                    commentUpdate();
+                } else if(choose == 3){
+                    commentDelete();
+                } else if(choose ==4){
+                    boardView.boardList();
+                    break;
+                } else if(choose == 5){
+                    //로그아웃 - 메인페이지로
+                    //memberView.mainpage();
+                    break;
+                } else{
+                    System.out.println("올바르지 않은 입력값입니다. 1~5번 중 선택하세요.");
+                    break;
+                }
+            }catch (InputMismatchException e){
+                e.getMessage();
+                System.out.println("올바르지 않은 입력값입니다. 1~5번 중 선택하세요.");
+                sc.nextLine();
+            }// try-catch end
         }//while end
     }// main end
 
@@ -49,6 +56,8 @@ public class CommentView {
     void commentPrint(int board_idx){
         // 객체 정보 요청
         ArrayList<CommentDto> result = CommentController.getInstance().commentPrint(board_idx);
+
+        System.out.println("================= COMMENT LIST ====================");
 
         // 해당 게시글에 댓글이 있으면 출력
         if(result != null){
@@ -65,6 +74,8 @@ public class CommentView {
 
     //2. 댓글 등록
     void commentWrite(int board_idx){
+        System.out.println("================= COMMENT WRITE ====================");
+
         // 1. 입력받기
         sc.nextLine();
 
@@ -93,11 +104,20 @@ public class CommentView {
 
     //3. 댓글 수정
     void commentUpdate() {
+        System.out.println("================= COMMENT UPDATE ====================");
+
         //1. 수정 댓글 번호 입력받기
         System.out.print("수정할 댓글의 번호를 입력하세요 : ");
         int updateCommentNum = sc.nextInt();
 
-        //2. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 추가
+        //2. 댓글 존재 여부 검증
+        boolean commentValue = CommentController.getInstance().commentExistsOrNot(updateCommentNum);
+        if(!commentValue){
+            System.out.println("존재하지 않는 댓글 번호입니다. 올바르게 입력해주세요.");
+            return;
+        }
+
+        //3. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 추가
         // int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
         int test = 1;//테스트용 로그인한 회원 번호
 
@@ -105,10 +125,10 @@ public class CommentView {
         System.out.print("수정할 댓글의 내용을 입력하세요 : ");
         String updateCommentContent = sc.nextLine();
 
-        //3. 수정 게시물 객체
+        //4. 수정 게시물 객체
         CommentDto updateCommentDto = new CommentDto(updateCommentNum, updateCommentContent);
 
-        //4. controller에 전달
+        //5. controller에 전달
         boolean result = CommentController.getInstance().commentUpdate(updateCommentDto, test);
 
         //경로 출력
@@ -121,16 +141,25 @@ public class CommentView {
 
     //4. 댓글 삭제
     void commentDelete(){
+        System.out.println("================= COMMENT DELETE ====================");
+
         //1. 삭제할 댓글 번호 입력받기
         sc.nextLine();
         System.out.print("삭제할 댓글 번호를 입력하세요. : ");
         int deleteCommentNum = sc.nextInt();
 
-        //2. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 - 로그인 회원번호 가져와야함
+        //2. 댓글 존재 여부 검증
+        boolean commentValue = CommentController.getInstance().commentExistsOrNot(deleteCommentNum);
+        if(!commentValue){
+            System.out.println("존재하지 않는 댓글 번호입니다. 올바르게 입력해주세요.");
+            return;
+        }
+
+        //3. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 - 로그인 회원번호 가져와야함
         // int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
         int test = 1;//테스트용
 
-        //3. 결과값 보내기
+        //4. 결과값 보내기
         boolean result = CommentController.getInstance().commentDelete(deleteCommentNum, test);
 
         //4.응답 결과를 출력

@@ -31,7 +31,7 @@ public class CommentController {
 
         //작성자가 맞으면 true 반환
         return CommentDao.getInstance().commentUpdate(updateCommentDto);
-    }
+    }//commentUpdate end
 
     //4. 댓글 삭제 함수
     public boolean commentDelete(int deleteCommentNum, int loginMemberIdx){
@@ -42,5 +42,10 @@ public class CommentController {
 
         //작성자가 맞으면 true 반환
         return CommentDao.getInstance().commentDelete(deleteCommentNum);
-    }
+    }// commentDelete end
+
+    //5. 댓글 존재 여부 검증 함수
+    public boolean commentExistsOrNot(int updateCommentNum){
+        return CommentDao.getInstance().commentExistsOrNot(updateCommentNum);
+    }// commentExistsOrNot end
 } //class end
