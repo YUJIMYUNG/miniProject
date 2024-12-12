@@ -180,13 +180,26 @@ public class BoardDao extends Dao {
 
     public boolean boardUpdateContent(int num, String updateData) {
         try {
+            String sql_status = "select board_version from board where board_idx = ?";
+            PreparedStatement ps_status = conn.prepareStatement(sql_status);
+            ps_status.setInt(1, num);
+            ResultSet rs = ps_status.executeQuery();
+
+            int version=0;
+            if(rs.next()){
+                version=rs.getInt("board_version");
+            }
+            // 수정차수 증가
+            version++;
+
             // sql 작성
-            String sql = "update board set board_content = ? where board_idx = ? ";
+            String sql = "update board set board_content = ?, board_version = ? where board_idx = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // sql에 매개변수 대입
             ps.setString(1, updateData);
-            ps.setInt(2, num);
+            ps.setInt(2, version);
+            ps.setInt(3, num);
 
             int result = ps.executeUpdate(); // 수정 후 변화가 있는 레코드 개수 반환
 

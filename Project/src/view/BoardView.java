@@ -18,11 +18,12 @@ public class BoardView {
     Scanner scan = new Scanner(System.in);
 
     public void mainBoard() {
+        int page=1;
         while (true) {
             // 게시물 목록 출력
-            boardList();
+            boardList(page);
 
-            System.out.println("1.게시물 작성 2.게시물 조회 3.다음 페이지");
+            System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지");
             System.out.print("작업 선택: ");
             int choose = scan.nextInt();
             System.out.println();
@@ -31,6 +32,15 @@ public class BoardView {
                 boardWrite();
             } else if (choose == 2) {
                 boardPrint();
+            } else if (choose==3) {
+                if(page==1){
+                    System.out.println("가장 앞 페이지 입니다.");
+                }
+                else{
+                    page--;
+                }
+            } else if (choose==4) {
+                page++;
             }
 
         }
@@ -64,54 +74,50 @@ public class BoardView {
         } // if end
     } // func end
 
-    void boardList() {
+    void boardList(int page) {
         ArrayList<BoardDto> list = BoardController.getInstance().boardList();
+        ArrayList<BoardDto> activeList=new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getActive()){
+                activeList.add(list.get(i));
+            }
+        }
+
         System.out.println("--------------공지--------------");
         // 공지 3개 출력하기 만들어야 함
         System.out.println("-----------게시물 목록-----------");
-        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-4s %-16s \n",
+        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
                 "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
         // 맨 뒤 인덱스부터 출력
         // 현재 10개밖에 출력 안됨 다음 페이지 만들어야 함
-        int count = 0;
-        for (int i = list.size() - 1; i >= 0; i--) {
-            count++;
-            if (count > 10) {
-                count = 0;
-                break;
-            }
-
-            // 삭제된 게시물이면 출력 안함
-            if (!list.get(i).getActive()) {
-                continue;
-            }
+        for (int i = page*10 -1; i >= 0; i--) {
 
             // topic 형태 변환
             String topic;
-            if (list.get(i).getTopic() == 1) {topic = "공지";}
-            else if (list.get(i).getTopic() == 2) {topic = "회의록";}
-            else if (list.get(i).getTopic() == 3) {topic = "투표";}
-            else if (list.get(i).getTopic() == 4) {topic = "토의";}
+            if (activeList.get(i).getTopic() == 1) {topic = "공지";}
+            else if (activeList.get(i).getTopic() == 2) {topic = "회의록";}
+            else if (activeList.get(i).getTopic() == 3) {topic = "투표";}
+            else if (activeList.get(i).getTopic() == 4) {topic = "토의";}
             else {topic = "기타";}
 
             // date, update 형태 변환
-            LocalDateTime date = list.get(i).getDate();
+            LocalDateTime date = activeList.get(i).getDate();
             String dateFormat = date.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
-            LocalDateTime update = list.get(i).getDate();
+            LocalDateTime update = activeList.get(i).getDate();
             String updateFormat = update.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
 
             // status 형태 변환
             String status;
-            if (list.get(i).getStatus() == 1) {status = "완료";}
+            if (activeList.get(i).getStatus() == 1) {status = "완료";}
             else {status = "미완";}
 
             // version 형태 변환
             String version;
-            if (list.get(i).getVersion() == 0) {version = "new";}
-            else {version = list.get(i).getVersion() + "차";}
+            if (activeList.get(i).getVersion() == 0) {version = "new";}
+            else {version = activeList.get(i).getVersion() + "차";}
 
             System.out.printf("%4d %-4s %-28s %-12s %-16s %-4s %-6s %-16s \n",
-                    list.get(i).getIdx(), topic, list.get(i).getTitle(), list.get(i).getWriter(), dateFormat, status, version, updateFormat);
+                    activeList.get(i).getIdx(), topic, activeList.get(i).getTitle(), activeList.get(i).getWriter(), dateFormat, status, version, updateFormat);
 
         } // for end
         System.out.println();

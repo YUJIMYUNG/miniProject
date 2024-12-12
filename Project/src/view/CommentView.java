@@ -37,7 +37,7 @@ public class CommentView {
             } else if(choose == 3){
                 commentDelete();
             } else if(choose ==4){
-                boardView.boardList();
+                boardView.mainBoard();
             } else if(choose == 5){
                 //로그아웃 - 메인페이지로
                 //memberView.mainpage();
