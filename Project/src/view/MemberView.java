@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.Scanner;
 
 public class MemberView {
@@ -86,14 +87,12 @@ public class MemberView {
         String member_email = scan.next();
         System.out.print("비밀번호 : ");
         String pwd = scan.next();
-
         DateTimeFormatter birthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.print("생년월일(ex] 2001-11-11) : ");
         String birthInput = scan.next();
         LocalDate birthdate = LocalDate.parse(birthInput, birthFormatter);
-
-        System.out.print("전화번호(ex] 010-0000-0000) : "); String member_phone = scan.next();
-
+        System.out.print("전화번호(ex] 010-0000-0000) : ");
+        String member_phone = scan.next();
         System.out.print("활성:1/비활성:0 : ");
         int booleanInput = scan.nextInt();
         boolean In_active = (booleanInput == 1);
