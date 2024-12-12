@@ -28,6 +28,19 @@ public class MemberDto {
         this.in_active = in_active;
     }
 
+    // 멤버 출력 생성
+    public MemberDto(int member_idx, String member_name, String member_email, LocalDate birthdate,
+                     String member_phone, LocalDateTime member_date, boolean in_active)
+    {
+        this.member_idx = member_idx;
+        this.member_name = member_name;
+        this.member_email = member_email;
+        this.birthdate = birthdate;
+        this.member_phone = member_phone;
+        this.member_date = member_date;
+        this.in_active = in_active;
+    }
+
     // 멤버 수정 생성
     public MemberDto(int updateNum, String updatePhone) {
         this.member_idx = updateNum;
