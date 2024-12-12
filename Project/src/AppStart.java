@@ -19,7 +19,7 @@ public class AppStart {
             } else if (choose == 3) {
 
             } else if (choose == 4) {
-                VoteView.getInstance().VoteWrite();
+                VoteView.getInstance().VotePage(1);
             } else {
                 return;
             }
