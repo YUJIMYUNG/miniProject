@@ -24,15 +24,15 @@ public class MemberView {
         System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
         System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
         System.out.println("                                                           |___/               ");
-        while (true) {
-            System.out.print("1.로그인 2.회원가입  : ");
-            int choose = scan.nextInt();
-            if (choose == 1){
-                memberLogin();
-            } else if (choose == 2) {
-                memberWrite();
-            }
+
+        System.out.print("1.로그인 2.회원가입  : ");
+        int choose = scan.nextInt();
+        if (choose == 1){
+            memberLogin();
+        } else if (choose == 2) {
+            memberWrite();
         }
+
     }
 
     // 기능 페이지
@@ -48,14 +48,18 @@ public class MemberView {
 
     // 멤버 페이지
     void memberPage(){
-        System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 : ");
-        int choose = scan.nextInt();
-        if (choose == 1){
-            memberPrint();
-        } else if (choose == 2) {
-            memberUpdate();
-        } else if (choose == 3) {
-            memberDelete();
+        while (true) {
+            System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 4.뒤로가기: ");
+            int choose = scan.nextInt();
+            if (choose == 1) {
+                memberPrint();
+            } else if (choose == 2) {
+                memberUpdate();
+            } else if (choose == 3) {
+                memberDelete();
+            } else if (choose == 4) {
+                return;
+            }
         }
     }
 

@@ -109,7 +109,7 @@ public class MemberDao extends Dao {
     public boolean memberDelete(int deleteNum){
         try {
             //sql 작성
-            String sql = "delete from member where num = ?";
+            String sql = "delete from member where member_idx = ?";
             //sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             //sql 조작
@@ -121,7 +121,7 @@ public class MemberDao extends Dao {
                 return true;
             }
         }catch (SQLException e){
-            e.getMessage();
+            System.out.println("[멤버 삭제 예외 발생]" + e.getMessage());
         }
         return false;
     }
