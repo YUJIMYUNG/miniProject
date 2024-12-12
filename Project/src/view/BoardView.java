@@ -67,11 +67,12 @@ public class BoardView {
     void boardList() {
         ArrayList<BoardDto> list = BoardController.getInstance().boardList();
         System.out.println("--------------공지--------------");
-        //
+        // 공지 3개 출력하기 만들어야 함
         System.out.println("-----------게시물 목록-----------");
         System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-4s %-16s \n",
                 "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
         // 맨 뒤 인덱스부터 출력
+        // 현재 10개밖에 출력 안됨 다음 페이지 만들어야 함
         int count = 0;
         for (int i = list.size() - 1; i >= 0; i--) {
             count++;

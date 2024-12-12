@@ -140,7 +140,7 @@ public class BoardDao extends Dao {
     public boolean boardDelete(int deleteNum) {
         try {
             // sql 작성
-            String sql = "delete from board where board_idx = ? ";
+            String sql = "update board set in_active = false where board_idx = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, deleteNum);
 
