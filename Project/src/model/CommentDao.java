@@ -178,4 +178,27 @@ public class CommentDao extends Dao{
         return false;
     }// commentAuthor end
 
+    //수정or삭제 하려는 댓글이 존재하는지 여부를 검증하는 함수
+    public boolean commentExistsOrNot(int updateCommentNum){
+        try{
+            //1. sql 작성
+            String sql = "select comment_idx from comment where comment_idx = ?";
+
+            //2.
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, updateCommentNum);
+
+            ResultSet rs = ps.executeQuery();
+
+            //3. 번호 있으면 true반환
+            return rs.next();
+
+        } catch (SQLException e){
+            e.getMessage();
+            e.printStackTrace();
+            System.out.println("댓글 작성자 검증 중 예외 발생");
+        }
+        return false;
+    }// commentExistsOrNot end
+
 }// class end
