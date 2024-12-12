@@ -130,9 +130,9 @@ public class MemberView {
 
     // 멤버 수정 함수
     void memberUpdate(){
-        System.out.println("수정할 회원 번호 : ");
+        System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
-        System.out.println("수정할 전화번호 : ");
+        System.out.print("수정할 전화번호 : ");
         String updatePhone = scan.next();
         MemberDto updateDto  = new MemberDto(updateNum, updatePhone);
         boolean result = MemberController.getInstance().memberUpdate(updateDto);
