@@ -21,11 +21,16 @@ public class VoteView {
     Scanner scanner = new Scanner(System.in); // 스캐너 입력 객체
 
     /// 1. 투표 생성 함수
-    public void VoteWrite() {
+    public void VoteWrite(int board_idx) {
 
         // 투표 내용 입력
         System.out.print("투표 내용 입력 : ");
         String vote_content = scanner.nextLine();
+
+
+        // 투표를 생성한 작성한 작성자의 작성자 번호 가져오기
+        //int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        int lmiDemo = 1;
 
         // 투표 마감 날짜 입력
         System.out.print("투표 마감 날짜 입력(YYYY-MM-DD HH:mm) : ");
@@ -55,7 +60,7 @@ public class VoteView {
                 System.out.println(votedtos_choices.get(i));
             }
         // 투표 내용과 선택지를 저장한 객체를 컨트롤러로 보내고 결과 수신
-        boolean result = VoteController.getInstance().VoteWrite(vote_content,deadLine,votedtos_choices);
+        boolean result = VoteController.getInstance().VoteWrite(vote_content,board_idx,lmiDemo,deadLine,votedtos_choices);
         if (result) {
             System.out.println("투표 작성 성공");
         } else {
@@ -64,12 +69,40 @@ public class VoteView {
     } // VoteWrite ed
 
     // 2. 투표 조회 함수
-//    public void VotePage(int board_idx) {
-//        ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
-//
-//        System.out.println();
-//    }
+    public void VotePage(int board_idx) {
+        // 객체 요청
+        ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
 
+        // 결과 조회
+        System.out.println("====================");
+        System.out.println(result.get(board_idx).getVote_content());
+        System.out.println("작성자 : " + result.get(board_idx).getMember_name());
+        System.out.println("마감날짜 : " + result.get(board_idx).getVote_deadline());
+        System.out.println("====================");
+        for(int i = 0; i < result.size(); i++) {
+            System.out.println((i+1)+"."+result.get(i).getChoice()+"\t득표수 : "+result.get(i).getVote_count());
+        } // for ed
+        while(true) {
+            System.out.print("1. 투표하기 2. 뒤로가기 : ");
+            int choose = scanner.nextInt();
+            if (choose == 1) {
+                System.out.print("투표할 선택지를 작성하기 : ");
+                scanner.nextLine();
+                String str = scanner.nextLine();
+                voteView.VoteUpdate(str);
+                break;
+            } else if (choose == 2) {
+                break;
+            } else {
+                System.out.println("유효하지 않은 입력입니다.");
+            } // if else ed
+        } // while ed
+    } // VotePage ed
+
+    public void VoteUpdate(String str) {
+        VoteController.getInstance().VoteUpdate(str);
+        System.out.println("투표 완료");
+    }
 
 } // VoteView ed
 

@@ -4,7 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class VoteDao extends Dao{
 
@@ -17,10 +20,12 @@ public class VoteDao extends Dao{
     /// 1.투표 작성 함수
     public boolean VoteWrite(VoteDto voteDto) {
         try {
-            String sql = "insert into vote(vote_content,vote_deadline) values(?,?)"; // SQL 작성
+            String sql = "insert into vote(vote_content,board_idx,member_idx,vote_deadline) values(?,?,?,?)"; // SQL 작성
             PreparedStatement ps = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS); // SQL 기재 준비 및 ps 에 자동생성된 키 반환
             ps.setString(1,voteDto.getVote_content());
-            ps.setTimestamp(2,java.sql.Timestamp.valueOf(voteDto.getVote_deadline()));
+            ps.setInt(2,voteDto.getBoard_idx());
+            ps.setInt(3,voteDto.getMember_idx());
+            ps.setTimestamp(4,java.sql.Timestamp.valueOf(voteDto.getVote_deadline()));
             ps.executeUpdate(); // SQL 실행
 
             // 생성된 vote_idx 가져오기
@@ -45,5 +50,56 @@ public class VoteDao extends Dao{
     } // VoteWrite ed
 
     /// 2.투표 조회 및 투표 함수
-    //public ArrayList<VoteDto> VotePage(int board_idx) {}
+    public ArrayList<VoteDto> VotePage(int board_idx) {
+        ArrayList<VoteDto> voteList = new ArrayList<>(); // 투표 내용을 담을 리스트
+
+        try {
+            String sql = "SELECT v.vote_content,m.member_name,v.vote_deadline,vc.vote_choice,vc.vote_count " +
+                    "FROM vote v JOIN member m ON v.member_idx = m.member_idx " +
+                    "JOIN votecount vc ON v.vote_idx = vc.vote_idx " +
+                    "WHERE v.board_idx = ?;";
+
+
+            PreparedStatement ps = conn.prepareStatement(sql); // sql 기재
+
+            // SQL 조작, 실행
+            ps.setInt(1, board_idx);
+            ResultSet rs = ps.executeQuery();
+
+            // SQL 결과 변수에 초기화
+            while (rs.next()) {
+                String vote_content = rs.getString("vote_content"); // 투표 내용
+                String member_name = rs.getString("member_name"); // 투표 작성자
+                LocalDateTime vote_deadline = rs.getTimestamp("vote_deadline").toLocalDateTime();
+                String vote_choice = rs.getString("vote_choice"); // 투표 선택지
+                int vote_count = rs.getInt("vote_count"); // 득표 수
+
+                // 호출된 값들 객체화
+                VoteDto voteDto = new VoteDto(vote_content,board_idx,member_name,vote_deadline,
+                                                                    vote_choice,vote_count);
+                // System.out.println(voteDto.getVote_content());
+                // System.out.println(voteDto.getVote_deadline());
+                voteList.add(voteDto); // 반복문 1번당 레코드 1개 저장
+            } // while ed
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } // try catch ed
+        return voteList;
+    } // VotePage ed
+
+    /// 3. 투표 업데이트 함수
+    public boolean VoteUpdate(String str) {
+        try {
+            String sql = "UPDATE votecount SET vote_count =  vote_count + 1 " +
+                    "WHERE vote_choice = ?;"; // SQL 준비
+
+            PreparedStatement ps = conn.prepareStatement(sql); // SQL 기재 준비
+            ps.setString(1,str);
+            ps.executeUpdate(); // SQL 실행
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 } // VoteDao ed
