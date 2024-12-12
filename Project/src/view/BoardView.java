@@ -169,7 +169,7 @@ public class BoardView {
         System.out.println();
 
         if(choose==1){
-
+            CommentView.getInstance().mainPage(num);
         } else if (choose==2) {
             boardUpdate(num);
         } else if (choose==3) {
