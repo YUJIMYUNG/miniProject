@@ -22,10 +22,10 @@ public class BoardDto {
     1.완료 2.미완
     */
 
-    // 빈 생성자 - 안씀
+    // 빈 생성자
     public BoardDto(){}
 
-    // 게시물 작성 생성자
+    // boardWrite 생성자
     public BoardDto(int topic, String title, String content){
         this.topic = topic;
         this.title=title;
@@ -47,7 +47,7 @@ public class BoardDto {
         active=true;
     } // init end
 
-    // SQL에서 불러오는 생성자
+    // boardList 생성자
     public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update, boolean active) {
         this.idx=idx;
         this.topic = topic;
@@ -60,6 +60,18 @@ public class BoardDto {
         this.update=update;
         this.active=active;
     } // init end
+
+    // boardPrint 생성자
+    public BoardDto(int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+        this.topic = topic;
+        this.title=title;
+        this.content=content;
+        this.writer=writer;
+        this.date=date;
+        this.status=status;
+        this.version=version;
+        this.update=update;
+    }
 
     public int getIdx() {return idx;}
     public int getTopic() {return topic;}

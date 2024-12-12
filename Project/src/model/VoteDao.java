@@ -45,9 +45,5 @@ public class VoteDao extends Dao{
     } // VoteWrite ed
 
     /// 2.투표 조회 및 투표 함수
-    public ArrayList<VoteDto> VotePage(int board_idx) {
-        try {
-
-        }
-    }
+    //public ArrayList<VoteDto> VotePage(int board_idx) {}
 } // VoteDao ed

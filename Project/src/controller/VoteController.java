@@ -24,8 +24,8 @@ public class VoteController {
     }
 
     /// 2.투표 조회 및 투표 함수
-    public ArrayList<VoteDto> VotePage(int board_idx) {
-        ArrayList<VoteDto> result = VoteDao.getInstance().VotePage(board_idx);
-
-    }
+//    public ArrayList<VoteDto> VotePage(int board_idx) {
+//        ArrayList<VoteDto> result = VoteDao.getInstance().VotePage(board_idx);
+//
+//    }
 } // VoteController ed
