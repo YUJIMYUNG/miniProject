@@ -25,6 +25,7 @@ public class MemberView {
         System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
         System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
         System.out.println("                                                           |___/               ");
+        System.out.println("------------------------------------------------------------------------------");
 
         System.out.print("1.로그인 2.회원가입  : ");
         int choose = scan.nextInt();
@@ -38,6 +39,7 @@ public class MemberView {
 
     // 기능 페이지
     void functionPage(){
+        System.out.println("=================function=================");
         System.out.print("1.회원 기능 2.게시판 기능: ");
         int choose = scan.nextInt();
         if (choose == 1){
@@ -50,6 +52,7 @@ public class MemberView {
     // 멤버 페이지
     void memberPage(){
         while (true) {
+            System.out.println("=================Member page=================");
             System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 4.뒤로가기: ");
             int choose = scan.nextInt();
             if (choose == 1) {
@@ -66,6 +69,7 @@ public class MemberView {
 
     // 멤버 로그인 함수
     void memberLogin(){
+        System.out.println("=================Login=================");
         System.out.print("이메일 : ");
         String member_email = scan.next();
         System.out.print("비밀번호 : ");
@@ -81,6 +85,7 @@ public class MemberView {
 
     // 멤버 등록 함수
     void memberWrite(){
+        System.out.println("=================Register=================");
         System.out.print("이름 : ");
         String member_name = scan.next();
         System.out.print("이메일 : ");
