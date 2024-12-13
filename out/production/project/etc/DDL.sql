@@ -37,7 +37,7 @@ drop table comment;
 drop table vote;
 drop table board;
 
-select * from board where topic = 3; 
+select * from board;
 
 # 댓글 테이블
 create table if not exists comment(

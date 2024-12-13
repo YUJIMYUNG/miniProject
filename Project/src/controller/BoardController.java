@@ -2,6 +2,7 @@ package controller;
 
 import model.BoardDao;
 import model.BoardDto;
+import model.CommentDao;
 
 import java.util.ArrayList;
 
@@ -80,5 +81,15 @@ public class BoardController {
         // 수정 성공 시 true 반환
         return result;
     } // func end
+
+    public boolean boardCheckWriter(int boardIdx, int memberIdx){
+        // 작성자 본인의 게시글이면 true, 아니면 false 반환
+        if(BoardDao.getInstance().boardCheckWriter(boardIdx, memberIdx)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 } // class end
