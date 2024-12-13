@@ -68,7 +68,8 @@ public class BoardView {
         int index = BoardController.getInstance().boardWrite(topic, title, content);
 
         if(topic==3){
-
+            System.out.println("인덱스"+ index+ "번임");
+            VoteView.getInstance().VoteWrite(index);
         }
 
         if (index!=-1) {
@@ -172,6 +173,11 @@ public class BoardView {
         }
         System.out.println();
         System.out.println(board.getContent());
+
+        if(board.getTopic()==3){
+            VoteView.getInstance().VotePage(board.getIdx());
+        }
+
         System.out.println();
 
         // 추가 작업
