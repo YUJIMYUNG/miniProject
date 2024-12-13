@@ -6,6 +6,7 @@ import model.MemberDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
@@ -88,16 +89,37 @@ public class MemberView {
         System.out.println("=================Register=================");
         System.out.print("이름 : ");
         String member_name = scan.next();
-        System.out.print("이메일 : ");
+        System.out.print("이메일(ex]abc123@domain.com: ");
         String member_email = scan.next();
         System.out.print("비밀번호 : ");
         String pwd = scan.next();
+
         DateTimeFormatter birthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        System.out.print("생년월일(ex] 2001-11-11) : ");
-        String birthInput = scan.next();
-        LocalDate birthdate = LocalDate.parse(birthInput, birthFormatter);
-        System.out.print("전화번호(ex] 010-0000-0000) : ");
-        String member_phone = scan.next();
+        LocalDate birthdate = null;
+        boolean validBirthdate = false;
+
+        while (!validBirthdate){
+            try {
+                System.out.print("생년월일(ex] 2001-11-11) : ");
+                String birthInput = scan.next();
+                birthdate = LocalDate.parse(birthInput, birthFormatter);
+                validBirthdate = true;
+            } catch (DateTimeParseException e){
+                System.out.println("[잘못된 형식입니다. 다시 입력해주세요]");
+            }
+        }
+
+        String member_phone = null;
+        boolean validPhone = false;
+        while (!validPhone){
+            System.out.print("전화번호(ex] 010-0000-0000) : ");
+            member_phone = scan.next();
+            if (member_phone.matches("\\d{3}-\\d{4}-\\d{4}")){
+                validPhone = true;
+            } else {
+                System.out.println("[잘못된 형식입니다. 다시 입력해주세요]");
+            }
+        }
         System.out.print("활성:1/비활성:0 : ");
         int booleanInput = scan.nextInt();
         boolean In_active = (booleanInput == 1);
@@ -140,9 +162,14 @@ public class MemberView {
     void memberUpdate(){
         System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
+        System.out.print("수정할 비밀번호 : ");
+        String update_pwd = scan.next();
         System.out.print("수정할 전화번호 : ");
         String updatePhone = scan.next();
-        MemberDto updateDto  = new MemberDto(updateNum, updatePhone);
+        System.out.print("활성 수정(활성:1/비활성:0) : ");
+        int booleanInput = scan.nextInt();
+        boolean update_active = (booleanInput == 1);
+        MemberDto updateDto  = new MemberDto(updateNum, update_pwd, updatePhone, update_active);
         boolean result = MemberController.getInstance().memberUpdate(updateDto);
         if (result) {
             System.out.println("[회원 수정 성공]");

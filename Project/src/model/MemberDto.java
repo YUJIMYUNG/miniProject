@@ -42,9 +42,11 @@ public class MemberDto {
     }
 
     // 멤버 수정 생성
-    public MemberDto(int updateNum, String updatePhone) {
+    public MemberDto(int updateNum, String update_pwd, String updatePhone, boolean update_active) {
         this.member_idx = updateNum;
+        this.member_pwd = update_pwd;
         this.member_phone = updatePhone;
+        this.in_active = update_active;
     }
 
     // 로그인 생성
