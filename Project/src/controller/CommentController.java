@@ -25,7 +25,7 @@ public class CommentController {
     //3. 댓글 수정 함수
     public boolean commentUpdate(CommentDto updateCommentDto, int loginMemberIdx){
         //1.  댓글 작성자 검증
-        if(!CommentDao.getInstance().comentAuthor(updateCommentDto.getComment_idx(), loginMemberIdx)){
+        if(!CommentDao.getInstance().commentAuthor(updateCommentDto.getComment_idx(), loginMemberIdx)){
             return false;
         }// if end
 
@@ -36,7 +36,7 @@ public class CommentController {
     //4. 댓글 삭제 함수
     public boolean commentDelete(int deleteCommentNum, int loginMemberIdx){
         //1. 댓글 작성자 검증
-        if(!CommentDao.getInstance().comentAuthor(deleteCommentNum, loginMemberIdx)){
+        if(!CommentDao.getInstance().commentAuthor(deleteCommentNum, loginMemberIdx)){
             return false;
         }// if end
 

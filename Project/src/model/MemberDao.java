@@ -49,12 +49,14 @@ public class MemberDao extends Dao {
             ps.setString(2, memberDto.getMember_email());
             ps.setString(3, memberDto.getMember_pwd());
 
+            // birthdate 입력받고 변환
             String birthdateInput = String.valueOf(memberDto.getBirthdate());
             LocalDate birthdate = LocalDate.parse(birthdateInput);
             ps.setDate(4, java.sql.Date.valueOf(birthdate));
 
             ps.setString(5, memberDto.getMember_phone());
 
+            // member_date가 null일 때 현시각 반환
             if (memberDto.getMember_date() != null) {
                 ps.setTimestamp(6, Timestamp.valueOf(memberDto.getMember_date()));
             } else {
@@ -107,7 +109,7 @@ public class MemberDao extends Dao {
     public boolean memberDelete(int deleteNum){
         try {
             //sql 작성
-            String sql = "delete from member where num = ?";
+            String sql = "delete from member where member_idx = ?";
             //sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             //sql 조작
@@ -119,7 +121,7 @@ public class MemberDao extends Dao {
                 return true;
             }
         }catch (SQLException e){
-            e.getMessage();
+            System.out.println("[멤버 삭제 예외 발생]" + e.getMessage());
         }
         return false;
     }
