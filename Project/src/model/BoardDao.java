@@ -113,6 +113,7 @@ public class BoardDao extends Dao {
 
             if (rs.next()) {
                 // 필드별 데이터 호출
+                int index=rs.getInt("board_idx");
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
@@ -129,7 +130,7 @@ public class BoardDao extends Dao {
                 LocalDateTime update = updateTS.toLocalDateTime();
 
                 // 객체 생성하고 리스트에 저장
-                boardDto = new BoardDto(topic, title, content, writer, date, status, version, update);
+                boardDto = new BoardDto(index, topic, title, content, writer, date, status, version, update);
             } else {
                 System.out.println("[게시물이 존재하지 않습니다]");
             } // if end
