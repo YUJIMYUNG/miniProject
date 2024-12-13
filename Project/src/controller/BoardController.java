@@ -26,7 +26,7 @@ public class BoardController {
         return BoardDao.getInstance().boardWrite(boardDto);
     } // func end
 
-    // 게시물 출력 제어 함수
+    // 게시물 목록 출력 제어 함수
     public ArrayList<BoardDto> boardList() {
         // 리스트 받아오기
         ArrayList<BoardDto> list = BoardDao.getInstance().boardList();
@@ -36,6 +36,16 @@ public class BoardController {
         return list;
     } // func end
 
+    // 공지 목록 출력 제어 함수
+    public ArrayList<BoardDto> boardListNotice() {
+        // 리스트 받아오기
+        ArrayList<BoardDto> list = BoardDao.getInstance().boardListNotice();
+
+
+        return list;
+    }
+
+    // 게시물 세부 출력 제어 함수
     public BoardDto boardPrint(int num) {
         // 게시물 객체 받아오기
         BoardDto board = BoardDao.getInstance().boardPrint(num);
@@ -70,4 +80,5 @@ public class BoardController {
         // 수정 성공 시 true 반환
         return result;
     } // func end
+
 } // class end

@@ -21,6 +21,7 @@ public class BoardView {
         int page=1;
         while (true) {
             // 게시물 목록 출력
+            boardListNotice();
             boardList(page);
 
             System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지");
@@ -90,11 +91,10 @@ public class BoardView {
             }
         }
 
-        System.out.println("--------------공지--------------");
-        // 공지 3개 출력하기 만들어야 함
-        System.out.println("-----------게시물 목록-----------");
-        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
-                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
+        System.out.println("-----------------게시물 목록-----------------");
+//        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
+//                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
+
         // 맨 뒤 인덱스부터 출력
         for (int i = page*10 -1; i >= page*10-10; i--) {
             if(i>=activeList.size()){
@@ -131,6 +131,48 @@ public class BoardView {
         } // for end
         System.out.println();
     } // func end
+
+    void boardListNotice(){
+        ArrayList<BoardDto> list = BoardController.getInstance().boardListNotice();
+        ArrayList<BoardDto> activeList=new ArrayList<>();
+        // 활성화 게시글만 새로운 리스트에 담기
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getActive()){
+                activeList.add(list.get(i));
+            }
+        }
+
+        System.out.println("--------------------공지--------------------");
+        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
+                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
+        // 맨 뒤 인덱스부터 출력
+        for (int i = activeList.size()-1; i >= activeList.size()-3; i--) {
+            if (i < 0) break;
+            // topic 형태 변환
+            String topic = "공지";
+
+            // date, update 형태 변환
+            LocalDateTime date = activeList.get(i).getDate();
+            String dateFormat = date.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+            LocalDateTime update = activeList.get(i).getDate();
+            String updateFormat = update.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+
+            // status 형태 변환
+            String status;
+            if (activeList.get(i).getStatus() == 1) {status = "완료";}
+            else {status = "미완";}
+
+            // version 형태 변환
+            String version;
+            if (activeList.get(i).getVersion() == 0) {version = "new";}
+            else {version = activeList.get(i).getVersion() + "차";}
+
+            // 출력
+            System.out.printf("%4d %-4s %-28s %-12s %-16s %-4s %-6s %-16s \n",
+                    activeList.get(i).getIdx(), topic, activeList.get(i).getTitle(), activeList.get(i).getWriter(), dateFormat, status, version, updateFormat);
+
+        } // for end
+    }
 
     // 게시물 출력 함수
     void boardPrint() {
