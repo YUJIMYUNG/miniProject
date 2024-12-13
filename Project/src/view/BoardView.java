@@ -70,7 +70,6 @@ public class BoardView {
 
         // 게시글 작성시 투표면은 투표작성 함수 접근
         if(topic==3){
-            System.out.println("인덱스"+ index+ "번임");
             VoteView.getInstance().VoteWrite(index);
         }
 

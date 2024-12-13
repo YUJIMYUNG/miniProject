@@ -32,12 +32,12 @@ board_date datetime,
 board_update datetime,
 in_active boolean default true
 );
-/*
+
 drop table comment;
 drop table vote;
 drop table board;
-*/
-select * from board;
+
+select * from board where topic = 3; 
 
 # 댓글 테이블
 create table if not exists comment(

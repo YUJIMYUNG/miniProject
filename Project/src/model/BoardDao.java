@@ -45,7 +45,6 @@ public class BoardDao extends Dao {
             ps.executeUpdate();
 
             ResultSet rs=ps.getGeneratedKeys();
-            System.out.println(ps.getGeneratedKeys());
             if(rs.next()){
                 return rs.getInt(1);
             }
@@ -108,7 +107,7 @@ public class BoardDao extends Dao {
 
         try {
             // sql 작성, 실행 후 결과를 rs에 저장
-            String sql = "select * from board where board_topic = 3";
+            String sql = "select * from board where board_topic = 1";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
