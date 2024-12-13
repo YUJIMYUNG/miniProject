@@ -94,8 +94,10 @@ public class BoardView {
                 "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
         // 맨 뒤 인덱스부터 출력
         // 현재 10개밖에 출력 안됨 다음 페이지 만들어야 함
-        for (int i = page*10 -1; i >= 0; i--) {
-
+        for (int i = page*10 -1; i >= page*10-10; i--) {
+            if(i>=activeList.size()){
+                continue;
+            }
             // topic 형태 변환
             String topic;
             if (activeList.get(i).getTopic() == 1) {topic = "공지";}
