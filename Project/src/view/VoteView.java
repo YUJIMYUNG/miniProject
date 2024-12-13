@@ -75,9 +75,9 @@ public class VoteView {
 
         // 결과 조회
         System.out.println("====================");
-        System.out.println(result.get(board_idx).getVote_content());
-        System.out.println("작성자 : " + result.get(board_idx).getMember_name());
-        System.out.println("마감날짜 : " + result.get(board_idx).getVote_deadline());
+        System.out.println(result.get(0).getVote_content());
+        System.out.println("작성자 : " + result.get(0).getMember_name());
+        System.out.println("마감날짜 : " + result.get(0).getVote_deadline());
         System.out.println("====================");
         for(int i = 0; i < result.size(); i++) {
             System.out.println((i+1)+"."+result.get(i).getChoice()+"\t득표수 : "+result.get(i).getVote_count());
