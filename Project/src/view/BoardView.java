@@ -21,6 +21,7 @@ public class BoardView {
         int page=1;
         while (true) {
             // 게시물 목록 출력
+            boardListNotice();
             boardList(page);
 
             System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지");
@@ -64,10 +65,16 @@ public class BoardView {
         // 작성일은 생성자에서 결정
         // 수정일은 수정함수에서 결정
 
-        // 컨트롤러에 전달 후 이상 없을 시 true 반환
-        boolean result = BoardController.getInstance().boardWrite(topic, title, content);
+        // 컨트롤러에 전달 후 만들어진 게시글의 인덱스 반환
+        int index = BoardController.getInstance().boardWrite(topic, title, content);
 
-        if (result) {
+        // 게시글 작성시 투표면은 투표작성 함수 접근
+        if(topic==3){
+            System.out.println("인덱스"+ index+ "번임");
+            VoteView.getInstance().VoteWrite(index);
+        }
+
+        if (index!=-1) {
             System.out.println("게시물 등록 성공");
         } else {
             System.out.println("게시물 등록 실패");
@@ -77,21 +84,22 @@ public class BoardView {
     void boardList(int page) {
         ArrayList<BoardDto> list = BoardController.getInstance().boardList();
         ArrayList<BoardDto> activeList=new ArrayList<>();
+        // 활성화 게시글만 새로운 리스트에 담기
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i).getActive()){
                 activeList.add(list.get(i));
             }
         }
 
-        System.out.println("--------------공지--------------");
-        // 공지 3개 출력하기 만들어야 함
-        System.out.println("-----------게시물 목록-----------");
-        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
-                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
-        // 맨 뒤 인덱스부터 출력
-        // 현재 10개밖에 출력 안됨 다음 페이지 만들어야 함
-        for (int i = page*10 -1; i >= 0; i--) {
+        System.out.println("-----------------게시물 목록-----------------");
+//        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
+//                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
 
+        // 맨 뒤 인덱스부터 출력
+        for (int i = page*10 -1; i >= page*10-10; i--) {
+            if(i>=activeList.size()){
+                continue;
+            }
             // topic 형태 변환
             String topic;
             if (activeList.get(i).getTopic() == 1) {topic = "공지";}
@@ -116,12 +124,55 @@ public class BoardView {
             if (activeList.get(i).getVersion() == 0) {version = "new";}
             else {version = activeList.get(i).getVersion() + "차";}
 
+            // 출력
             System.out.printf("%4d %-4s %-28s %-12s %-16s %-4s %-6s %-16s \n",
                     activeList.get(i).getIdx(), topic, activeList.get(i).getTitle(), activeList.get(i).getWriter(), dateFormat, status, version, updateFormat);
 
         } // for end
         System.out.println();
     } // func end
+
+    void boardListNotice(){
+        ArrayList<BoardDto> list = BoardController.getInstance().boardListNotice();
+        ArrayList<BoardDto> activeList=new ArrayList<>();
+        // 활성화 게시글만 새로운 리스트에 담기
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getActive()){
+                activeList.add(list.get(i));
+            }
+        }
+
+        System.out.println("--------------------공지--------------------");
+        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
+                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
+        // 맨 뒤 인덱스부터 출력
+        for (int i = activeList.size()-1; i >= activeList.size()-3; i--) {
+            if (i < 0) break;
+            // topic 형태 변환
+            String topic = "공지";
+
+            // date, update 형태 변환
+            LocalDateTime date = activeList.get(i).getDate();
+            String dateFormat = date.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+            LocalDateTime update = activeList.get(i).getDate();
+            String updateFormat = update.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
+
+            // status 형태 변환
+            String status;
+            if (activeList.get(i).getStatus() == 1) {status = "완료";}
+            else {status = "미완";}
+
+            // version 형태 변환
+            String version;
+            if (activeList.get(i).getVersion() == 0) {version = "new";}
+            else {version = activeList.get(i).getVersion() + "차";}
+
+            // 출력
+            System.out.printf("%4d %-4s %-28s %-12s %-16s %-4s %-6s %-16s \n",
+                    activeList.get(i).getIdx(), topic, activeList.get(i).getTitle(), activeList.get(i).getWriter(), dateFormat, status, version, updateFormat);
+
+        } // for end
+    }
 
     // 게시물 출력 함수
     void boardPrint() {
@@ -159,13 +210,19 @@ public class BoardView {
         System.out.print("작성자: " + board.getWriter());
         System.out.println("  작성일: " + dateFormat);
         System.out.print("상태: " + status);
-
         if(board.getVersion()!=0){
             System.out.print("  수정 " + board.getVersion() + "차");
             System.out.println("  수정일: " + updateFormat);
         }
         System.out.println();
         System.out.println(board.getContent());
+
+        // 투표 페이지 접근
+        if(board.getTopic()==3){
+            System.out.println(board.getIdx()+"번 게시글입니다");
+            VoteView.getInstance().VotePage(board.getIdx());
+        }
+
         System.out.println();
 
         // 추가 작업
