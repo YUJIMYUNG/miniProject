@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.Scanner;
 
 public class MemberView {
@@ -24,15 +25,15 @@ public class MemberView {
         System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
         System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
         System.out.println("                                                           |___/               ");
-        while (true) {
-            System.out.print("1.로그인 2.회원가입  : ");
-            int choose = scan.nextInt();
-            if (choose == 1){
-                memberLogin();
-            } else if (choose == 2) {
-                memberWrite();
-            }
+
+        System.out.print("1.로그인 2.회원가입  : ");
+        int choose = scan.nextInt();
+        if (choose == 1){
+            memberLogin();
+        } else if (choose == 2) {
+            memberWrite();
         }
+
     }
 
     // 기능 페이지
@@ -48,14 +49,18 @@ public class MemberView {
 
     // 멤버 페이지
     void memberPage(){
-        System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 : ");
-        int choose = scan.nextInt();
-        if (choose == 1){
-            memberPrint();
-        } else if (choose == 2) {
-            memberUpdate();
-        } else if (choose == 3) {
-            memberDelete();
+        while (true) {
+            System.out.print("1.회원 조회 2.회원 수정 3.회원 삭제 4.뒤로가기: ");
+            int choose = scan.nextInt();
+            if (choose == 1) {
+                memberPrint();
+            } else if (choose == 2) {
+                memberUpdate();
+            } else if (choose == 3) {
+                memberDelete();
+            } else if (choose == 4) {
+                return;
+            }
         }
     }
 
@@ -82,14 +87,12 @@ public class MemberView {
         String member_email = scan.next();
         System.out.print("비밀번호 : ");
         String pwd = scan.next();
-
         DateTimeFormatter birthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.print("생년월일(ex] 2001-11-11) : ");
         String birthInput = scan.next();
         LocalDate birthdate = LocalDate.parse(birthInput, birthFormatter);
-
-        System.out.print("전화번호(ex] 010-0000-0000) : "); String member_phone = scan.next();
-
+        System.out.print("전화번호(ex] 010-0000-0000) : ");
+        String member_phone = scan.next();
         System.out.print("활성:1/비활성:0 : ");
         int booleanInput = scan.nextInt();
         boolean In_active = (booleanInput == 1);
