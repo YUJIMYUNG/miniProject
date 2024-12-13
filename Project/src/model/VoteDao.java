@@ -42,6 +42,8 @@ public class VoteDao extends Dao{
                 ps2.setString(2,choice);
             ps2.executeUpdate(); // SQL 실행
             }
+
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,4 +104,27 @@ public class VoteDao extends Dao{
         }
         return false;
     }
+
+    public boolean choiceCheck(String str) {
+        try{
+            //1. sql 작성
+            String sql = "select vote_choice from votecount where vote_choice = ?";
+
+            //2. 투표 선택지 조회
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, str);
+            ResultSet rs = ps.executeQuery();
+
+            //3. 투표 선택지 조회 후 있으면 true 반환
+            return rs.next();
+
+        } catch (SQLException e){
+            e.getMessage();
+            e.printStackTrace();
+            System.out.println("투표 실행 중 예외 발생");
+        }
+        return false;
+    }// choiceCheck ed
+
+
 } // VoteDao ed

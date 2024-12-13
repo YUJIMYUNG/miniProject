@@ -34,4 +34,10 @@ public class VoteController {
         boolean result = VoteDao.getInstance().VoteUpdate(str);
         return result;
     }
+
+    /// 4.투표 선택지 검증 함수
+    public boolean choiceCheck(String str) {
+        boolean result = VoteDao.getInstance().choiceCheck(str);
+        return result;
+    }
 } // VoteController ed
