@@ -22,7 +22,7 @@ public class AppStart {
             } else if (choose == 3) {
                 MemberView.getInstance().mainPage();
             } else if (choose == 4) {
-                VoteView.getInstance().VotePage(6);
+                VoteView.getInstance().VotePage(6); // 투표
             } else {
                 return;
             }
