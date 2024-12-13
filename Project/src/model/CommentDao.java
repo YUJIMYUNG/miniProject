@@ -154,7 +154,7 @@ public class CommentDao extends Dao{
     }// deleteComment end
 
     //댓글 작성자를 확인하는 함수
-    public boolean comentAuthor(int comment_idx, int member_idx){
+    public boolean commentAuthor(int comment_idx, int member_idx){
         try{
             //1. sql 작성
             String sql = "select member_idx from comment where comment_idx = ?";
