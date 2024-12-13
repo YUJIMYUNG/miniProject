@@ -62,7 +62,8 @@ public class BoardDto {
     } // init end
 
     // boardPrint 생성자
-    public BoardDto(int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+    public BoardDto(int idx, int topic, String title, String content, String writer, LocalDateTime date, int status, int version, LocalDateTime update) {
+        this.idx=idx;
         this.topic = topic;
         this.title=title;
         this.content=content;
