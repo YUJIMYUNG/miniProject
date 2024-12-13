@@ -27,23 +27,18 @@ public class CommentView {
             try{
                 int choose = sc.nextInt();
 
-                if(choose == 1){
-                    commentWrite(board_idx);
-                } else if(choose == 2){
-                    commentUpdate();
-                } else if(choose == 3){
-                    commentDelete();
-                } else if(choose ==4){
-                    boardView.boardList();
-                    break;
-                } else if(choose == 5){
-                    //로그아웃 - 메인페이지로
-                    //memberView.mainpage();
-                    break;
-                } else{
-                    System.out.println("올바르지 않은 입력값입니다. 1~5번 중 선택하세요.");
-                    break;
-                }
+            if(choose == 1){
+                commentWrite(board_idx);
+            } else if(choose == 2){
+                commentUpdate();
+            } else if(choose == 3){
+                commentDelete();
+            } else if(choose ==4){
+                boardView.mainBoard();
+            } else if(choose == 5){
+                //로그아웃 - 메인페이지로
+                //memberView.mainpage();
+            }// if-else if end
             }catch (InputMismatchException e){
                 e.getMessage();
                 System.out.println("올바르지 않은 입력값입니다. 1~5번 중 선택하세요.");

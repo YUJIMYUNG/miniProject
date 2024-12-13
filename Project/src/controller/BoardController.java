@@ -17,7 +17,7 @@ public class BoardController {
     }
 
     // 게시물 등록 제어 함수
-    public boolean boardWrite(int topic, String title, String content) {
+    public int boardWrite(int topic, String title, String content) {
         // 유효성 검사
 
         // 객체 생성 후 dao에 전달

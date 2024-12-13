@@ -18,12 +18,12 @@ public class BoardDao extends Dao {
 
 
     // 게시물 DB 등록 함수
-    public boolean boardWrite(BoardDto boardDto) {
+    public int boardWrite(BoardDto boardDto) {
         try {
             // sql 작성
             String sql = "insert into board( board_topic, board_status, board_version, board_title, board_content, member_idx, board_date, board_update) " +
                     "values( ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // 멤버 인덱스에서 이름 가져와서 writer에 넣기
 
@@ -37,13 +37,18 @@ public class BoardDao extends Dao {
             // 멤버 인덱스에 임시 값 대입 - 멤버 인덱스 받아와야함
             ps.setInt(6, 1);
 
+
             Timestamp date = Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(7, date);
             Timestamp update = Timestamp.valueOf(boardDto.getDate());
             ps.setTimestamp(8, update);
             ps.executeUpdate();
 
-            return true;
+            ResultSet rs=ps.getGeneratedKeys();
+            System.out.println(ps.getGeneratedKeys());
+            if(rs.next()){
+                return rs.getInt(1);
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -51,7 +56,7 @@ public class BoardDao extends Dao {
         } // try end
 
         // 예외 발생 시 false 전달
-        return false;
+        return -1;
     } // func end
 
     // 게시물 DB 불러오기 함수
@@ -108,6 +113,7 @@ public class BoardDao extends Dao {
 
             if (rs.next()) {
                 // 필드별 데이터 호출
+                int index=rs.getInt("board_idx");
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
@@ -124,7 +130,7 @@ public class BoardDao extends Dao {
                 LocalDateTime update = updateTS.toLocalDateTime();
 
                 // 객체 생성하고 리스트에 저장
-                boardDto = new BoardDto(topic, title, content, writer, date, status, version, update);
+                boardDto = new BoardDto(index, topic, title, content, writer, date, status, version, update);
             } else {
                 System.out.println("[게시물이 존재하지 않습니다]");
             } // if end
@@ -180,13 +186,26 @@ public class BoardDao extends Dao {
 
     public boolean boardUpdateContent(int num, String updateData) {
         try {
+            String sql_status = "select board_version from board where board_idx = ?";
+            PreparedStatement ps_status = conn.prepareStatement(sql_status);
+            ps_status.setInt(1, num);
+            ResultSet rs = ps_status.executeQuery();
+
+            int version=0;
+            if(rs.next()){
+                version=rs.getInt("board_version");
+            }
+            // 수정차수 증가
+            version++;
+
             // sql 작성
-            String sql = "update board set board_content = ? where board_idx = ? ";
+            String sql = "update board set board_content = ?, board_version = ? where board_idx = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             // sql에 매개변수 대입
             ps.setString(1, updateData);
-            ps.setInt(2, num);
+            ps.setInt(2, version);
+            ps.setInt(3, num);
 
             int result = ps.executeUpdate(); // 수정 후 변화가 있는 레코드 개수 반환
 
