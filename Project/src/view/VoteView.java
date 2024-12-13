@@ -72,7 +72,7 @@ public class VoteView {
     public void VotePage(int board_idx) {
         // 객체 요청
         ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
-
+        LocalDateTime now = LocalDateTime.now(); // 현재 시간을 저장하는 객체
         // 결과 조회
         System.out.println("====================");
         System.out.println(result.get(0).getVote_content());
@@ -82,21 +82,26 @@ public class VoteView {
         for(int i = 0; i < result.size(); i++) {
             System.out.println((i+1)+"."+result.get(i).getChoice()+"\t득표수 : "+result.get(i).getVote_count());
         } // for ed
-        while(true) {
-            System.out.print("1. 투표하기 2. 뒤로가기 : ");
-            int choose = scanner.nextInt();
-            if (choose == 1) {
-                System.out.print("투표할 선택지를 작성하기 : ");
-                scanner.nextLine();
-                String str = scanner.nextLine();
-                voteView.VoteUpdate(str);
-                break;
-            } else if (choose == 2) {
-                break;
-            } else {
-                System.out.println("유효하지 않은 입력입니다.");
-            } // if else ed
-        } // while ed
+        if (now.isAfter(result.get(0).getVote_deadline())) { // 마감시간과 현재시간을 비교해 지났으면 투표 종료 처리
+            System.out.println();
+            System.out.println("[-투표가 종료되었습니다.-]");
+        } else {
+            while (true) {
+                System.out.print("1. 투표하기 2. 뒤로가기 : ");
+                int choose = scanner.nextInt();
+                if (choose == 1) {
+                    System.out.print("투표할 선택지를 작성하기 : ");
+                    scanner.nextLine();
+                    String str = scanner.nextLine();
+                    voteView.VoteUpdate(str);
+                    break;
+                } else if (choose == 2) {
+                    break;
+                } else {
+                    System.out.println("유효하지 않은 입력입니다.");
+                } // if else ed
+            } // while ed
+        } // if ed
     } // VotePage ed
 
     public void VoteUpdate(String str) {
