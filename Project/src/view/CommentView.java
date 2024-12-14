@@ -1,6 +1,7 @@
 package view;
 
 import controller.CommentController;
+import controller.MemberController;
 import model.CommentDto;
 
 import java.util.ArrayList;
@@ -16,7 +17,6 @@ public class CommentView {
 
     public void mainPage(int board_idx){
         BoardView boardView = new BoardView();
-        //MemberView memberView = new MemberView(); 접근제한자 수정
 
         while(true){
             // 댓글로 들어오면 전체 댓글 조회
@@ -36,8 +36,11 @@ public class CommentView {
             } else if(choose ==4){
                 boardView.mainBoard();
             } else if(choose == 5){
-                //로그아웃 - 메인페이지로
-                //memberView.mainpage();
+                // 로그인 정보 초기화하는 로그아웃함수 실행하고
+                MemberController.getInstance().logout();
+                System.out.println("로그아웃 성공! 서비스를 계속 이용해주세요.");
+                // 메인으로 이동
+                MemberView.getInstance().mainPage();
             }// if-else if end
             }catch (InputMismatchException e){
                 e.getMessage();
@@ -78,11 +81,11 @@ public class CommentView {
         String content = sc.nextLine();
 
         // 2. 로그인 회원번호 가져오기
-        // int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
-        int test = 1;//테스트용 로그인한 회원 번호
+        int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        //int test = 1;//테스트용 로그인한 회원 번호
 
         // 3. boardIdx Content를 포함한 객체 생성
-        CommentDto commentDto = new CommentDto(test, board_idx, content);
+        CommentDto commentDto = new CommentDto(logimMemberIdx, board_idx, content);
 
         //3. 입력받은 값 컨트롤러에 전달
         //댓글 작성자가 로그인 한 회원인지 검토하는 작업 추가해야함
@@ -113,8 +116,8 @@ public class CommentView {
         }
 
         //3. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 추가
-        // int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
-        int test = 1;//테스트용 로그인한 회원 번호
+        int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        //int test = 1;//테스트용 로그인한 회원 번호
 
         sc.nextLine();
         System.out.print("수정할 댓글의 내용을 입력하세요 : ");
@@ -124,7 +127,7 @@ public class CommentView {
         CommentDto updateCommentDto = new CommentDto(updateCommentNum, updateCommentContent);
 
         //5. controller에 전달
-        boolean result = CommentController.getInstance().commentUpdate(updateCommentDto, test);
+        boolean result = CommentController.getInstance().commentUpdate(updateCommentDto, loginMemberIdx);
 
         //경로 출력
         if(result) {
@@ -151,11 +154,11 @@ public class CommentView {
         }
 
         //3. 수정하려는 댓글이 로그인 한 회원이 작성한 댓글인지 검토하는 로직 - 로그인 회원번호 가져와야함
-        // int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
-        int test = 1;//테스트용
+        int loginMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        //int test = 1;//테스트용
 
         //4. 결과값 보내기
-        boolean result = CommentController.getInstance().commentDelete(deleteCommentNum, test);
+        boolean result = CommentController.getInstance().commentDelete(deleteCommentNum, loginMemberIdx);
 
         //4.응답 결과를 출력
         if(result){
