@@ -1,5 +1,6 @@
 package view;
 
+import controller.BoardController;
 import controller.CommentController;
 import controller.MemberController;
 import model.CommentDto;
@@ -16,7 +17,7 @@ public class CommentView {
     Scanner sc = new Scanner(System.in);
 
     public void mainPage(int board_idx){
-        BoardView boardView = new BoardView();
+        BoardView boardView = BoardView.getInstance();
 
         while(true){
             // 댓글로 들어오면 전체 댓글 조회
