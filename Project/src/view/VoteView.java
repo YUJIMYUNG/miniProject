@@ -126,14 +126,14 @@ public class VoteView {
                 } // if else ed
             } // while ed
         } // if ed
-    }
+    } // VoteApproach ed
 
 
     /// 투표 업데이트 용 함수
     public void VoteUpdate(String str) {
         VoteController.getInstance().VoteUpdate(str);
         System.out.println("투표 완료");
-    }
+    } // VoteUpdate ed
 
     /// 선택지 검증용 함수
     public boolean ChoiceCheck(String str) {
@@ -145,7 +145,7 @@ public class VoteView {
             System.out.println("존재하지 않는 선택지입니다.");
             return false;
         }
-    }
+    } // ChoiceCheck ed
 
 } // VoteView ed
 
