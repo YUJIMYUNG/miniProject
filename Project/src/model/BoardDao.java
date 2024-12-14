@@ -102,6 +102,48 @@ public class BoardDao extends Dao {
         return list;
     } // func end
 
+    public ArrayList<BoardDto> boardListNotice() {
+
+        ArrayList<BoardDto> list = new ArrayList<>(); // DB 저장 후 반환할 리스트
+
+        try {
+            // sql 작성, 실행 후 결과를 rs에 저장
+            String sql = "select * from board where board_topic = 3";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            // 결과를 arraylist로 변환
+            while (rs.next()) { // 다음 레코드가 있으면 반복
+
+                // 필드별 데이터 호출
+                int idx = rs.getInt("board_idx");
+                int topic = rs.getInt("board_topic");
+                String title = rs.getString("board_title");
+                String content = rs.getString("board_content");
+                int writer_fk = rs.getInt("member_idx");
+
+                // 참조키를 통해 작성자 가져올것
+                String writer = "sample";
+
+                Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
+                LocalDateTime date = dateTS.toLocalDateTime();
+                int status = rs.getInt("board_status"); // 완료여부
+                int version = rs.getInt("board_version"); // 수정차수
+                Timestamp updateTS = rs.getTimestamp("board_update"); // 수정일
+                LocalDateTime update = updateTS.toLocalDateTime();
+                boolean active = rs.getBoolean("in_active");
+
+                // 객체 생성하고 리스트에 저장
+                BoardDto boardDto = new BoardDto(idx, topic, title, content, writer, date, status, version, update, active);
+                list.add(boardDto);
+            } // while end
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("[ 게시물 출력시 예외발생]");
+        } // try end
+        return list;
+    }
+
     public BoardDto boardPrint(int num) {
         BoardDto boardDto = new BoardDto();
 
@@ -251,4 +293,5 @@ public class BoardDao extends Dao {
         } // try end
         return false; // 수정 실패
     } // func end
+
 } // class end
