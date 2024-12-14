@@ -137,12 +137,12 @@ public class MemberView {
         ArrayList<MemberDto> result = MemberController.getInstance().memberPrint();
         for (int index = 0; index <= result.size() - 1; index++){
             System.out.print("회원 번호 : " + result.get(index).getMember_idx());
-            System.out.print("회원 이름 : " + result.get(index).getMember_name());
-            System.out.print("회원 이메일 : " + result.get(index).getMember_email());
-            System.out.print("회원 생년월일 : " + result.get(index).getBirthdate());
-            System.out.print("회원 전화번호 : " + result.get(index).getMember_phone());
-            System.out.print("회원 등록일 : " + result.get(index).getMember_date());
-            System.out.println("활성 여부(활성:1/비활성:0) : " + result.get(index).isIn_active());
+            System.out.print(" | 회원 이름 : " + result.get(index).getMember_name());
+            System.out.print(" | 회원 이메일 : " + result.get(index).getMember_email());
+            System.out.print(" | 회원 생년월일 : " + result.get(index).getBirthdate());
+            System.out.print(" | 회원 전화번호 : " + result.get(index).getMember_phone());
+            System.out.print(" | 회원 등록일 : " + result.get(index).getMember_date());
+            System.out.println(" | 활성 여부(활성:1/비활성:0) : " + result.get(index).isIn_active());
         }
     }
 
@@ -160,6 +160,7 @@ public class MemberView {
 
     // 멤버 수정 함수
     void memberUpdate(){
+        System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
         System.out.print("수정할 비밀번호 : ");
