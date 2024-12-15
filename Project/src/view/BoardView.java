@@ -60,7 +60,7 @@ public class BoardView {
         String title = scan.nextLine();
         System.out.print("내용: ");
         String content = scan.nextLine();
-        int writerIdx= MemberController.getInstance().getLoggedInUserId();
+        int writerIdx= MemberController.getInstance().getLoginMemberIdx();
         // 진행현황은 생성자, 수정함수에서 결정
         // 수정차수는 생성자, 수정함수에서 결정
         // 작성자는 현재 로그인한 유저를 생성자에 전달

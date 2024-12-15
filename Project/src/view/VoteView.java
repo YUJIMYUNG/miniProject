@@ -26,12 +26,21 @@ public class VoteView {
     public void VoteWrite(int board_idx) {
 
         // 투표 내용 입력
-        System.out.print("투표 내용 입력 : ");
-        String vote_content = scanner.nextLine();
-
+        String vote_content;
+        while (true) {
+            System.out.print("투표 내용 입력(100자 이내) : ");
+            String input = scanner.nextLine();
+            if (input.length()>100) {
+                System.out.println("경고 : 입력이 100자를 초과했습니다.");
+            } else {
+                vote_content = input;
+                System.out.println("투표 내용 작성 완료");
+                break;
+            }
+        }
 
         // 투표를 생성한 작성한 작성자의 작성자 번호 가져오기
-        int logimMemberIdx = MemberController.getInstance().getLoggedInUserId();
+        int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
 
         // 투표 마감 날짜 입력
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -59,11 +68,18 @@ public class VoteView {
             System.out.print("1.선택지 입력 2.선택지 입력 종료 : "); // 선택지 입력을 받는 함수
             int choose = scanner.nextInt();
             if (choose == 1) {
-                System.out.print("선택지 내용 입력 : ");
-                String content = scanner.next();
-                votedtos_choices.add(content);
+                while (true) {
+                    System.out.print("선택지 내용 입력(50자 이내) : ");
+                    String input = scanner.next();
+                    if (input.length()>50) {
+                        System.out.println("경고 : 입력이 50자를 초과했습니다.");
+                } else {
+                        votedtos_choices.add(input);
+                        System.out.println("선택지 입력 완료");
+                        break;
+                    } // if else ed
+                } // while ed
                 // 선택지를 받아 리스트에 저장
-                System.out.println("선택지 입력 완료");
             } else if (choose == 2) {
                 System.out.println("선택지 입력 종료");
                 break;
