@@ -41,7 +41,6 @@ public class BoardDao extends Dao {
             ps.executeUpdate();
 
             ResultSet rs=ps.getGeneratedKeys();
-            System.out.println(ps.getGeneratedKeys());
             if(rs.next()){
                 return rs.getInt(1);
             }
@@ -104,7 +103,7 @@ public class BoardDao extends Dao {
 
         try {
             // sql 작성, 실행 후 결과를 rs에 저장
-            String sql = "select * from board where board_topic = 3";
+            String sql = "select * from board where board_topic = 1";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -290,4 +289,24 @@ public class BoardDao extends Dao {
         return false; // 수정 실패
     } // func end
 
+    // 작성자 본인 확인 함수
+    public boolean boardCheckWriter(int boardIdx, int memberIdx){
+        try{
+            // sql 작성
+            String sql = "select member_idx from board where board_idx = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, boardIdx);
+            ResultSet rs = ps.executeQuery();
+
+            // 게시글 작성자와 로그인한 회원이 동일한지 검증, 일치하면 true 반환
+            if(rs.next()){
+                int writerIdx = rs.getInt("member_idx");
+                return writerIdx == memberIdx;
+            } // if end
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            System.out.println("[작성자 검증 중 예외 발생]");
+        }
+        return false;
+    } // func end
 } // class end

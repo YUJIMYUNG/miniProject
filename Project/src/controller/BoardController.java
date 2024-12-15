@@ -82,14 +82,14 @@ public class BoardController {
         return result;
     } // func end
 
-//    public boolean boardCheckWriter(int boardIdx, int memberIdx){
-//        // 작성자 본인의 게시글이면 true, 아니면 false 반환
-//        if(BoardDao.getInstance().boardCheckWriter(boardIdx, memberIdx)){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
+    public boolean boardCheckWriter(int boardIdx, int memberIdx){
+        // 작성자 본인의 게시글이면 true, 아니면 false 반환
+        if(BoardDao.getInstance().boardCheckWriter(boardIdx, memberIdx)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 } // class end

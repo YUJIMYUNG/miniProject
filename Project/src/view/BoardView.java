@@ -25,7 +25,7 @@ public class BoardView {
             boardListNotice();
             boardList(page);
 
-            System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지");
+            System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지 5.로그아웃");
             System.out.print("작업 선택: ");
             int choose = scan.nextInt();
             System.out.println();
@@ -43,8 +43,9 @@ public class BoardView {
                 }
             } else if (choose==4) {
                 page++;
+            } else if (choose==5) {
+                MemberView.getInstance().mainPage();
             }
-
         }
 
     } // main end
@@ -72,7 +73,6 @@ public class BoardView {
 
         // 게시글 작성시 투표면은 투표작성 함수 접근
         if(topic==3){
-            System.out.println("인덱스"+ index+ "번임");
             VoteView.getInstance().VoteWrite(index);
         }
 
@@ -81,6 +81,7 @@ public class BoardView {
         } else {
             System.out.println("게시물 등록 실패");
         } // if end
+        System.out.println();
     } // func end
 
     void boardList(int page) {
@@ -227,24 +228,45 @@ public class BoardView {
         System.out.println();
 
         // 추가 작업
-        System.out.println("1.댓글보기 2.수정 3.삭제 4.뒤로가기");
-        System.out.print("작업 선택: ");
-        int choose=scan.nextInt();
-        System.out.println();
-
-        if(choose==1){
-            CommentView.getInstance().mainPage(num);
-        } else if (choose==2) {
-            boardUpdate(num);
-        } else if (choose==3) {
-            boardDelete(num);
-        } else if (choose==4) {
-            return;
-        }
-        System.out.println();
+        boardPrintSelect(num);
     } // func end
 
+    // 게시물 추가 작업 함수
+    void boardPrintSelect(int boardIdx) {
+        // 테스트용 멤버인덱스
+        int memberIdx = 2;
+        // 작성자 본인인지 검증
+        boolean writerCheck = BoardController.getInstance().boardCheckWriter(boardIdx, memberIdx);
 
+        // 작성자
+        if (writerCheck) {
+            System.out.println("1.댓글보기 2.수정 3.삭제 4.뒤로가기");
+            System.out.print("작업 선택: ");
+            int choose = scan.nextInt();
+            System.out.println();
+
+            if (choose == 1) {
+                CommentView.getInstance().mainPage(boardIdx);
+            } else if (choose == 2) {
+                boardUpdate(boardIdx);
+            } else if (choose == 3) {
+                boardDelete(boardIdx);
+            } else if (choose == 4) {
+                return;
+            }
+        } else {
+            System.out.println("1.댓글보기 2.뒤로가기");
+            System.out.print("작업 선택: ");
+            int choose = scan.nextInt();
+            System.out.println();
+
+            if (choose == 1) {
+                CommentView.getInstance().mainPage(boardIdx);
+            } else {
+                return;
+            } // if end
+        } // if end
+    } // func end
 
     // 게시물 삭제 함수
     void boardDelete(int num) {
