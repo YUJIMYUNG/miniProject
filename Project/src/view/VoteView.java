@@ -30,7 +30,7 @@ public class VoteView {
 
 
         // 투표를 생성한 작성한 작성자의 작성자 번호 가져오기
-        int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        int logimMemberIdx = MemberController.getInstance().getLoggedInUserId();
 
         // 투표 마감 날짜 입력
         System.out.print("투표 마감 날짜 입력(YYYY-MM-DD HH:mm) : ");
@@ -72,6 +72,7 @@ public class VoteView {
     public void VotePage(int board_idx) {
         // 객체 요청
         ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
+        LocalDateTime now = LocalDateTime.now();
         // 결과 조회
         System.out.println("====================");
         System.out.println(result.get(0).getVote_content());
