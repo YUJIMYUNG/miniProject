@@ -18,7 +18,7 @@ public class AppStart {
             if (choose == 1) {
                 BoardView.getInstance().mainBoard();
             } else if (choose == 2) {
-                CommentView.getInstance().mainPage(1);
+                //CommentView.getInstance().mainPage(1);
             } else if (choose == 3) {
                 MemberView.getInstance().mainPage();
             } else if (choose == 4) {

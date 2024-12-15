@@ -32,11 +32,11 @@ board_date datetime,
 board_update datetime,
 in_active boolean default true
 );
-/*
+
 drop table comment;
 drop table vote;
 drop table board;
-*/
+
 select * from board;
 
 # 댓글 테이블
