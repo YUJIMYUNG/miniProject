@@ -20,10 +20,12 @@ public class BoardView {
 
     public void mainBoard() {
         int page=1;
+        int totalPage=1;
         while (true) {
             // 게시물 목록 출력
+            System.out.println();
             boardListNotice();
-            boardList(page);
+            totalPage = boardList(page);
 
             System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지 5.로그아웃");
             System.out.print("작업 선택: ");
@@ -36,13 +38,19 @@ public class BoardView {
                 boardPrint();
             } else if (choose==3) {
                 if(page==1){
-                    System.out.println("가장 앞 페이지 입니다.");
+                    System.out.println("첫번째 페이지 입니다.\n");
                 }
                 else{
                     page--;
                 }
             } else if (choose==4) {
-                page++;
+                if(page>=totalPage){
+                    System.out.println("마지막 페이지 입니다.");
+                }
+                else{
+                    page++;
+                }
+                System.out.println();
             } else if (choose==5) {
                 MemberView.getInstance().mainPage();
             }
@@ -84,7 +92,7 @@ public class BoardView {
         System.out.println();
     } // func end
 
-    void boardList(int page) {
+    int boardList(int page) {
         ArrayList<BoardDto> list = BoardController.getInstance().boardList();
         ArrayList<BoardDto> activeList=new ArrayList<>();
         // 활성화 게시글만 새로운 리스트에 담기
@@ -133,6 +141,7 @@ public class BoardView {
 
         } // for end
         System.out.println();
+        return (activeList.size()-1)/10 + 1;
     } // func end
 
     void boardListNotice(){
@@ -145,7 +154,7 @@ public class BoardView {
             }
         }
 
-        System.out.println("=================공지=================");
+        System.out.println("====================공지====================");
         System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
                 "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
         // 맨 뒤 인덱스부터 출력
@@ -234,7 +243,7 @@ public class BoardView {
     // 게시물 추가 작업 함수
     void boardPrintSelect(int boardIdx) {
         // 테스트용 멤버인덱스
-        int memberIdx = 2;
+        int memberIdx = MemberController.getInstance().getLoggedInUserId();
         // 작성자 본인인지 검증
         boolean writerCheck = BoardController.getInstance().boardCheckWriter(boardIdx, memberIdx);
 
