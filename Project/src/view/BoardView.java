@@ -52,7 +52,7 @@ public class BoardView {
     // 게시물 작성 함수
     void boardWrite() {
         // 값 입력
-        System.out.println("-----------게시물 작성-----------");
+        System.out.println("=================게시물 작성=================");
         System.out.print("구분 선택: 1.공지 2.회의록 3.투표 4.토의 : ");
         int topic = scan.nextInt();
         scan.nextLine();
@@ -93,7 +93,7 @@ public class BoardView {
             }
         }
 
-        System.out.println("-----------------게시물 목록-----------------");
+        System.out.println("=================게시물 목록=================");
 //        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
 //                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
 
@@ -144,7 +144,7 @@ public class BoardView {
             }
         }
 
-        System.out.println("--------------------공지--------------------");
+        System.out.println("=================공지=================");
         System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
                 "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
         // 맨 뒤 인덱스부터 출력
@@ -206,7 +206,7 @@ public class BoardView {
         else {status = "미완";}
 
         // 출력
-        System.out.println("----------------------------------------------");
+        System.out.println("==========================================");
         System.out.print("[" + topic + "]");
         System.out.println(" 제목:" + board.getTitle());
         System.out.print("작성자: " + board.getWriter());

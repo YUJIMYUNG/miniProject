@@ -11,6 +11,11 @@ import java.util.Scanner;
 
 public class AppStart {
     public static void main(String[] args) {
+
+
+        MemberView.getInstance().mainPage();
+
+        /*
         Scanner scan = new Scanner(System.in);
         while (true) {
             System.out.print("디버그용 코드입니다.\n1.board 2.comment 3.member 4.vote ");
@@ -27,5 +32,6 @@ public class AppStart {
                 return;
             }
         }
+        */
     }
 }
