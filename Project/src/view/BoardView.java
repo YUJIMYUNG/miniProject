@@ -1,6 +1,7 @@
 package view;
 
 import controller.BoardController;
+import controller.MemberController;
 import model.BoardDao;
 import model.BoardDto;
 
@@ -59,6 +60,7 @@ public class BoardView {
         String title = scan.nextLine();
         System.out.print("내용: ");
         String content = scan.nextLine();
+        int writerIdx= MemberController.getInstance().getLoggedInUserId();
         // 진행현황은 생성자, 수정함수에서 결정
         // 수정차수는 생성자, 수정함수에서 결정
         // 작성자는 현재 로그인한 유저를 생성자에 전달
@@ -66,7 +68,7 @@ public class BoardView {
         // 수정일은 수정함수에서 결정
 
         // 컨트롤러에 전달 후 만들어진 게시글의 인덱스 반환
-        int index = BoardController.getInstance().boardWrite(topic, title, content);
+        int index = BoardController.getInstance().boardWrite(topic, title, content, writerIdx);
 
         // 게시글 작성시 투표면은 투표작성 함수 접근
         if(topic==3){
