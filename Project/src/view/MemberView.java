@@ -26,7 +26,7 @@ public class MemberView {
         System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
         System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
         System.out.println("                                                           |___/               ");
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("==============================================================================");
 
         System.out.print("1.로그인 2.회원가입  : ");
         int choose = scan.nextInt();
@@ -35,18 +35,19 @@ public class MemberView {
         } else if (choose == 2) {
             memberWrite();
         }
-
     }
 
     // 기능 페이지
     void functionPage(){
         System.out.println("=================function=================");
-        System.out.print("1.회원 기능 2.게시판 기능: ");
+        System.out.print("1.회원 기능 2.게시판 기능 3.로그아웃: ");
         int choose = scan.nextInt();
         if (choose == 1){
             memberPage();
         } else if (choose == 2) {
             BoardView.getInstance().mainBoard();
+        } else if (choose == 3) {
+            mainPage();
         }
     }
 
@@ -133,6 +134,7 @@ public class MemberView {
 
     // 멤버 출력 함수
     void memberPrint(){
+        System.out.println("=================MemberList=================");
         ArrayList<MemberDto> result = MemberController.getInstance().memberPrint();
         for (int index = 0; index <= result.size() - 1; index++){
             System.out.print("회원 번호 : " + result.get(index).getMember_idx());
@@ -148,6 +150,7 @@ public class MemberView {
     // 멤버 삭제 함수
     void memberDelete(){
         int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+        System.out.println("=================MemberDelete=================");
         System.out.println("[본인의 회원 번호만 삭제 가능]");
         System.out.print("삭제할 회원 번호 : ");
         int deleteNum = scan.nextInt();
@@ -166,7 +169,7 @@ public class MemberView {
     // 멤버 수정 함수
     void memberUpdate(){
         int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
-
+        System.out.println("=================MemberUpdate=================");
         System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
