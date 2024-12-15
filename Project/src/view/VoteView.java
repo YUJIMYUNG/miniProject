@@ -8,7 +8,6 @@ import model.VoteDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,25 +33,11 @@ public class VoteView {
         int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
 
         // 투표 마감 날짜 입력
+        System.out.print("투표 마감 날짜 입력(YYYY-MM-DD HH:mm) : ");
+        String input = scanner.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime deadLine;
-        while (true) {
-            System.out.print("투표 마감 날짜 입력(YYYY-MM-DD HH:mm) : ");
-            String input = scanner.nextLine();
-            try {
-                LocalDateTime dateTime = LocalDateTime.parse(input,formatter);
-                LocalDateTime now = LocalDateTime.now(); // 현 시각
-                if (dateTime.isBefore(now)) { // 입력한 시간이 현재 시간보다 이전일 시
-                    System.out.println("입력한 날짜와 시간이 현재 시간보다 이전입니다.");
-                } else {
-                    System.out.println("마감 날짜 : " + dateTime);
-                    deadLine = dateTime;
-                    break;
-                }// 올바르게 입력 시 날짜 입력 종료
-            } catch (DateTimeParseException e) { // 잘못된 입력일 시 예외 처리
-                System.out.println("유효하지 않은 입력입니다.");
-            }
-        }
+        LocalDateTime deadLine = LocalDateTime.parse(input, formatter);
+
         // 투표 선택지 입력
         ArrayList<String> votedtos_choices = new ArrayList<>(); // 선택지 저장 객체 생성
         while (true) {
@@ -96,13 +81,6 @@ public class VoteView {
         for(int i = 0; i < result.size(); i++) {
             System.out.println((i+1)+"."+result.get(i).getChoice()+"\t득표수 : "+result.get(i).getVote_count());
         } // for ed
-    } // VotePage ed
-
-    /// 투표 입장 함수
-    public void VoteApproach(int board_idx) {
-        // 객체 요청
-        ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
-        LocalDateTime now = LocalDateTime.now(); // 현재 시간을 저장하는 객체
         if (now.isAfter(result.get(0).getVote_deadline())) { // 마감시간과 현재시간을 비교해 지났으면 투표 종료 처리
             System.out.println();
             System.out.println("[-투표가 종료되었습니다.-]");
@@ -114,10 +92,8 @@ public class VoteView {
                     System.out.print("투표할 선택지를 작성하기 : ");
                     scanner.nextLine();
                     String str = scanner.nextLine();
-                    ChoiceCheck(str);
-                    if (ChoiceCheck(str)) {
-                        break;
-                    }
+                    voteView.VoteUpdate(str);
+                    break;
                 } else if (choose == 2) {
                     break;
                 } else {
@@ -125,26 +101,12 @@ public class VoteView {
                 } // if else ed
             } // while ed
         } // if ed
-    } // VoteApproach ed
+    } // VotePage ed
 
-
-    /// 투표 업데이트 용 함수
     public void VoteUpdate(String str) {
         VoteController.getInstance().VoteUpdate(str);
         System.out.println("투표 완료");
-    } // VoteUpdate ed
-
-    /// 선택지 검증용 함수
-    public boolean ChoiceCheck(String str) {
-        boolean result = VoteController.getInstance().ChoiceCheck(str);
-        if (result) {
-            VoteUpdate(str);
-            return true;
-        } else {
-            System.out.println("존재하지 않는 선택지입니다.");
-            return false;
-        }
-    } // ChoiceCheck ed
+    }
 
 } // VoteView ed
 

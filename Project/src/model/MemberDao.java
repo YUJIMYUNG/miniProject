@@ -15,7 +15,7 @@ public class MemberDao extends Dao {
     public static MemberDao getInstance(){return projectManagerDao;}
 
     // 멤버 로그인 접근 함수
-    public int memberLogin(MemberDto loginDto){
+    public boolean memberLogin(MemberDto loginDto){
         try {
             // sql 작성
             String sql = "select* from member where member_email = ? and member_pwd = ? ";
@@ -27,13 +27,19 @@ public class MemberDao extends Dao {
 
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
-                    return rs.getInt("member_idx");
+                    loginDto.setMember_idx(rs.getInt("member_idx"));
+                    return true;
                 }
             }
         } catch (SQLException e){
             System.out.println("[로그인 예외 발생]" + e.getMessage());
         }
-        return 0;
+        return false;
+    }
+
+    // 로그인된 회원번호 반환
+    public int getLoggedInUserId(MemberDto loginDto){
+        return loginDto.getMember_idx();
     }
 
     // 멤버 등록 접근 함수
@@ -70,7 +76,7 @@ public class MemberDao extends Dao {
             return true;
         }catch (SQLException e){
             e.getMessage();
-            System.out.println("[멤버 등록 예외 발생 ]" + e.getMessage());
+            System.out.println("[멤버 등록 예외 발생 : 이미 존재하는 이메일입니다.]");
         }
         return false;
     }

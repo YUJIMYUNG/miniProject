@@ -101,28 +101,5 @@ public class VoteDao extends Dao{
             e.printStackTrace();
         }
         return false;
-    } // VoteUpdate ed
-
-    /// 4.투표 선택지가 존재하는지 확인하는 함수
-    public boolean ChoiceCheck(String str) {
-        try {
-            //1. sql 작성
-            String sql = "select vote_choice from votecount where vote_choice = ?";
-
-            //2.
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, str);
-            ResultSet rs = ps.executeQuery();
-
-            //3. 번호 있으면 true반환
-            return rs.next();
-
-        } catch (SQLException e){
-            e.getMessage();
-            e.printStackTrace();
-            System.out.println("예외 발생");
-        }
-        return false;
-        } // ChoiceCheck ed
-
+    }
 } // VoteDao ed
