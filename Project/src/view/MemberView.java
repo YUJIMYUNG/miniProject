@@ -26,7 +26,7 @@ public class MemberView {
         System.out.println("  |  __/ | | | | |_| | ||  __/    | |  | | (_| | | | | (_| | (_| |  __/ |      ");
         System.out.println("  |_|    |_| |_|\\__,_|\\__\\___|    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|      ");
         System.out.println("                                                           |___/               ");
-        System.out.println("------------------------------------------------------------------------------");
+        System.out.println("==============================================================================");
 
         System.out.print("1.로그인 2.회원가입  : ");
         int choose = scan.nextInt();
@@ -35,18 +35,19 @@ public class MemberView {
         } else if (choose == 2) {
             memberWrite();
         }
-
     }
 
     // 기능 페이지
     void functionPage(){
         System.out.println("=================function=================");
-        System.out.print("1.회원 기능 2.게시판 기능: ");
+        System.out.print("1.회원 기능 2.게시판 기능 3.로그아웃: ");
         int choose = scan.nextInt();
         if (choose == 1){
             memberPage();
         } else if (choose == 2) {
             BoardView.getInstance().mainBoard();
+        } else if (choose == 3) {
+            mainPage();
         }
     }
 
@@ -71,10 +72,28 @@ public class MemberView {
     // 멤버 로그인 함수
     void memberLogin(){
         System.out.println("=================Login=================");
-        System.out.print("이메일 : ");
-        String member_email = scan.next();
-        System.out.print("비밀번호 : ");
-        String member_pwd = scan.next();
+        String member_email;
+        while (true) {
+            System.out.print("이메일(ex]abc123@domain.com: ");
+            member_email = scan.next();
+            int email_length = member_email.length();
+            if (email_length > 100) {
+                System.out.println("[이메일은 100자를 초과할 수 없습니다. 다시 입력해주세요.]");
+            } else {
+                break;
+            }
+        }
+        String member_pwd;
+        while (true){
+            System.out.print("비밀번호 : ");
+            member_pwd = scan.next();
+            int pwd_length = member_pwd.length();
+            if (pwd_length > 20){
+                System.out.println("[비밀번호는 20자를 초과할 수 없습니다. 다시 입력해주세요]");
+            } else {
+                break;
+            }
+        }
         boolean result = MemberController.getInstance().memberLogin(member_email, member_pwd);
         if (result){
             functionPage();
@@ -86,13 +105,40 @@ public class MemberView {
     // 멤버 등록 함수
     void memberWrite(){
         System.out.println("=================Register=================");
-        System.out.print("이름 : ");
-        String member_name = scan.next();
-        System.out.print("이메일(ex]abc123@domain.com: ");
-        String member_email = scan.next();
-        System.out.print("비밀번호 : ");
-        String pwd = scan.next();
-
+        // 이름 입력
+        String member_name;
+        while (true) {
+            System.out.print("이름 : ");
+            member_name = scan.next();
+            int name_length = member_name.length();
+            if (name_length > 20) {
+                System.out.println("[이름은 20자를 초과할 수 없습니다. 다시 입력해주세요.]");
+            } else {
+                break;
+            }
+        }
+        String member_email;
+        while (true) {
+            System.out.print("이메일(ex]abc123@domain.com: ");
+            member_email = scan.next();
+            int email_length = member_email.length();
+            if (email_length > 100) {
+                System.out.println("[이메일은 100자를 초과할 수 없습니다. 다시 입력해주세요.]");
+            } else if (member_email.contains(member_email)){
+                break;
+            }
+        }
+        String pwd;
+        while (true){
+            System.out.print("비밀번호 : ");
+            pwd = scan.next();
+            int pwd_length = pwd.length();
+            if (pwd_length > 20){
+                System.out.println("[비밀번호는 20자를 초과할 수 없습니다. 다시 입력해주세요]");
+            } else {
+                break;
+            }
+        }
         DateTimeFormatter birthFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthdate = null;
         boolean validBirthdate = false;
@@ -119,10 +165,7 @@ public class MemberView {
                 System.out.println("[잘못된 형식입니다. 다시 입력해주세요]");
             }
         }
-        System.out.print("활성:1/비활성:0 : ");
-        int booleanInput = scan.nextInt();
-        boolean In_active = (booleanInput == 1);
-
+        boolean In_active =  true;
         boolean result = MemberController.getInstance().memberWrite(member_name, member_email, pwd, birthdate, member_phone, In_active);
         if (result){
             System.out.println("[회원 등록 성공]");
@@ -133,6 +176,7 @@ public class MemberView {
 
     // 멤버 출력 함수
     void memberPrint(){
+        System.out.println("=================MemberList=================");
         ArrayList<MemberDto> result = MemberController.getInstance().memberPrint();
         for (int index = 0; index <= result.size() - 1; index++){
             System.out.print("회원 번호 : " + result.get(index).getMember_idx());
@@ -148,6 +192,7 @@ public class MemberView {
     // 멤버 삭제 함수
     void memberDelete(){
         int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+        System.out.println("=================MemberDelete=================");
         System.out.println("[본인의 회원 번호만 삭제 가능]");
         System.out.print("삭제할 회원 번호 : ");
         int deleteNum = scan.nextInt();
@@ -166,7 +211,7 @@ public class MemberView {
     // 멤버 수정 함수
     void memberUpdate(){
         int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
-
+        System.out.println("=================MemberUpdate=================");
         System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
