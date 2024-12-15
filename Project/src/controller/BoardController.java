@@ -18,11 +18,11 @@ public class BoardController {
     }
 
     // 게시물 등록 제어 함수
-    public int boardWrite(int topic, String title, String content) {
+    public int boardWrite(int topic, String title, String content, int writerIdx) {
         // 유효성 검사
 
         // 객체 생성 후 dao에 전달
-        BoardDto boardDto = new BoardDto(topic, title, content);
+        BoardDto boardDto = new BoardDto(topic, title, content, writerIdx);
         // 생성 성공 시 true 반환
         return BoardDao.getInstance().boardWrite(boardDto);
     } // func end

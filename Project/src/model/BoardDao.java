@@ -25,17 +25,13 @@ public class BoardDao extends Dao {
                     "values( ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            // 멤버 인덱스에서 이름 가져와서 writer에 넣기
-
             // sql의 매개변수에 값을 대입
             ps.setInt(1, boardDto.getTopic());
             ps.setInt(2, boardDto.getStatus());
             ps.setInt(3, boardDto.getVersion());
             ps.setString(4, boardDto.getTitle());
             ps.setString(5, boardDto.getContent());
-
-            // 멤버 인덱스에 임시 값 대입 - 멤버 인덱스 받아와야함
-            ps.setInt(6, 1);
+            ps.setInt(6, boardDto.getWriterIdx());
 
 
             Timestamp date = Timestamp.valueOf(boardDto.getDate());
