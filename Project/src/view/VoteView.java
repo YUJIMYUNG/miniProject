@@ -1,6 +1,7 @@
 package view;
 
 import controller.VoteController;
+import controller.MemberController;
 import model.BoardDto;
 import model.MemberDto;
 import model.VoteDto;
@@ -30,8 +31,7 @@ public class VoteView {
 
 
         // 투표를 생성한 작성한 작성자의 작성자 번호 가져오기
-        //int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
-        int lmiDemo = 1;
+        int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
 
         // 투표 마감 날짜 입력
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -75,7 +75,7 @@ public class VoteView {
                 System.out.println(votedtos_choices.get(i));
             }
         // 투표 내용과 선택지를 저장한 객체를 컨트롤러로 보내고 결과 수신
-        boolean result = VoteController.getInstance().VoteWrite(vote_content,board_idx,lmiDemo,deadLine,votedtos_choices);
+        boolean result = VoteController.getInstance().VoteWrite(vote_content,board_idx,logimMemberIdx,deadLine,votedtos_choices);
         if (result) {
             System.out.println("투표 작성 성공");
         } else {
@@ -87,7 +87,6 @@ public class VoteView {
     public void VotePage(int board_idx) {
         // 객체 요청
         ArrayList<VoteDto> result = VoteController.getInstance().VotePage(board_idx);
-        LocalDateTime now = LocalDateTime.now(); // 현재 시간을 저장하는 객체
         // 결과 조회
         System.out.println("====================");
         System.out.println(result.get(0).getVote_content());
