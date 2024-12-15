@@ -221,7 +221,6 @@ public class BoardView {
 
         // 투표 페이지 접근
         if(board.getTopic()==3){
-            System.out.println(board.getIdx()+"번 게시글입니다");
             VoteView.getInstance().VotePage(board.getIdx());
         }
 
@@ -244,6 +243,7 @@ public class BoardView {
         }
         System.out.println();
     } // func end
+
 
 
     // 게시물 삭제 함수
