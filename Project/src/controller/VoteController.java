@@ -37,8 +37,8 @@ public class VoteController {
     }
 
     /// 4.선택지 검증용 함수
-    public boolean ChoiceCheck(String str) {
-        boolean result = VoteDao.getInstance().ChoiceCheck(str);
-        return result;
-    }
+//    public boolean ChoiceCheck(String str) {
+//        boolean result = VoteDao.getInstance().ChoiceCheck(str);
+//        return result;
+//    }
 } // VoteController ed

@@ -28,11 +28,10 @@ public class MemberController {
         MemberDto loginDto = new MemberDto(member_email, member_pwd);
         boolean loginSuccessful = MemberDao.getInstance().memberLogin(loginDto);
         if (loginSuccessful) {
-            System.out.println("DEBUG: 로그인 후 loggedInUserId = " + loggedInUserId);
             loggedInUserId = loginDto.getMember_idx();
             System.out.println("[로그인 성공]");
         }else {
-            System.out.println("[로그인 실패 : 아이디/비밀번호가 올바르지 않습니다.");
+            System.out.println("[로그인 실패 : 아이디/비밀번호가 올바르지 않습니다.]");
         }
         return loginSuccessful;
     }

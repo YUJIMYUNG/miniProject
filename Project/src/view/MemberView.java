@@ -63,7 +63,7 @@ public class MemberView {
             } else if (choose == 3) {
                 memberDelete();
             } else if (choose == 4) {
-                return;
+                functionPage();
             }
         }
     }
@@ -77,10 +77,9 @@ public class MemberView {
         String member_pwd = scan.next();
         boolean result = MemberController.getInstance().memberLogin(member_email, member_pwd);
         if (result){
-            System.out.println("[로그인 성공]");
             functionPage();
         }else {
-            System.out.println("[로그인 실패]");
+            memberLogin();
         }
     }
 
@@ -148,8 +147,14 @@ public class MemberView {
 
     // 멤버 삭제 함수
     void memberDelete(){
+        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+        System.out.println("[본인의 회원 번호만 삭제 가능]");
         System.out.print("삭제할 회원 번호 : ");
         int deleteNum = scan.nextInt();
+        if (deleteNum != loggedInUserId){
+            System.out.println("[수정 실패 : 본인의 회원번호만 삭제 가능합니다.]");
+            return;
+        }
         boolean result = MemberController.getInstance().memberDelete(deleteNum);
         if (result){
             System.out.println("[회원 삭제 성공]");
