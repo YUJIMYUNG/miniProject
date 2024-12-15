@@ -160,9 +160,16 @@ public class MemberView {
 
     // 멤버 수정 함수
     void memberUpdate(){
+        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+
         System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");
         int updateNum = scan.nextInt();
+
+        if (updateNum != loggedInUserId){
+            System.out.println("[수정 실패 : 본인의 회원 정보만 수정 가능합니다.]");
+            return;
+        }
         System.out.print("수정할 비밀번호 : ");
         String update_pwd = scan.next();
         System.out.print("수정할 전화번호 : ");
@@ -170,12 +177,13 @@ public class MemberView {
         System.out.print("활성 수정(활성:1/비활성:0) : ");
         int booleanInput = scan.nextInt();
         boolean update_active = (booleanInput == 1);
+
         MemberDto updateDto  = new MemberDto(updateNum, update_pwd, updatePhone, update_active);
         boolean result = MemberController.getInstance().memberUpdate(updateDto);
         if (result) {
             System.out.println("[회원 수정 성공]");
         } else {
-            System.out.println("[회원 수정 실패 : 존재하지 않는 회원 / 관리자 문의]");
+            System.out.println("[회원 수정 실패]");
         }
     }
 }

@@ -27,6 +27,7 @@ public class MemberDao extends Dao {
 
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
+                    loginDto.setMember_idx(rs.getInt("member_idx"));
                     return true;
                 }
             }
@@ -34,6 +35,11 @@ public class MemberDao extends Dao {
             System.out.println("[로그인 예외 발생]" + e.getMessage());
         }
         return false;
+    }
+
+    // 로그인된 회원번호 반환
+    public int getLoggedInUserId(MemberDto loginDto){
+        return loginDto.getMember_idx();
     }
 
     // 멤버 등록 접근 함수
