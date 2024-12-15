@@ -28,12 +28,17 @@ public class MemberView {
         System.out.println("                                                           |___/               ");
         System.out.println("==============================================================================");
 
-        System.out.print("1.로그인 2.회원가입  : ");
-        int choose = scan.nextInt();
-        if (choose == 1){
-            memberLogin();
-        } else if (choose == 2) {
-            memberWrite();
+        while (true) {
+            System.out.print("1.로그인 2.회원가입  : ");
+            int choose = scan.nextInt();
+            if (choose == 1) {
+                memberLogin();
+            } else if (choose == 2) {
+                memberWrite();
+            } else {
+                System.out.println("[올바른 번호를 선택해주세요.]");
+                mainPage();
+            }
         }
     }
 
@@ -48,6 +53,9 @@ public class MemberView {
             BoardView.getInstance().mainBoard();
         } else if (choose == 3) {
             mainPage();
+        } else {
+            System.out.println("[올바른 번호를 선택해주세요.] ");
+            functionPage();
         }
     }
 
@@ -65,6 +73,9 @@ public class MemberView {
                 memberDelete();
             } else if (choose == 4) {
                 functionPage();
+            } else {
+                System.out.println("[올바른 번호를 선택주세요]");
+                return;
             }
         }
     }
@@ -74,7 +85,7 @@ public class MemberView {
         System.out.println("=================Login=================");
         String member_email;
         while (true) {
-            System.out.print("이메일(ex]abc123@domain.com: ");
+            System.out.print("이메일(ex]abc123@domain.com): ");
             member_email = scan.next();
             int email_length = member_email.length();
             if (email_length > 100) {
@@ -124,10 +135,11 @@ public class MemberView {
             int email_length = member_email.length();
             if (email_length > 100) {
                 System.out.println("[이메일은 100자를 초과할 수 없습니다. 다시 입력해주세요.]");
-            } else if (member_email.contains(member_email)){
+            } else {
                 break;
             }
         }
+
         String pwd;
         while (true){
             System.out.print("비밀번호 : ");
