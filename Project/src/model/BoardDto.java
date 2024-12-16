@@ -10,6 +10,7 @@ public class BoardDto {
     private String title;
     private String content;
     private String writer;
+    private int writerIdx;
     private LocalDateTime date;
     private LocalDateTime update;
     private boolean active;
@@ -22,14 +23,17 @@ public class BoardDto {
     1.완료 2.미완
     */
 
-    // 빈 생성자
-    public BoardDto(){}
+    // 빈 생성자 - 오류 발생시 사용
+    public BoardDto() {
+        idx = -1;
+    }
 
     // boardWrite 생성자
-    public BoardDto(int topic, String title, String content){
+    public BoardDto(int topic, String title, String content, int writerIdx){
         this.topic = topic;
         this.title=title;
         this.content=content;
+        this.writerIdx=writerIdx;
         version=0;
 
         // 공지 - 진행현황을 완료로 초기화, 나머지는 미완으로 초기화
@@ -38,9 +42,6 @@ public class BoardDto {
         } else{
             status=0;
         } // if end
-
-        // 작성자 member에게서 받아오는거 작성해야함
-        writer="sample";
 
         date=LocalDateTime.now();
         update=LocalDateTime.now();
@@ -81,6 +82,7 @@ public class BoardDto {
     public String getTitle() {return title;}
     public String getContent() {return content;}
     public String getWriter() {return writer;}
+    public int getWriterIdx() {return writerIdx;}
     public LocalDateTime getDate() {return date;}
     public LocalDateTime getUpdate() {return update;}
     public boolean getActive() {return active;}
@@ -92,6 +94,7 @@ public class BoardDto {
     public void setTitle(String title) {this.title = title;}
     public void setContent(String content) {this.content = content;}
     public void setWriter(String writer) {this.writer = writer;}
+    public void setWriterIdx(int writerIdx) {this.writerIdx = writerIdx;}
     public void setDate(LocalDateTime date) {this.date = date;}
     public void setUpdate(LocalDateTime update) {this.update = update;}
     public void setActive(boolean active) {this.active = active;}

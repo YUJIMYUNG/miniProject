@@ -8,14 +8,8 @@ public class BoardDao extends Dao {
 
     // 싱글톤
     private static BoardDao boardDao = new BoardDao();
-
-    private BoardDao() {
-    } // init end
-
-    public static BoardDao getInstance() {
-        return boardDao;
-    }
-
+    private BoardDao() {}
+    public static BoardDao getInstance() { return boardDao; }
 
     // 게시물 DB 등록 함수
     public int boardWrite(BoardDto boardDto) {
@@ -25,17 +19,13 @@ public class BoardDao extends Dao {
                     "values( ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            // 멤버 인덱스에서 이름 가져와서 writer에 넣기
-
             // sql의 매개변수에 값을 대입
             ps.setInt(1, boardDto.getTopic());
             ps.setInt(2, boardDto.getStatus());
             ps.setInt(3, boardDto.getVersion());
             ps.setString(4, boardDto.getTitle());
             ps.setString(5, boardDto.getContent());
-
-            // 멤버 인덱스에 임시 값 대입 - 멤버 인덱스 받아와야함
-            ps.setInt(6, 1);
+            ps.setInt(6, boardDto.getWriterIdx());
 
 
             Timestamp date = Timestamp.valueOf(boardDto.getDate());
@@ -44,9 +34,8 @@ public class BoardDao extends Dao {
             ps.setTimestamp(8, update);
             ps.executeUpdate();
 
-            ResultSet rs=ps.getGeneratedKeys();
-            System.out.println(ps.getGeneratedKeys());
-            if(rs.next()){
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
                 return rs.getInt(1);
             }
 
@@ -61,12 +50,12 @@ public class BoardDao extends Dao {
 
     // 게시물 DB 불러오기 함수
     public ArrayList<BoardDto> boardList() {
-
         ArrayList<BoardDto> list = new ArrayList<>(); // DB 저장 후 반환할 리스트
 
         try {
             // sql 작성, 실행 후 결과를 rs에 저장
-            String sql = "select * from board";
+            String sql = "select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update, board.in_active " +
+                    "from board join member m on board.member_idx = m.member_idx order by board_idx";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -78,11 +67,7 @@ public class BoardDao extends Dao {
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
-                int writer_fk = rs.getInt("member_idx");
-
-                // 참조키를 통해 작성자 가져올것
-                String writer = "sample";
-
+                String writer = rs.getString("member_name");
                 Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
                 LocalDateTime date = dateTS.toLocalDateTime();
                 int status = rs.getInt("board_status"); // 완료여부
@@ -103,12 +88,12 @@ public class BoardDao extends Dao {
     } // func end
 
     public ArrayList<BoardDto> boardListNotice() {
-
         ArrayList<BoardDto> list = new ArrayList<>(); // DB 저장 후 반환할 리스트
 
         try {
             // sql 작성, 실행 후 결과를 rs에 저장
-            String sql = "select * from board where board_topic = 3";
+            String sql = "select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update, board.in_active " +
+                    "from board join member m on board.member_idx = m.member_idx where board_topic = 1 order by board_idx";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -120,11 +105,7 @@ public class BoardDao extends Dao {
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
-                int writer_fk = rs.getInt("member_idx");
-
-                // 참조키를 통해 작성자 가져올것
-                String writer = "sample";
-
+                String writer = rs.getString("member_name");
                 Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
                 LocalDateTime date = dateTS.toLocalDateTime();
                 int status = rs.getInt("board_status"); // 완료여부
@@ -148,22 +129,19 @@ public class BoardDao extends Dao {
         BoardDto boardDto = new BoardDto();
 
         try {
-            String sql = "select * from board where board_idx = ?";
+            String sql = "select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update " +
+                    "from board join member m on board.member_idx = m.member_idx where board_idx = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, num);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 // 필드별 데이터 호출
-                int index=rs.getInt("board_idx");
+                int index = rs.getInt("board_idx");
                 int topic = rs.getInt("board_topic");
                 String title = rs.getString("board_title");
                 String content = rs.getString("board_content");
-                int writer_fk = rs.getInt("member_idx");
-
-                // 참조키를 통해 작성자 가져올것
-                String writer = "sample";
-
+                String writer = rs.getString("member_name");
                 Timestamp dateTS = rs.getTimestamp("board_date"); // 작성일
                 LocalDateTime date = dateTS.toLocalDateTime();
                 int status = rs.getInt("board_status"); // 완료여부
@@ -175,6 +153,7 @@ public class BoardDao extends Dao {
                 boardDto = new BoardDto(index, topic, title, content, writer, date, status, version, update);
             } else {
                 System.out.println("[게시물이 존재하지 않습니다]");
+                return new BoardDto();
             } // if end
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -182,7 +161,6 @@ public class BoardDao extends Dao {
         } // try end
         return boardDto;
     } // func end
-
 
     // 게시물 삭제 함수
     public boolean boardDelete(int deleteNum) {
@@ -233,9 +211,9 @@ public class BoardDao extends Dao {
             ps_status.setInt(1, num);
             ResultSet rs = ps_status.executeQuery();
 
-            int version=0;
-            if(rs.next()){
-                version=rs.getInt("board_version");
+            int version = 0;
+            if (rs.next()) {
+                version = rs.getInt("board_version");
             }
             // 수정차수 증가
             version++;
@@ -268,14 +246,13 @@ public class BoardDao extends Dao {
             ps_status.setInt(1, num);
             ResultSet rs = ps_status.executeQuery();
 
-            String sql="";
-            if(rs.next()){
-                int status=rs.getInt("board_status");
+            String sql = "";
+            if (rs.next()) {
+                int status = rs.getInt("board_status");
 
-                if(status==0){
+                if (status == 0) {
                     sql = "update board set board_status = 1 where board_idx = ? ";
-                }
-                else if (status==1){
+                } else if (status == 1) {
                     sql = "update board set board_status = 0 where board_idx = ? ";
                 }
             }
@@ -294,4 +271,24 @@ public class BoardDao extends Dao {
         return false; // 수정 실패
     } // func end
 
+    // 작성자 본인 확인 함수
+    public boolean boardCheckWriter(int boardIdx, int memberIdx) {
+        try {
+            // sql 작성
+            String sql = "select member_idx from board where board_idx = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, boardIdx);
+            ResultSet rs = ps.executeQuery();
+
+            // 게시글 작성자와 로그인한 회원이 동일한지 검증, 일치하면 true 반환
+            if (rs.next()) {
+                int writerIdx = rs.getInt("member_idx");
+                return writerIdx == memberIdx;
+            } // if end
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("[작성자 검증 중 예외 발생]");
+        }
+        return false;
+    } // func end
 } // class end
