@@ -28,7 +28,7 @@ public class MemberView {
         System.out.println("                                                           |___/               ");
         System.out.println("==============================================================================");
 
-        while (true) {
+        while(true) {
             System.out.print("1.로그인 2.회원가입  : ");
             int choose = scan.nextInt();
             if (choose == 1) {
@@ -75,7 +75,7 @@ public class MemberView {
                 functionPage();
             } else {
                 System.out.println("[올바른 번호를 선택주세요]");
-                return;
+                mainPage();
             }
         }
     }
@@ -109,7 +109,7 @@ public class MemberView {
         if (result){
             functionPage();
         }else {
-            memberPage();
+            mainPage();
         }
     }
 
@@ -203,7 +203,7 @@ public class MemberView {
 
     // 멤버 삭제 함수
     void memberDelete(){
-        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+        int loggedInUserId = MemberController.getInstance().getLoginMemberIdx();
         System.out.println("=================MemberDelete=================");
         System.out.println("[본인의 회원 번호만 삭제 가능]");
         System.out.print("삭제할 회원 번호 : ");
@@ -224,7 +224,7 @@ public class MemberView {
 
     // 멤버 수정 함수
     void memberUpdate(){
-        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
+        int loggedInUserId = MemberController.getInstance().getLoginMemberIdx();
         System.out.println("=================MemberUpdate=================");
         System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");
