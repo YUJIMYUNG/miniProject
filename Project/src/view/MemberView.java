@@ -28,7 +28,7 @@ public class MemberView {
         System.out.println("                                                           |___/               ");
         System.out.println("==============================================================================");
 
-        while (true) {
+        while(true) {
             System.out.print("1.로그인 2.회원가입  : ");
             int choose = scan.nextInt();
             if (choose == 1) {
@@ -75,7 +75,7 @@ public class MemberView {
                 functionPage();
             } else {
                 System.out.println("[올바른 번호를 선택주세요]");
-                return;
+                mainPage();
             }
         }
     }
@@ -109,7 +109,7 @@ public class MemberView {
         if (result){
             functionPage();
         }else {
-            memberPage();
+            mainPage();
         }
     }
 
