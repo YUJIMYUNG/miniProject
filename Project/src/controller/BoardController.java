@@ -13,6 +13,12 @@ public class BoardController {
 
     // 게시물 등록 제어 함수
     public int boardWrite(int topic, String title, String content, int writerIdx) {
+        // 제목이 100자 이상이면 리턴
+        if(title.length()>=99) {
+            System.out.println("제목이 너무 깁니다");
+            return -1;
+        } // if end
+
         // 객체 생성 후 dao에 전달
         BoardDto boardDto = new BoardDto(topic, title, content, writerIdx);
         // 생성 성공 시 true 반환

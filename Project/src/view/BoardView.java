@@ -188,7 +188,11 @@ public class BoardView {
         // 컨트롤러에 게시물 번호 전달 후 받아오기
         BoardDto board = BoardController.getInstance().boardPrint(num);
         // 빈 게시물이 왔을 경우 리턴
-        if(board.getIdx() == -1){ return; }
+        if(board.getIdx() == -1) { return; }
+        if(!board.getActive()) {
+            System.out.println("삭제된 게시물입니다");
+            return;
+        }
 
         // topic 형태 변환
         String topic;

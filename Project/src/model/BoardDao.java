@@ -129,7 +129,7 @@ public class BoardDao extends Dao {
         BoardDto boardDto = new BoardDto();
 
         try {
-            String sql = "select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update " +
+            String sql = "select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update, board.in_active " +
                     "from board join member m on board.member_idx = m.member_idx where board_idx = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, num);
@@ -149,8 +149,10 @@ public class BoardDao extends Dao {
                 Timestamp updateTS = rs.getTimestamp("board_update"); // 수정일
                 LocalDateTime update = updateTS.toLocalDateTime();
 
+                boolean inActive=rs.getBoolean("board.in_active");
+
                 // 객체 생성하고 리스트에 저장
-                boardDto = new BoardDto(index, topic, title, content, writer, date, status, version, update);
+                boardDto = new BoardDto(index, topic, title, content, writer, date, status, version, update, inActive);
             } else {
                 System.out.println("[게시물이 존재하지 않습니다]");
                 return new BoardDto();
