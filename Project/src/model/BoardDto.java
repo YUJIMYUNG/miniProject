@@ -23,8 +23,10 @@ public class BoardDto {
     1.완료 2.미완
     */
 
-    // 빈 생성자
-    public BoardDto(){}
+    // 빈 생성자 - 오류 발생시 사용
+    public BoardDto() {
+        idx = -1;
+    }
 
     // boardWrite 생성자
     public BoardDto(int topic, String title, String content, int writerIdx){
@@ -40,9 +42,6 @@ public class BoardDto {
         } else{
             status=0;
         } // if end
-
-        // 작성자 member에게서 받아오는거 작성해야함
-        writer="sample";
 
         date=LocalDateTime.now();
         update=LocalDateTime.now();

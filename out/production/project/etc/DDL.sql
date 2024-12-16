@@ -1,5 +1,6 @@
 create database if not exists teamDB;
 use teamDB;
+show tables;
 
 #회원 테이블
 create table if not exists member(
@@ -14,7 +15,7 @@ department varchar(20),
 in_active boolean default true,
 primary key(member_idx)
 );
-# drop table member;
+drop table member;
 select * from member;
 
 # 게시판 테이블
@@ -32,12 +33,13 @@ board_date datetime,
 board_update datetime,
 in_active boolean default true
 );
-/*
+
 drop table comment;
 drop table vote;
 drop table board;
-*/
+
 select * from board;
+select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update, board.in_active from board join member m on board.member_idx = m.member_idx order by board_idx;
 
 # 댓글 테이블
 create table if not exists comment(
@@ -67,7 +69,7 @@ foreign key(member_idx) references member(member_idx), # 멤버 테이블에서 
 foreign key(board_idx) references board(board_idx), # 멤버 테이블에서 참조
 primary key(vote_idx) # 투표번호(기본키)
 );
-# drop table vote;
+drop table vote;
 select * from vote;
 
 # 투표 집계 테이블 # 12/11 수정. vote_num 추가.
@@ -79,7 +81,7 @@ vote_count int, # 득표수
 foreign key(vote_idx) references vote(vote_idx), # 투표 테이블에서 참조
 primary key(vote_num) # 투표집계번호(기본키)
 );
-# drop table votecount;
+drop table votecount;
 select * from votecount;
 
 # 샘플 데이터

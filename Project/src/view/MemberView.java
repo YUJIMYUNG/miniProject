@@ -28,12 +28,14 @@ public class MemberView {
         System.out.println("                                                           |___/               ");
         System.out.println("==============================================================================");
 
-        System.out.print("1.로그인 2.회원가입  : ");
-        int choose = scan.nextInt();
-        if (choose == 1){
-            memberLogin();
-        } else if (choose == 2) {
-            memberWrite();
+        while(true) {
+            System.out.print("1.로그인 2.회원가입  : ");
+            int choose = scan.nextInt();
+            if (choose == 1) {
+                memberLogin();
+            } else if (choose == 2) {
+                memberWrite();
+            }
         }
     }
 
