@@ -15,7 +15,7 @@ public class MemberDao extends Dao {
     public static MemberDao getInstance(){return projectManagerDao;}
 
     // 멤버 로그인 접근 함수
-    public int memberLogin(MemberDto loginDto){
+    public boolean memberLogin(MemberDto loginDto){
         try {
             // sql 작성
             String sql = "select* from member where member_email = ? and member_pwd = ? ";
@@ -27,13 +27,19 @@ public class MemberDao extends Dao {
 
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
-                    return rs.getInt("member_idx");
+                    loginDto.setMember_idx(rs.getInt("member_idx"));
+                    return true;
                 }
             }
         } catch (SQLException e){
             //System.out.println("[로그인 예외 발생]" + e.getMessage());
         }
-        return 0;
+        return false;
+    }
+
+    // 로그인된 회원번호 반환
+    public int getLoggedInUserId(MemberDto loginDto){
+        return loginDto.getMember_idx();
     }
 
     // 멤버 등록 접근 함수
@@ -82,7 +88,7 @@ public class MemberDao extends Dao {
             return true;
         }catch (SQLException e){
             e.getMessage();
-            System.out.println("[멤버 등록 예외 발생 ]" + e.getMessage());
+            System.out.println("[멤버 등록 예외 발생]");
         }
         return false;
     }
@@ -142,12 +148,14 @@ public class MemberDao extends Dao {
     public boolean memberUpdate(MemberDto updateDto){
         try {
             //sql 작성
-            String sql = "update member set member_phone = ? where member_idx = ?";
+            String sql = "update member set member_pwd = ?, member_phone = ?, in_active = ? where member_idx = ?";
             //sql 기재
             PreparedStatement ps = conn.prepareStatement(sql);
             //sql 조작
-            ps.setString(1, updateDto.getMember_phone());
-            ps.setInt(2, updateDto.getMember_idx());
+            ps.setString(1, updateDto.getMember_pwd());
+            ps.setString(2, updateDto.getMember_phone());
+            ps.setBoolean(3, updateDto.isIn_active());
+            ps.setInt(4, updateDto.getMember_idx());
             //sql 실행
             int result = ps.executeUpdate();
             if (result == 1){

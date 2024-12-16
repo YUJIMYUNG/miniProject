@@ -203,7 +203,7 @@ public class MemberView {
 
     // 멤버 삭제 함수
     void memberDelete(){
-        int loggedInUserId = MemberController.getInstance().getLoginMemberIdx();
+        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
         System.out.println("=================MemberDelete=================");
         System.out.println("[본인의 회원 번호만 삭제 가능]");
         System.out.print("삭제할 회원 번호 : ");
@@ -224,7 +224,7 @@ public class MemberView {
 
     // 멤버 수정 함수
     void memberUpdate(){
-        int loggedInUserId = MemberController.getInstance().getLoginMemberIdx();
+        int loggedInUserId = MemberController.getInstance().getLoggedInUserId();
         System.out.println("=================MemberUpdate=================");
         System.out.print("[본인의 정보만 수정 가능]");
         System.out.print("수정할 회원 번호 : ");

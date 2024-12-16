@@ -40,7 +40,7 @@ public class VoteView {
         }
 
         // 투표를 생성한 작성한 작성자의 작성자 번호 가져오기
-        int logimMemberIdx = MemberController.getInstance().getLoginMemberIdx();
+        int logimMemberIdx = MemberController.getInstance().getLoggedInUserId();
 
         // 투표 마감 날짜 입력
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -130,8 +130,8 @@ public class VoteView {
                     System.out.print("투표할 선택지를 작성하기 : ");
                     scanner.nextLine();
                     String str = scanner.nextLine();
-                    ChoiceCheck(str);
-                    if (ChoiceCheck(str)) {
+                    boolean CC = ChoiceCheck(str);
+                    if (CC) {
                         break;
                     }
                 } else if (choose == 2) {
@@ -164,12 +164,4 @@ public class VoteView {
 
 } // VoteView ed
 
-/// 예제 확인용
-        /*
-        LocalDateTime dt=LocalDateTime.of(2024,1,1,1,1);
-        String dtFormat1=dt.format(DateTimeFormatter.ofPattern("yy.MM.dd HH:mm"));
-        System.out.println(dt);
-
-        System.out.println(dt.getYear());
-        System.out.println(dt.getMonthValue());
-        */
+// finish
