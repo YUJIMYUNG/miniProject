@@ -1,11 +1,12 @@
 package model;
 
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class MemberDao extends Dao {
 
@@ -31,7 +32,7 @@ public class MemberDao extends Dao {
                 }
             }
         } catch (SQLException e){
-            System.out.println("[로그인 예외 발생]" + e.getMessage());
+            //System.out.println("[로그인 예외 발생]" + e.getMessage());
         }
         return 0;
     }
@@ -39,6 +40,18 @@ public class MemberDao extends Dao {
     // 멤버 등록 접근 함수
     public boolean memberWrite(MemberDto memberDto){
         try {
+            //이메일 중복확인 sql
+            String EmailSql = "select count(*) from member where member_email = ?";
+            PreparedStatement EmailPs = conn.prepareStatement(EmailSql);
+            EmailPs.setString(1, memberDto.getMember_email());
+            ResultSet rs = EmailPs.executeQuery();
+
+            //이메일 중복확인
+            if (rs.next() && rs.getInt(1) > 0){
+                System.out.println("[멤버 등록 예외 발생 : 중복되는 이메일입니다.]");
+                return false;
+            } // 중복되지 않으면 진행
+
             // sql 작성
             String sql = "insert into member(member_name, member_email, member_pwd, birthdate, member_phone, member_date, in_active)" +
                     "values (?, ?, ?, ?, ?, ?, ?)";
@@ -69,8 +82,8 @@ public class MemberDao extends Dao {
             // 반환값
             return true;
         }catch (SQLException e){
-            e.getMessage();
             System.out.println("[멤버 등록 예외 발생 ]" + e.getMessage());
+
         }
         return false;
     }
