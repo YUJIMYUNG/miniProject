@@ -12,7 +12,6 @@ public class Dao {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/teamDB", "team1", "1234");
-            System.out.println("[ Connection OK ]");
         }catch (ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             e.printStackTrace();
