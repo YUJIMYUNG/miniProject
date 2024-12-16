@@ -39,7 +39,7 @@ drop table vote;
 drop table board;
 
 select * from board;
-select member_name from member;
+select board_idx, board_topic, board_title, board_content, m.member_name, board_date, board_status, board_version, board_update, board.in_active from board join member m on board.member_idx = m.member_idx order by board_idx;
 
 # 댓글 테이블
 create table if not exists comment(
