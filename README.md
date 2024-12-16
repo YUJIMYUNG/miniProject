@@ -1,4 +1,4 @@
-# README
+# 웹개발 miniProject
 
 ## 1.  프로젝트 주제
 
@@ -49,7 +49,7 @@
 
 ## 6. ERD 캡처 사진
 
-![image.png](READMEimage.png)
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/dc04e562-b4ae-464a-99fd-13e4de742941/e05c7dad-13c5-4c27-8714-40473b64aa39/image.png)
 
 ## 7. 프로젝트 실행 결과 녹화본
 
