@@ -39,6 +39,7 @@ drop table vote;
 drop table board;
 
 select * from board;
+select member_name from member;
 
 # 댓글 테이블
 create table if not exists comment(

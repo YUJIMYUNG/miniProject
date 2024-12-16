@@ -8,6 +8,7 @@ import model.BoardDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BoardView {
@@ -20,16 +21,21 @@ public class BoardView {
 
     public void mainBoard() {
         int page=1;
-        int totalPage=1;
+
         while (true) {
             // 게시물 목록 출력
-            System.out.println();
             boardListNotice();
-            totalPage = boardList(page);
+            int totalPage = boardList(page);
 
             System.out.println("1.게시물 작성 2.게시물 조회 3.이전 페이지 4.다음 페이지 5.로그아웃");
             System.out.print("작업 선택: ");
-            int choose = scan.nextInt();
+            int choose = 0;
+            try {
+                choose = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다");
+                scan.nextLine();
+            }
             System.out.println();
 
             if (choose == 1) {
@@ -79,7 +85,7 @@ public class BoardView {
         // 컨트롤러에 전달 후 만들어진 게시글의 인덱스 반환
         int index = BoardController.getInstance().boardWrite(topic, title, content, writerIdx);
 
-        // 게시글 작성시 투표면은 투표작성 함수 접근
+        // 게시글 작성시 투표면 투표작성 함수 접근
         if(topic==3){
             VoteView.getInstance().VoteWrite(index);
         }
@@ -103,8 +109,6 @@ public class BoardView {
         }
 
         System.out.println("=================게시물 목록=================");
-//        System.out.printf("%3s %-4s %-27s %-11s %-13s %-3s %-5s %-16s \n",
-//                "번호", "구분", "제목", "작성자", "작성일", "상태", "수정차수", "수정일");
 
         // 맨 뒤 인덱스부터 출력
         for (int i = page*10 -1; i >= page*10-10; i--) {
@@ -237,42 +241,74 @@ public class BoardView {
         System.out.println();
 
         // 추가 작업
-        boardPrintSelect(num);
+        boardPrintSelect(num, board.getTopic());
     } // func end
 
     // 게시물 추가 작업 함수
-    void boardPrintSelect(int boardIdx) {
-        // 테스트용 멤버인덱스
-        int memberIdx = MemberController.getInstance().getLoggedInUserId();
+    void boardPrintSelect(int boardIdx, int topic) {
         // 작성자 본인인지 검증
+        int memberIdx = MemberController.getInstance().getLoggedInUserId();
         boolean writerCheck = BoardController.getInstance().boardCheckWriter(boardIdx, memberIdx);
 
-        // 작성자
-        if (writerCheck) {
-            System.out.println("1.댓글보기 2.수정 3.삭제 4.뒤로가기");
-            System.out.print("작업 선택: ");
-            int choose = scan.nextInt();
-            System.out.println();
-
-            if (choose == 1) {
-                CommentView.getInstance().mainPage(boardIdx);
-            } else if (choose == 2) {
-                boardUpdate(boardIdx);
-            } else if (choose == 3) {
-                boardDelete(boardIdx);
-            } else if (choose == 4) {
-                return;
+        if (topic == 3) {
+            System.out.print("1.댓글보기 2.뒤로가기 3.투표하기 ");
+            if (writerCheck) {
+                System.out.print("4.수정 5.삭제");
             }
-        } else {
-            System.out.println("1.댓글보기 2.뒤로가기");
+            System.out.println();
+
             System.out.print("작업 선택: ");
-            int choose = scan.nextInt();
+            int choose = 0;
+            try {
+                choose = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다");
+                scan.nextLine();
+            }
+
             System.out.println();
 
             if (choose == 1) {
                 CommentView.getInstance().mainPage(boardIdx);
+            } else if (choose == 3) {
+                VoteView.getInstance().VoteApproach(boardIdx);
+            } else if (choose == 4) {
+                if (writerCheck) boardUpdate(boardIdx);
+                else System.out.println("수정 권한이 없습니다");
+            } else if (choose == 5) {
+                if (writerCheck) boardDelete(boardIdx);
+                else System.out.println("삭제 권한이 없습니다");
             } else {
-                return;
+                System.out.println("목록으로 돌아갑니다");
+            }
+            // if end
+        } else {
+            System.out.print("1.댓글보기 2.뒤로가기 ");
+            if (writerCheck) {
+                System.out.print("3.수정 4.삭제");
+            }
+            System.out.println();
+
+            System.out.print("작업 선택: ");
+            int choose = 0;
+            try {
+                choose = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다");
+                scan.nextLine();
+            }
+            System.out.println();
+
+            if (choose == 1) {
+                CommentView.getInstance().mainPage(boardIdx);
+            } else if (choose == 3) {
+                if (writerCheck) boardUpdate(boardIdx);
+                else System.out.println("수정 권한이 없습니다");
+            } else if (choose == 4) {
+                if (writerCheck) boardDelete(boardIdx);
+                else System.out.println("삭제 권한이 없습니다");
+            } else {
+                System.out.println("목록으로 돌아갑니다");
             } // if end
         } // if end
     } // func end
