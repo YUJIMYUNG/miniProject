@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class VoteView {
@@ -65,26 +66,32 @@ public class VoteView {
         // 투표 선택지 입력
         ArrayList<String> votedtos_choices = new ArrayList<>(); // 선택지 저장 객체 생성
         while (true) {
-            System.out.print("1.선택지 입력 2.선택지 입력 종료 : "); // 선택지 입력을 받는 함수
-            int choose = scanner.nextInt();
-            if (choose == 1) {
-                while (true) {
-                    System.out.print("선택지 내용 입력(50자 이내) : ");
-                    String input = scanner.next();
-                    if (input.length()>50) {
-                        System.out.println("경고 : 입력이 50자를 초과했습니다.");
+            try {
+                System.out.print("1.선택지 입력 2.선택지 입력 종료 : "); // 선택지 입력을 받는 함수
+                int choose = scanner.nextInt();
+                scanner.nextLine();
+                if (choose == 1) {
+                    while (true) {
+                        System.out.print("선택지 내용 입력(50자 이내) : ");
+                        String input = scanner.nextLine();
+                        if (input.length() > 50) {
+                            System.out.println("경고 : 입력이 50자를 초과했습니다.");
+                        } else {
+                            votedtos_choices.add(input);
+                            System.out.println("선택지 입력 완료");
+                            break;
+                        } // if else ed
+                    } // while ed
+                    // 선택지를 받아 리스트에 저장
+                } else if (choose == 2) {
+                    System.out.println("선택지 입력 종료");
+                    break;
                 } else {
-                        votedtos_choices.add(input);
-                        System.out.println("선택지 입력 완료");
-                        break;
-                    } // if else ed
-                } // while ed
-                // 선택지를 받아 리스트에 저장
-            } else if (choose == 2) {
-                System.out.println("선택지 입력 종료");
-                break;
-            } else {
+                    System.out.println("유효하지 않은 입력입니다.");
+                }
+            } catch (InputMismatchException e) {
                 System.out.println("유효하지 않은 입력입니다.");
+                scanner.nextLine();
             }
         } // while ed
             for (int i = 0; i < votedtos_choices.size(); i++) {
@@ -124,21 +131,27 @@ public class VoteView {
             System.out.println("[-투표가 종료되었습니다.-]");
         } else {
             while (true) {
-                System.out.print("1. 투표하기 2. 뒤로가기 : ");
-                int choose = scanner.nextInt();
-                if (choose == 1) {
-                    System.out.print("투표할 선택지를 작성하기 : ");
-                    scanner.nextLine();
-                    String str = scanner.nextLine();
-                    boolean CC = ChoiceCheck(str);
-                    if (CC) {
+                try {
+                    System.out.print("1. 투표하기 2. 뒤로가기 : ");
+                    int choose = scanner.nextInt();
+                    if (choose == 1) {
+                        System.out.print("투표할 선택지를 작성하기 : ");
+                        scanner.nextLine();
+                        String str = scanner.nextLine();
+                        boolean CC = ChoiceCheck(str);
+                        if (CC) {
+                            break;
+                        }
+                    } else if (choose == 2) {
                         break;
-                    }
-                } else if (choose == 2) {
-                    break;
-                } else {
-                    System.out.println("유효하지 않은 입력입니다.");
-                } // if else ed
+                    } else {
+                        System.out.println("유효하지 않은 입력입니다.");
+                    } // if else ed
+                } catch (InputMismatchException e) {
+                    e.printStackTrace();
+                    System.out.println("유효하지 않은 입력입니다!!");
+                    scanner.nextLine();
+                }
             } // while ed
         } // if ed
     } // VoteApproach ed
