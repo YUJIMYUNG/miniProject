@@ -32,15 +32,15 @@ public class MemberDao extends Dao {
                 }
             }
         } catch (SQLException e){
-            System.out.println("[로그인 예외 발생]" + e.getMessage());
+            //System.out.println("[로그인 예외 발생]" + e.getMessage());
         }
         return false;
     }
 
     // 로그인된 회원번호 반환
-//    public int getLoggedInUserId(MemberDto loginDto){
-//        return loginDto.getMember_idx();
-//    }
+    public int getLoggedInUserId(MemberDto loginDto){
+        return loginDto.getMember_idx();
+    }
 
     // 멤버 등록 접근 함수
     public boolean memberWrite(MemberDto memberDto){

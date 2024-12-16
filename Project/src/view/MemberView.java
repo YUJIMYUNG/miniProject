@@ -109,7 +109,7 @@ public class MemberView {
         if (result){
             functionPage();
         }else {
-            memberLogin();
+            memberPage();
         }
     }
 
@@ -215,6 +215,8 @@ public class MemberView {
         boolean result = MemberController.getInstance().memberDelete(deleteNum);
         if (result){
             System.out.println("[회원 삭제 성공]");
+            System.out.println("[로그아웃 되었습니다.]");
+            mainPage();
         } else {
             System.out.println("[회원 삭제 실패 : 존재하지 않는 회원 / 관리자 문의]");
         }
